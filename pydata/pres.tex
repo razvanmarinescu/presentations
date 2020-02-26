@@ -278,7 +278,7 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
   
   \vspace{2em}
   
-  \onslide<2-> \item Which biomarkers can we predict, and which we cannot? (clinical diagnosis, MRI, cognitive tests)
+  \onslide<2-> \item Which biomarkers can we predict, and which we cannot?
   
   \vspace{2em}
   
@@ -286,7 +286,7 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
   
   \vspace{2em}
   
-  \onslide<3-> \item What are the winner algorithms? Should I use deep learning or not?
+  \onslide<3-> \item What are the best algorithms? Should I use deep learning or not?
   
   \vspace{2em}
    
@@ -294,7 +294,7 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
   
   \vspace{2em}
   
-  \onslide<6-> \item How well do algorithms work on ``real data'', i.e. clinical trials?
+  \onslide<6-> \item How well do algorithms work on ``real data'', i.e. mimicking clinical trials?
   
   \vspace{2em}
   
@@ -558,9 +558,9 @@ that can be used for Staging Individuals in Clinical Trials}
 
 \begin{figure}
 \centering 
-\vspace{1em}
+\vspace{-1em}
 \includegraphics[height=5cm]{adniDiseaseProgression}
-\hspace{-4em}ADNI website 
+% \hspace{-4em}ADNI website 
 
 \end{figure}
 
@@ -618,8 +618,8 @@ that can be used for Staging Individuals in Clinical Trials}
  \onslide<2-> \item Staging can help stratification in clinical trials
  \onslide<3-> \item Differential diagnosis and prognosis
  
- \vspace{1em}
- \onslide<4-> \item[] How can we build such a disease progression model?
+%  \vspace{1em}
+%  \onslide<4-> \item[] How can we build such a disease progression model?
 \end{itemize}
 
 
@@ -1006,57 +1006,57 @@ that can be used for Staging Individuals in Clinical Trials}
  \centering
  \fontsize{4}{6}\selectfont
  \begin{tabular}{c | >{\centering\arraybackslash}p{1.3cm} >{\centering\arraybackslash}p{1.2cm} >{\centering\arraybackslash}p{2cm} >{\centering\arraybackslash}p{2cm} >{\centering\arraybackslash}p{2cm}}
-\textbf{Submission} & \textbf{Extra Features}  & \textbf{Nr. of features} & \textbf{Missing data imputation} & \textbf{Diagnosis prediction} & \textbf{ADAS/Vent. prediction}\\
+\textbf{Submission} & \textbf{Feature Selection}  & \textbf{Nr. of features} & \textbf{Missing data imputation} & \textbf{Diagnosis prediction} & \textbf{ADAS/Vent. prediction}\\
 \Xhline{1.5\arrayrulewidth}
 % Submission  & Feature selection & Number of features & Missing data imputation & Diagnosis prediction & ADAS/Vent. Prediction\\
-AlgosForGood & Manual & 16+5* & forward-filling & Aalen model & linear regression\\
-Apocalypse & Manual & 16 & population average & SVM & linear regression\\
-ARAMIS-Pascal & Manual & 20 & population average & Aalen model & -\\
+AlgosForGood & manual & 16+5* & forward-filling & Aalen model & linear regression\\
+Apocalypse & manual & 16 & population average & SVM & linear regression\\
+ARAMIS-Pascal & manual & 20 & population average & Aalen model & -\\
 ATRI-Biostat-JMM & automatic & 15 & random forest & random forest & linear mixed effects model\\
 ATRI-Biostat-LTJMM & automatic & 15 & random forest & random forest & DPM\\
 ATRI-Biostat-MA & automatic & 15 & random forest & random forest & DPM + linear mixed effects model\\
 BGU-LSTM & automatic & 67 & none & feed-forward NN & LSTM\\
 BGU-RF/ BGU-RFFIX & automatic & ~67+1340* & none & semi-temporal RF & semi-temporal RF\\
 BIGS2 & automatic & all & Iterative Soft-Thresholded SVD & RF & linear regression\\
-Billabong (all) & Manual & 15-16 & linear regression & linear scale & non-parametric SM\\
+Billabong (all) & manual & 15-16 & linear regression & linear scale & non-parametric SM\\
 BORREGOSTECMTY & automatic & ~100 + 400* & nearest-neighbour & regression ensemble & ensemble of regression + hazard models \\
 BravoLab & automatic & 25 & hot deck & LSTM & LSTM\\
-CBIL & Manual & 21 & linear interpolation & LSTM & LSTM\\
-Chen-MCW & Manual & 9 & none & linear regression & DPM\\
+CBIL & manual & 21 & linear interpolation & LSTM & LSTM\\
+Chen-MCW & manual & 9 & none & linear regression & DPM\\
 CN2L-NeuralNetwork & automatic & all & forward-filling & RNN & RNN\\
-CN2L-RandomForest & Manual & $>$200 & forward-filling & RF & RF\\
+CN2L-RandomForest & manual & $>$200 & forward-filling & RF & RF\\
 CN2L-Average & automatic & all & forward-filling & RNN/RF & RNN/RF\\
-CyberBrains & Manual & 5 & population average & linear regression & linear regression\\
+CyberBrains & manual & 5 & population average & linear regression & linear regression\\
 DIKU (all) & semi-automatic & 18 & none & Bayesian classifier/LDA + DPM & DPM\\
-DIVE & Manual & 13 & none & KDE+DPM & DPM\\
+DIVE & manual & 13 & none & KDE+DPM & DPM\\
 EMC1 & automatic & 250 & nearest neighbour & DPM + 2D spline + SVM & DPM + 2D spline\\
 EMC-EB & automatic & 200-338 & nearest-neighbour & SVM classifier & SVM regressor\\
-FortuneTellerFish-Control & Manual & 19 & nearest neighbour & multiclass ECOC SVM & linear mixed effects model\\
-% FortuneTellerFish-SuStaIn & Manual & 19 & nearest neighbour & multiclass ECOC SVM + DPM & linear mixed effects model + DPM\\
+FortuneTellerFish-Control & manual & 19 & nearest neighbour & multiclass ECOC SVM & linear mixed effects model\\
+% FortuneTellerFish-SuStaIn & manual & 19 & nearest neighbour & multiclass ECOC SVM + DPM & linear mixed effects model + DPM\\
 % Frog & automatic & ~70+420* & none & gradient boosting & gradient boosting\\
 % GlassFrog-LCMEM-HDR & semi-automatic & all & forward-fill & multi-state model & DPM + regression\\
-% GlassFrog-SM & Manual & 7 & linear model & multi-state model & parametric SM\\
+% GlassFrog-SM & manual & 7 & linear model & multi-state model & parametric SM\\
 % GlassFrog-Average & semi-automatic & all & forward-fill/linear & multi-state model & DPM + SM + regression\\
-% IBM-OZ-Res & Manual & Oct-15 & filled with zero & stochastic gradient boosting & stochastic gradient boosting\\
-% ITESMCEM & Manual & 48 & mean of previous values & RF & LASSO + Bayesian ridge regression\\
-% lmaUCL (all) & Manual & 5 & regression & multi-task learning & multi-task learning\\
-% Mayo-BAI-ASU & Manual & 15 & population average & linear mixed effects model & linear mixed effects model\\
-% Orange & Manual & 17 & none & clinician’s decision tree & clinician’s decision tree\\
+% IBM-OZ-Res & manual & Oct-15 & filled with zero & stochastic gradient boosting & stochastic gradient boosting\\
+% ITESMCEM & manual & 48 & mean of previous values & RF & LASSO + Bayesian ridge regression\\
+% lmaUCL (all) & manual & 5 & regression & multi-task learning & multi-task learning\\
+% Mayo-BAI-ASU & manual & 15 & population average & linear mixed effects model & linear mixed effects model\\
+% Orange & manual & 17 & none & clinician’s decision tree & clinician’s decision tree\\
 % Rocket & manual & 6 & median of diagnostic group & linear mixed effects model & DPM\\
-% SBIA & Manual & 30-70 & dropped visits with missing data & SVM + density estimator & linear mixed effects model\\
+% SBIA & manual & 30-70 & dropped visits with missing data & SVM + density estimator & linear mixed effects model\\
 % SPMC-Plymouth (all) & Automatic & 20 & none & ? & -\\
 % SmallHeads-NeuralNetwork & automatic & 376 & nearest neighbour & deep fully -connected NN & deep fully -connected NN\\
 % SmallHeads-LinMixedEffects & automatic & ? & nearest neighbour & - & linear mixed effects model\\
 % Sunshine (all) & semi-automatic & 6 & population average & SVM & linear model\\
-% Threedays & Manual & 16 & none & RF & -\\
-% Tohka-Ciszek-SMNSR & Manual & ~32 & nearest neighbour & - & SMNSR\\
-% Tohka-Ciszek-RandomForestLin & Manual & ~32 & mean patient value & RF & linear model\\
-% VikingAI (all) & Manual & 10 & none & DPM + ordered logit model & DPM\\
+% Threedays & manual & 16 & none & RF & -\\
+% Tohka-Ciszek-SMNSR & manual & ~32 & nearest neighbour & - & SMNSR\\
+% Tohka-Ciszek-RandomForestLin & manual & ~32 & mean patient value & RF & linear model\\
+% VikingAI (all) & manual & 10 & none & DPM + ordered logit model & DPM\\
 ... & ... & ... & ... & ... & ... \\
 BenchmaskLastVisit & None & 3 & none & constant model & constant model\\
 BenchmarkMixedEffect & None & 3 & none & Gaussian model & linear mixed effects model\\
 BenchmarkMixedEffectAPOE & None & 4 & none & Gaussian model & linear mixed effects model\\
-BenchmarkSVM & Manual & 6 & mean of previous values & SVM & support vector regressor (SVR)
+BenchmarkSVM & manual & 6 & mean of previous values & SVM & support vector regressor (SVR)
  \end{tabular}
 %  \caption{Summary of benchmarks and top-3 methods used in the TADPOLE submissions. DPM -- disease progression model. ($^{\dagger}$) Aside from the three target biomarkers (*) Augmented features: e.g. min/max, trends, moments.}
 %  \label{tab:submissions_desc}
