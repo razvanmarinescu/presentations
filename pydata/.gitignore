@@ -1,0 +1,15 @@
+*.tex.backup
+*.aux
+*.bbl
+*blg
+*.dvi
+*.log
+*.nav
+*.out
+*.snm
+*.bak
+*.toc
+*kate-swp
+*~
+*#
+
