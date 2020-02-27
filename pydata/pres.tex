@@ -282,11 +282,11 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
   
   \vspace{2em}
   
-  \onslide<2-> \item What is the state-of-the-art in Alzheimer's prediction?
+  \onslide<3-> \item What is the state-of-the-art in Alzheimer's prediction?
   
   \vspace{2em}
   
-  \onslide<3-> \item What are the best algorithms? Should I use deep learning or not?
+  \onslide<4-> \item What are the best algorithms? Should I use deep learning or not?
   
   \vspace{2em}
    
@@ -431,12 +431,12 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
   
       \begin{minipage}[t][\mnpHeight][t]{0.4\linewidth}
     \centering
-    \textbf{typical AD}\\ \footnotesize{(Young et al., Nature Comms., 2018)}
+    \textbf{typical Alzheimer's Disease}\\ \footnotesize{(Young et al., Nature Comms., 2018)}
     \includegraphics[width=0.9\textwidth]{young_progression.png}
   \end{minipage}
   \begin{minipage}[t][\mnpHeight][t]{0.4\linewidth}
     \centering
-    \textbf{Familial AD}\\ \footnotesize{(Oxtoby et al., Brain, 2018)}
+    \textbf{Familial Alzheimer's Disease}\\ \footnotesize{(Oxtoby et al., Brain, 2018)}
     \includegraphics[width=0.7\textwidth,trim=0 0 0 0, clip]{neil_dian.png}
     
     \vspace{2em}
@@ -490,36 +490,32 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
 
 
 
-\begin{frame}
-\frametitle{My PhD Aim}
-
-\begin{enumerate}
- \item Study the progression of atrophy in two diseases (using existing models): 
- \begin{itemize}
-  \item typical Alzheimer's Disease (tAD)
-  \item Posterior Cortical Atrophy (PCA)
- \end{itemize}
- 
-  \begin{figure}
-  \centering
-  \vspace{1em}
-  \includegraphics[width=0.8\textwidth]{\epsrcPresLoc/brain_progression_16082017.png}
-  \end{figure}
- 
- \vspace{1em}
-
- \item Develop novel disease progression models (DPMs)
-  \begin{equation}
-  \resizebox{0.8\columnwidth}{!}{% 
-  $p(X|S) = \prod_{j=1}^J \left[ \sum_{k=0}^N p(k) \left( \prod_{i=1}^k p\left(x_{s(i),j} | E_{s(i)} \right) \prod_{i=k+1}^N p\left(x_{s(i),j} | \neg E_{s(i)}\right) \right) \right]$
-  }
-  \end{equation}
-
-%  \item Evaluate the performance of DPMs
-
-\end{enumerate}
-
-\end{frame}
+% \begin{frame}
+% \frametitle{My PhD Aim}
+% 
+% \begin{enumerate}
+%  \item Study the progression of pathology in Alzheimer's Disease (using existing models): 
+%  
+%   \begin{figure}
+%   \centering
+%   \vspace{1em}
+%   \includegraphics[width=0.6\textwidth]{\epsrcPresLoc/brain_progression_16082017.png}
+%   \end{figure}
+%  
+%  \vspace{1em}
+% 
+%  \item Develop novel disease progression models (DPMs)
+%   \begin{equation}
+%   \resizebox{0.6\columnwidth}{!}{% 
+%   $p(X|S) = \prod_{j=1}^J \left[ \sum_{k=0}^N p(k) \left( \prod_{i=1}^k p\left(x_{s(i),j} | E_{s(i)} \right) \prod_{i=k+1}^N p\left(x_{s(i),j} | \neg E_{s(i)}\right) \right) \right]$
+%   }
+%   \end{equation}
+% 
+% %  \item Evaluate the performance of DPMs
+% 
+% \end{enumerate}
+% 
+% \end{frame}
 
 
 \begin{frame}
@@ -540,9 +536,8 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
  \vspace{1em}
  \onslide<3-> \item Q: How can we then identify subjects \textbf{early} in order to administer treatments? 
  \onslide<3-> \item A: Build models that predict evolution of Alzheimer's biomarkers (i.e. biological markers) for at-risk subjects
- 
-
-
+  \vspace{1em}
+ \onslide<4-> \item These models can help stage and refine cohorts in Alzheimer's clinical trials
 
 \end{itemize}
 
@@ -552,7 +547,7 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
 
 % Also say that we cannot build the model on age
 \begin{frame}
-\frametitle{Biomarker Evolution creates a Unique Disease Signature\\
+\frametitle{Biomarker Evolution creates a Unique Disease Signature
 that can be used for Staging Individuals in Clinical Trials}
 % explain what are the challenges
 
@@ -560,7 +555,7 @@ that can be used for Staging Individuals in Clinical Trials}
 \centering 
 \vspace{-1em}
 \includegraphics[height=5cm]{adniDiseaseProgression}
-% \hspace{-4em}ADNI website 
+\hspace{-4em}Source: ADNI website 
 
 \end{figure}
 
@@ -634,7 +629,6 @@ that can be used for Staging Individuals in Clinical Trials}
 \begin{figure}
 \centering
 
-
 \ovEBM
 \ovVWDPM
 
@@ -646,7 +640,6 @@ that can be used for Staging Individuals in Clinical Trials}
 \end{figure}
 
 \end{frame}
-
 
 
 \begin{frame}
@@ -664,11 +657,7 @@ that can be used for Staging Individuals in Clinical Trials}
 \ovDKT}
 \ovTadpole
 
-{\transparent{0.4}
 \ovPainter
-}
-
-
 
 \end{figure}
 \end{frame}
@@ -711,11 +700,11 @@ that can be used for Staging Individuals in Clinical Trials}
  
  %\vfill
  
- \item Why predict future evolution of AD?
- \begin{itemize}
-  \item No treatments for AD currently available
-  \item Select the right subjects for AD clinical trials
- \end{itemize}
+%  \item Why predict future evolution of AD?
+%  \begin{itemize}
+%   \item No treatments for AD currently available
+%   \item Select the right subjects for AD clinical trials
+%  \end{itemize}
 
 \end{itemize}
 
@@ -998,7 +987,7 @@ that can be used for Staging Individuals in Clinical Trials}
 
 
 \begin{frame}
-\frametitle{Submission methods}
+\frametitle{Submission methods were very diverse}
 
 
 
@@ -1113,7 +1102,6 @@ BenchmarkSVM & manual & 6 & mean of previous values & SVM & support vector regre
 
 \begin{frame}{Results Outline}
 
-
 \begin{itemize}
 \item Prediction results:
 \begin{itemize}
@@ -1128,9 +1116,9 @@ BenchmarkSVM & manual & 6 & mean of previous values & SVM & support vector regre
 
 \vspace{2em}
 
-\item Consensus methods
-
-\vspace{2em}
+% \item Consensus methods
+% 
+% \vspace{2em}
 
 \item Results on limited dataset mimicking clinical trial
 
@@ -1814,83 +1802,83 @@ RandomisedBest & - & - & 0.811 & - & 4.54 & - & 0.92\\
 
 
 
-\begin{frame}{Conclusions}
- 
-\begin{columns}[t]
-\begin{column}[t]{0.5\textwidth}
-\begin{itemize}
-  \onslide<1-> \item Which biomarkers can we predict, and which we cannot? 
-  
-  \begin{itemize}
-  \item YES: diagnosis, ventricles
-  \item NO: cognition (ADAS-Cog 13)
-\end{itemize}    
-  
-  \vspace{2em}
-   
- 
-  \onslide<2-> \item What is the state-of-the-art in Alzheimer's prediction?
-  
-  \begin{tabular}{|c | c | c|}
-  \hline
-  Diagnosis MAUC & Cognition MAE & Ventricles MAE\\
-  \hline
-  0.931 & - & 0.41\\
-  \hline
-  \end{tabular}
-  
-  
-  \vspace{2em}
-  
-  \onslide<3-> \item What are the winner algorithms? Should I use deep learning or not?
-  
-  \begin{itemize}
-  \item No clear winner
-   \item Clinical diagnosis: gradient boosting
-   \item Ventricle MAE: disease progression model
-   \item Best deep learning algo: 5th place
-  \end{itemize}
-  
-  \vspace{2em}
-\end{itemize}  
-  
-\end{column}
-\begin{column}[t]{0.5\textwidth}
-% \vspace{0.2em}
-\begin{itemize}
-%   \onslide<4-> \item Consensus (averaging over teams' predictions): good or not?
+% \begin{frame}{Conclusions}
+%  
+% \begin{columns}[t]
+% \begin{column}[t]{0.5\textwidth}
+% \begin{itemize}
+%   \onslide<1-> \item Which biomarkers can we predict, and which we cannot? 
+%   
 %   \begin{itemize}
-%   \item Consensus achieves top results
-%   \item Diagnosis: 11\% better  than TADPOLE best for cognition
-%   \item Ventricles: 8\% better than TADPOLE best 
+%   \item YES: diagnosis, ventricles
+%   \item NO: cognition (ADAS-Cog 13)
 % \end{itemize}    
 %   
 %   \vspace{2em}
-  
-  \onslide<5-> \item Features: which ones are most informative? Do I need to pre-process those DTI scans, are MRIs not enough?
-   
- \begin{itemize}
- \item Diagnosis: CSF and DTI
- \item Ventricles: Augmented features
-\end{itemize}  
-  
-  \vspace{2em}
- 
-  
-  \onslide<6-> \item How well do algorithms work on "real data", mimicking clinical trials
- \begin{itemize}
-  \item minor loss in prediction performance
-  \item  0.917 vs 0.931 on diagnosis prediction
-\end{itemize}   
-  
- \end{itemize}
-
-\end{column}
-\end{columns} 
- 
- 
- 
-\end{frame}
+%    
+%  
+%   \onslide<2-> \item What is the state-of-the-art in Alzheimer's prediction?
+%   
+%   \begin{tabular}{|c | c | c|}
+%   \hline
+%   Diagnosis MAUC & Cognition MAE & Ventricles MAE\\
+%   \hline
+%   0.931 & - & 0.41\\
+%   \hline
+%   \end{tabular}
+%   
+%   
+%   \vspace{2em}
+%   
+%   \onslide<3-> \item What are the winner algorithms? Should I use deep learning or not?
+%   
+%   \begin{itemize}
+%   \item No clear winner
+%    \item Clinical diagnosis: gradient boosting
+%    \item Ventricle MAE: disease progression model
+%    \item Best deep learning algo: 5th place
+%   \end{itemize}
+%   
+%   \vspace{2em}
+% \end{itemize}  
+%   
+% \end{column}
+% \begin{column}[t]{0.5\textwidth}
+% % \vspace{0.2em}
+% \begin{itemize}
+% %   \onslide<4-> \item Consensus (averaging over teams' predictions): good or not?
+% %   \begin{itemize}
+% %   \item Consensus achieves top results
+% %   \item Diagnosis: 11\% better  than TADPOLE best for cognition
+% %   \item Ventricles: 8\% better than TADPOLE best 
+% % \end{itemize}    
+% %   
+% %   \vspace{2em}
+%   
+%   \onslide<5-> \item Features: which ones are most informative? Do I need to pre-process those DTI scans, are MRIs not enough?
+%    
+%  \begin{itemize}
+%  \item Diagnosis: CSF and DTI
+%  \item Ventricles: Augmented features
+% \end{itemize}  
+%   
+%   \vspace{2em}
+%  
+%   
+%   \onslide<6-> \item How well do algorithms work on "real data", mimicking clinical trials
+%  \begin{itemize}
+%   \item minor loss in prediction performance
+%   \item  0.917 vs 0.931 on diagnosis prediction
+% \end{itemize}   
+%   
+%  \end{itemize}
+% 
+% \end{column}
+% \end{columns} 
+%  
+%  
+%  
+% \end{frame}
 
 
 \begin{frame}
