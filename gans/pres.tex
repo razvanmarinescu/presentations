@@ -234,14 +234,13 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
 \item State-of-the-art
   
   \vspace{2em}
-  
-\item How to use them?
-  
-  \vspace{2em}
-  
-\item Potential applications in medicine
+    
+\item Key applications in computer vision and medicine
   
   \vspace{2em}
+
+\item Preliminary results on three different medical datasets
+  
  \end{itemize}
 
 \end{frame}
@@ -343,14 +342,58 @@ $$
 
 \end{frame}
 
-\begin{frame}{Wasserstein GANs}
+\begin{frame}{Initial GAN results (DCGAN, Radford et al, 2015)}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+
+\begin{itemize}
+\item Initial results looked promising, but still a long way from photorealism
+
+\vspace{2em}
+
+\item Other problems persisted:
+\begin{itemize}
+\item Training collapse
+\item Mode collapse
+\item Low coverage
+
+\end{itemize}
+
+\vspace{2em}
+
+\item Dynamics between G \& D not well understood
+
+\end{itemize}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+%\vspace{-0.5em}
+Standard samples\\
+\includegraphics[width=0.75\textwidth]{ayYEUKy.jpg}
+\vspace{0.5em}
+
+Training collapse\\
+\includegraphics[width=0.75\textwidth]{fw7jvWk.png}
+\vspace{0.5em}
+
+Mode collapse\\
+\includegraphics[width=0.75\textwidth]{QSBCbu0.png}
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Wasserstein GANs (Arjovski et al, 2017)}
 
 
 \begin{columns}
 \begin{column}{0.5\textwidth}
 
 \begin{itemize}
-\item Original GANs were very hard to train, often collapsing during training
+\item Original GANs were very hard to train
 
 \vspace{2em} 
 
@@ -374,7 +417,7 @@ $$
 \includegraphics[width=\textwidth]{wasserstein}
 
 \includegraphics[width=\textwidth]{nMnEATk.png}
-(Arjovski, ICML, 2017)
+
 
 \end{column}
 \end{columns}
@@ -382,7 +425,7 @@ $$
 
 \end{frame}
 
-\begin{frame}{Progressive Growing of GANs}
+\begin{frame}{Progressive Growing of GANs (Karras et al, 2018)}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -404,7 +447,7 @@ $$
 \vspace{2em}
 
 \includegraphics[width=\textwidth]{CP4yMsg.png}
-(Karras et al, 2018)
+%(Karras et al, 2018)
 \end{column}
 \end{columns}
 
@@ -416,7 +459,7 @@ $$
 \begin{column}{0.5\textwidth}
 
 \begin{itemize}
- \item GAN that borrows ideas from style-transfer literature 
+ \item Borrows ideas from style-transfer literature 
  
  \vspace{0.5em} 
  
@@ -451,7 +494,7 @@ $$
 
 \end{frame}
 
-\begin{frame}{The style-based architecture allows style-transfer along with fine-level stochastic variation}
+\begin{frame}{The style-based architecture allows both style-transfer and fine-level stochastic variation}
 
 \begin{columns}
 \begin{column}{0.6\textwidth}
@@ -605,12 +648,12 @@ Modality translation (Zhang et al, 2019)
 \centering
 MR Reconstruction from undersampled K-space\\
 (Quan et al, 2017, Yang et al, 2017)
-\includegraphics[width=0.5\textwidth]{FGjJDse.png}
+\includegraphics[width=0.6\textwidth]{FGjJDse.png}
 
 \vspace{2em}
 
 MRI motion correction (Usman et al, 2020)
-\includegraphics[width=0.4\textwidth]{Pp1A5iy.png}
+\includegraphics[width=0.6\textwidth]{enijS65.png}
 
 
 \end{column}
@@ -683,12 +726,12 @@ Synthetic data (FID = 23.43, IS=2.4176) % 00037/fakes005038
 
 \begin{frame}{Preliminary results of StyleGAN2 on brain MRI}
 \begin{columns}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.45\textwidth}
 \centering
 Real data
 \includegraphics[width=\textwidth]{samY1tk.jpg}
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.45\textwidth}
 \centering
 Synthetic data
 \includegraphics[width=\textwidth]{JvsDI4X.jpg} 
@@ -698,9 +741,10 @@ Synthetic data
 \begin{itemize}
 \item Still out-of-the-box model (StyleGAN2)
 \item Trained on 8,000 brain scans (ADNI/OASIS/AIBL/PPMI)
-\item Problems to fix:
+\item Next:
   \begin{itemize}
   \item check if neuroanatomical properties are preserved (e.g. brain/ventricle vols are same)
+  \item extend StyleGAN2 to 3D
   \end{itemize}
 \end{itemize}
 \vspace{1em}
@@ -718,14 +762,16 @@ Real data\\
 \begin{column}{0.5\textwidth}
 \centering
 Synthetic data\\
-\includegraphics[width=0.7\textwidth]{4GxUSWE.jpg} 
-\includegraphics[width=0.7\textwidth]{DDQ740K.png} 
+\includegraphics[width=0.7\textwidth]{4GxUSWE.jpg}
+\includegraphics[width=0.7\textwidth]{DDQ740K.png}
 
 \end{column}
 \end{columns}
 
 \begin{itemize}
+\item Out-of-the-box
 \item Trained on 11,000 microscopy slices with pancreatic cancer (MICCAI PANDAS 2020 challenge dataset)
+\item 512x512 image crops
 \end{itemize}
 \vspace{1em}
 
@@ -743,7 +789,7 @@ Synthetic data\\
 
 \vspace{2em}
 
-\item GAN Training is now stable compared to 2-3 years ago, but can take up to 6-7 days (StyleGAN2) on 8 GPUs. 
+\item Training now stable compared to 2-3 years ago, but can take up to 6-7 days (StyleGAN2) on 8 GPUs. 
 
 \vspace{2em}
 
@@ -761,16 +807,16 @@ Synthetic data\\
 \vspace{2em}
 
 \item Recommendations:
- \begin{itemize}
+\begin{itemize}
   \item Don't build your own, start with a state-of-the-art model (StyleGAN2, BigGAN or Karras, 2020)
   \item Download models already pre-trained to explore their capabilities
   \item When training, initialise weights from another pre-trained model instead of random
-%  \item 
- \end{itemize}
+  \item PIs: Include costs for buying GPUs/AWS-credits in your grant applications 
+\end{itemize}
 
 \vspace{2em}
 
-\item Keep an eye on other types of generative models (VAEs, auto-regressive, flow) that have other interesting properties (e.g. density estimation)
+\item Keep an eye on other types of generative models (VAEs, auto-regressive, flow) that have other interesting properties (e.g. density estimation), which enable other tasks e.g. anomaly detection
 
 \end{itemize}
 
