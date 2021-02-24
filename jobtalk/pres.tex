@@ -308,17 +308,27 @@ Text generation (GPT-3)
 
 \begin{frame}{However, such milestones have not been translated to medical applications}
 
-
-
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \centering
 
 \begin{itemize}
-\item Prediction of various variables not always working
+\item Prediction of clinical variables not always working: 
+\begin{itemize}
+\item No algorithm could predict ADAS scores in TADPOLE Challenge
+\end{itemize}
 \vspace{2em}
 
 \item Generated images are crude, not high-resolution, mostly 2D
+
+\vspace{2em}
+
+\item Segmentation results still inaccurate
+\begin{itemize}
+\item SOTA placenta segmentation is \textcolor{red}{semi}-automatic, Wang et al, 2019
+\end{itemize}
+
+
 \end{itemize}
 
 
@@ -339,6 +349,143 @@ Pneumonia segmentation (Wang, 2020)
  
 \end{frame}
 
+
+\begin{frame}{Why are Machine Learning models not working in medical imaging?}
+
+\vspace{-4em}
+
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+\begin{itemize}
+\item Lack of good labels
+\begin{itemize}
+ \item Categorical instead of continuous
+ \incw{severity}{0.7}
+\end{itemize}
+
+ \vspace{2em}
+ 
+ \item Noisy, lack of ground truth
+\begin{itemize}
+    \item Alzheimer's clinical diagnois: Sensitivity 70\%--87\%; specificity 44\%--70\%  
+\end{itemize}
+
+ \incw{goldstandard}{0.7}
+
+
+\end{itemize}
+
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+\begin{itemize}
+\item Lack of good input data
+
+\begin{itemize}
+\item Stroke scans with limited contrast
+\end{itemize}
+\incw{strokescan}{0.7}
+
+\vspace{2em}
+
+\item Small datasets, inability to scale 
+
+\begin{itemize}
+\item most have  $<100$ scans (Maier-Hein, 2018)
+\end{itemize}
+\incw{imgcount}{0.7}
+
+
+\end{itemize}
+
+
+\end{column}
+\end{columns}
+
+ 
+ 
+\end{frame}
+
+
+\begin{frame}{What can we do?}
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+\begin{itemize}
+\item Lack of good labels
+\begin{itemize}
+ \item Infer continuous disease staging
+ 
+%  \incw{severity}{0.7}
+\end{itemize}
+
+ \vspace{2em}
+ 
+ \item Noisy, lack of ground truth
+\begin{itemize}
+   \item Infer true labels from noisy ones  
+\end{itemize}
+
+% \incw{goldstandard}{0.7}
+
+
+\end{itemize}
+
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+\begin{itemize}
+\item Lack of good input data
+
+\begin{itemize}
+  \item Reconstruct better images (compressed sensing)
+\end{itemize}
+% \incw{strokescan}{0.7}
+
+\vspace{2em}
+
+\item Small datasets, inability to scale 
+\begin{itemize}
+\item Acquire more data
+\item Design algorithms for small datasets
+\begin{itemize}
+ \item Transfer learning
+ \item Few-shot or Zero-shot learning
+\end{itemize}
+
+\end{itemize}
+% \incw{imgcount}{0.7}
+
+
+\end{itemize}
+
+
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+
+\begin{frame}{Outline}
+
+\begin{itemize}
+ \item 
+\end{itemize}
+ 
+
+
+\end{frame}
 
 % \input{dive.tex}
 
