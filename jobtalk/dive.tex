@@ -1,4 +1,14 @@
 
+% \begin{frame}
+% \frametitle{Aim: Estimate the progression of Alzheimer's disease}
+% 
+% Estimate the progression of Alzheimer's disease 
+% 
+% 
+% 
+% \end{frame}
+
+
 \begin{frame}
 \frametitle{Alzheimer's Disease is a Devastating Disease}
 
@@ -41,6 +51,7 @@ that can be used for Staging Individuals in Clinical Trials}
 
 
 \begin{itemize}
+ \item Problem: the X-axis is inferred, we don't observe it directly
  \item Accurate disease staging $\rightarrow$ better patient stratification
  \item Problem: This is a "hypothetical" (i.e. qualitative) disease progression model
  \item Why construct a quantitative model? 
@@ -49,7 +60,7 @@ that can be used for Staging Individuals in Clinical Trials}
 \end{frame}
 
 
-\section{Disease Progression Modelling}
+% \section{Disease Progression Modelling}
 
 
 
@@ -81,7 +92,7 @@ that can be used for Staging Individuals in Clinical Trials}
  \onslide<3-> \item Differential diagnosis and prognosis
  
  \vspace{1.5em}
- \onslide<4-> \item[] How can we build such a disease progression model?
+%  \onslide<4-> \item[] How can we build such a disease progression model?
 \end{itemize}
 
 \end{frame}
@@ -89,54 +100,55 @@ that can be used for Staging Individuals in Clinical Trials}
 
 
 
-\begin{frame}[label=current]
-\frametitle{My PhD Contributions}
 
-\begin{figure}
-\centering
-
-
-\ovEBM
-\ovVWDPM
-
-\ovDKT
-\ovTadpole
-
-\ovPainter
-
-\end{figure}
-
-\end{frame}
-
-
-
-
-\section{DIVE}
-
-\begin{frame}
-\frametitle{My PhD Contributions}
-
-%% new slide
-
-\begin{figure}
-\centering
+% \begin{frame}[label=current]
+% \frametitle{My PhD Contributions}
+% 
+% \begin{figure}
+% \centering
+% 
+% 
+% \ovEBM
+% \ovVWDPM
+% 
+% \ovDKT
+% \ovTadpole
+% 
+% \ovPainter
+% 
+% \end{figure}
+% 
+% \end{frame}
 
 
-{\transparent{0.4} 
-\ovEBM 
-}
-\ovVWDPM
 
-{\transparent{0.4} 
-\ovDKT
-\ovTadpole
 
-\ovPainter
-}
-
-\end{figure}
-
-\end{frame}
+% \section{DIVE}
+% 
+% \begin{frame}
+% \frametitle{My PhD Contributions}
+% 
+% %% new slide
+% 
+% \begin{figure}
+% \centering
+% 
+% 
+% {\transparent{0.4} 
+% \ovEBM 
+% }
+% \ovVWDPM
+% 
+% {\transparent{0.4} 
+% \ovDKT
+% \ovTadpole
+% 
+% \ovPainter
+% }
+% 
+% \end{figure}
+% 
+% \end{frame}
 
 
 \begin{frame}
@@ -234,6 +246,101 @@ This leads to a technique that simultaneously:
 
 
 \end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Background - Disease Progression Modelling}
+
+\newcommand{\mnpHeight}{3cm}
+
+\vspace{-3em}
+% \textbf{Background}:
+\begin{itemize}
+  \item Modelling the progression of Alzheimer's disease can potentially help drug development
+  \item Several data-driven disease progression models have been recently formulated:
+  
+%   \vfill 
+  
+  \hspace{-2em}
+  \begin{small}
+  \begin{figure}[h]
+  \centering
+    \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
+   \centering
+    \textbf{Event-Based Model}\\ \footnotesize{(Fontejin et al., Neuroimage, 2012, Young et al., Brain, 2014)}\\    %TODO fix alignment of brains here
+    \begin{subfigure}{0.57\textwidth}
+    \vspace{-9em}
+    \includegraphics[width=\textwidth,trim=0 0 450 0,clip]{young_progression2}
+    
+    \includegraphics[width=\textwidth,trim=450 0 0 0,clip]{young_progression2} 
+    \end{subfigure}
+%     \vspace{1em}
+    \includegraphics[width=0.4\textwidth]{young_positional_variance}
+   \end{minipage}
+   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
+    \centering
+    \textbf{Disease Progression Score}\\ \footnotesize{(Jedynak et al.,Neuroimage, 2012)}
+    \includegraphics[width=0.8\textwidth,trim=0 80 0 0, clip]{dps_diagram}
+   \end{minipage}
+
+   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
+    \centering
+    \textbf{Manifold-based model}\\ \footnotesize{(Schiratti et al., IPMI, 2015)}
+    \includegraphics[width=1\textwidth,trim=0 270 0 0, clip]{schiratti}
+    
+    \vspace{2em}
+    
+    
+   \end{minipage}
+   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
+    \centering
+    \textbf{Self-Modelling Regression}\\ \footnotesize{(Donohue et al., Alz. \& Dementia, 2014)}
+    \includegraphics[width=0.8\textwidth]{semor_diagram_cropped}
+   \end{minipage}
+
+
+  \end{figure}
+  \end{small}
+  
+%   \vspace{-5em}
+  
+  \item Yet, all these models assumed extracted features from contiguous regions (i.e. atlas-based)
+  
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Background - Disease Progression Modelling}
+
+\newcommand{\mnpHeight}{3cm}
+
+\vspace{-3em}
+% \textbf{Background}:
+\textbf{Voxelwise disease progression model} (Bilgel et al., IPMI, 2015)
+\begin{itemize}
+  \item Built on PET data measuring amyloid load at each voxel
+  \item Estimates a unique trajectory for each voxel
+  \item However, it uses a spatial correlation function
+
+  \vspace{2em}
+  \includegraphics[width=0.85\textwidth]{bilgel_neuroimage}
+  \vspace{2em}
+
+  \item We aim to avoid imposing spatial correlation
+  
+  \end{itemize}
+
+
+
+\end{frame}
+
+
 
 
 \newcommand{\outFolder}{../overview/modelDiagram}
@@ -928,90 +1035,90 @@ $
 
 
 
-\begin{frame}
-\frametitle{DIVE Estimates the Temporal Evolution of Pathology, Enabling Understanding of Disease Mechanisms}
-
-
-\newcommand{\scalingFactor}{1.2}
-\newcommand{\gradLimLeft}{-1.6}
-\newcommand{\gradLimRight}{1.6}
-
-\definecolor{barGreen}{rgb}{0.4,1,0.4}
-
-\newcommand{\speed}{2}
-
-\vfill
-
-
-% FWHM0 avg thickness map MCI & AD
-\begin{figure}[h]
-  \centering
-  \vspace{-1em}
-
-  % do the legend colorbar
-  \begin{subfigure}[b]{0.45\textwidth}
-   \centering
-  \begin{tikzpicture}[scale=\scalingFactor]
-    \shade[left color=red,right color=yellow] (\gradLimLeft,2.5) rectangle (-0.8,2.75);
-    \shade[left color=yellow,right color=barGreen] (-0.8,2.5) rectangle (0,2.75);
-    \shade[left color=barGreen,right color=cyan] (0,2.5) rectangle (0.8,2.75);	
-    \shade[left color=cyan,right color=blue] (0.8,2.5) rectangle (\gradLimRight,2.75);   
-
-    \node[inner sep=0] (corr_text) at (\gradLimLeft,3) {severe pathology};
-    \node[inner sep=0] (corr_text) at (\gradLimRight,3) {moderate pathology};
-  \end{tikzpicture}
-  \vspace{0.3em}
-  \end{subfigure}
-  
-
-	\begin{animateinline}[autoplay,loop]{\speed}  
-   \multiframe{20}{i=10+1}{% loop through pictures
-%  \multiframe{1}{i=10+1}{% loop through pictures \multiframe{nrOfPics}{i=initialVal+increment} 
-  
-  \parbox{\textwidth}{
-  \centering
-  
-  \begin{subfigure}[b]{0.25 \textwidth}
-   \centering
-   \Large{ADNI MRI}
-    \includegraphics[width=\textwidth]{\voxFld/selected_resfiles/adniThick/movie_adniThInitk-meansCl3Pr1Ra1_VDPM_MRFtext_\i}
-  \end{subfigure} 
-  ~
-  \begin{subfigure}[b]{0.25 \textwidth}
-   \centering
-   \Large{DRC tAD}
-  \includegraphics[width=\textwidth]{\voxFld/selected_resfiles/drcAD/movie_drcThInitk-meansCl3Pr1Ra1_VDPM_MRFADtext_\i}
-  \end{subfigure}
-  \vspace{0.5em}
-
-
-  \begin{subfigure}[b]{0.25 \textwidth}
-   \centering
-   \Large{DRC PCA}
-    \includegraphics[width=\textwidth]{\voxFld/selected_resfiles/drcPCA/movie_drcThInitk-meansCl5Pr1Ra1_VDPM_MRFPCAtext_\i} 
-  \end{subfigure}
-  ~
-  \begin{subfigure}[b]{0.25 \textwidth}
-   \centering
-   \Large{ADNI PET AV45}
-   \includegraphics[width=\textwidth]{\voxFld/selected_resfiles/adniPet/movie_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRFtext_\i} 
-  \end{subfigure}
-  
-  }  
-  }
-  \end{animateinline}
-
-  
-  \small{Marinescu et al., Neuroimage, 2019}\\
-  \small{source code: https://github.com/mrazvan22/dive}
-
-\end{figure}
-
-% \begin{itemize}
-%  \item Animations generated using BrainPainter: https://github.com/mrazvan22/brain-coloring
-% \end{itemize}
-
-\end{frame}
+% \begin{frame}
+% \frametitle{DIVE Estimates the Temporal Evolution of Pathology, Enabling Understanding of Disease Mechanisms}
+% 
+% 
+% \newcommand{\scalingFactor}{1.2}
+% \newcommand{\gradLimLeft}{-1.6}
+% \newcommand{\gradLimRight}{1.6}
+% 
+% \definecolor{barGreen}{rgb}{0.4,1,0.4}
+% 
+% \newcommand{\speed}{2}
+% 
+% \vfill
+% 
+% 
+% % FWHM0 avg thickness map MCI & AD
+% \begin{figure}[h]
+%   \centering
+%   \vspace{-1em}
+% 
+%   % do the legend colorbar
+%   \begin{subfigure}[b]{0.45\textwidth}
+%    \centering
+%   \begin{tikzpicture}[scale=\scalingFactor]
+%     \shade[left color=red,right color=yellow] (\gradLimLeft,2.5) rectangle (-0.8,2.75);
+%     \shade[left color=yellow,right color=barGreen] (-0.8,2.5) rectangle (0,2.75);
+%     \shade[left color=barGreen,right color=cyan] (0,2.5) rectangle (0.8,2.75);	
+%     \shade[left color=cyan,right color=blue] (0.8,2.5) rectangle (\gradLimRight,2.75);   
+% 
+%     \node[inner sep=0] (corr_text) at (\gradLimLeft,3) {severe pathology};
+%     \node[inner sep=0] (corr_text) at (\gradLimRight,3) {moderate pathology};
+%   \end{tikzpicture}
+%   \vspace{0.3em}
+%   \end{subfigure}
+%   
+% 
+% 	\begin{animateinline}[autoplay,loop]{\speed}  
+%    \multiframe{20}{i=10+1}{% loop through pictures
+% %  \multiframe{1}{i=10+1}{% loop through pictures \multiframe{nrOfPics}{i=initialVal+increment} 
+%   
+%   \parbox{\textwidth}{
+%   \centering
+%   
+%   \begin{subfigure}[b]{0.25 \textwidth}
+%    \centering
+%    \Large{ADNI MRI}
+%     \includegraphics[width=\textwidth]{\voxFld/selected_resfiles/adniThick/movie_adniThInitk-meansCl3Pr1Ra1_VDPM_MRFtext_\i}
+%   \end{subfigure} 
+%   ~
+%   \begin{subfigure}[b]{0.25 \textwidth}
+%    \centering
+%    \Large{DRC tAD}
+%   \includegraphics[width=\textwidth]{\voxFld/selected_resfiles/drcAD/movie_drcThInitk-meansCl3Pr1Ra1_VDPM_MRFADtext_\i}
+%   \end{subfigure}
+%   \vspace{0.5em}
+% 
+% 
+%   \begin{subfigure}[b]{0.25 \textwidth}
+%    \centering
+%    \Large{DRC PCA}
+%     \includegraphics[width=\textwidth]{\voxFld/selected_resfiles/drcPCA/movie_drcThInitk-meansCl5Pr1Ra1_VDPM_MRFPCAtext_\i} 
+%   \end{subfigure}
+%   ~
+%   \begin{subfigure}[b]{0.25 \textwidth}
+%    \centering
+%    \Large{ADNI PET AV45}
+%    \includegraphics[width=\textwidth]{\voxFld/selected_resfiles/adniPet/movie_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRFtext_\i} 
+%   \end{subfigure}
+%   
+%   }  
+%   }
+%   \end{animateinline}
+% 
+%   
+%   \small{Marinescu et al., Neuroimage, 2019}\\
+%   \small{source code: https://github.com/mrazvan22/dive}
+% 
+% \end{figure}
+% 
+% % \begin{itemize}
+% %  \item Animations generated using BrainPainter: https://github.com/mrazvan22/brain-coloring
+% % \end{itemize}
+% 
+% \end{frame}
 
 
 
@@ -1057,85 +1164,94 @@ $
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{Estimated Subject Progression Scores are Clinically Relevant}
+% \begin{frame}
+% \frametitle{Estimated Subject Progression Scores are Clinically Relevant}
+% 
+% \vspace{-2em}
+% 
+% \textbf{Hypothesis}: 
+% \begin{itemize}
+%  \item Clinical relevance $\rightarrow$ DPS correlates with other markers of disease progression
+% \end{itemize}
+% 
+% \vfill
+% 
+% \textbf{Method}: Ran our model on ADNI using 10-fold cross-validation
+% 
+% \vfill
+% 
+% \textbf{Results}: Progression scores correlate well with cognitive tests:
+% 
+% 
+% 
+% \newcommand{\figFont}{\small}
+% \newcommand{\pValFont}{\tiny}
+% 
+% \begin{figure}[h]
+%   \begin{subfigure}{0.22\textwidth}
+%     \centering
+%     \figFont{CDRSOB}\\ \pValFont{($\rho = 0.41$, $p < 1e-66$)}
+%     \includegraphics[width=1.1\textwidth]{../overview/figures/stagingCogTestsScatterPlot_adniThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VWDPMMean_ADAS13.png}
+%   \end{subfigure}
+%   \begin{subfigure}{0.22\textwidth}
+%     \centering
+%     \figFont{ADAS-COG}\\ \pValFont{($\rho = -0.40$, $p < 1e-62$)}
+%     \includegraphics[width=1.1\textwidth]{../overview/figures/stagingCogTestsScatterPlot_adniThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VWDPMMean_MMSE.png}
+%   \end{subfigure}
+%     \begin{subfigure}{0.22\textwidth}
+%     \centering
+%     \figFont{MMSE}\\ \pValFont{($\rho = -0.39$, $p < 1e-58$)}
+%     \includegraphics[width=1.1\textwidth]{../overview/figures/stagingCogTestsScatterPlot_adniThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VWDPMMean_RAVLT.png}
+%   \end{subfigure}
+%     \begin{subfigure}{0.22\textwidth}
+%     \centering
+%     \figFont{RAVLT}\\ \pValFont{($\rho = 0.39$, $p < 1e-58$)}
+%     \includegraphics[width=1.1\textwidth]{../overview/figures/stagingCogTestsScatterPlot_adniThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VWDPMMean_CDRSOB.png}
+%   \end{subfigure}
+% \end{figure}
+% 
+% \vspace{-2em}
+% 
+% 
+% \end{frame}
 
-\vspace{-2em}
 
-\textbf{Hypothesis}: 
+\begin{frame}{Conclusion}
+
 \begin{itemize}
- \item Clinical relevance $\rightarrow$ DPS correlates with other markers of disease progression
+ \item 
 \end{itemize}
 
-\vfill
-
-\textbf{Method}: Ran our model on ADNI using 10-fold cross-validation
-
-\vfill
-
-\textbf{Results}: Progression scores correlate well with cognitive tests:
-
-
-
-\newcommand{\figFont}{\small}
-\newcommand{\pValFont}{\tiny}
-
-\begin{figure}[h]
-  \begin{subfigure}{0.22\textwidth}
-    \centering
-    \figFont{CDRSOB}\\ \pValFont{($\rho = 0.41$, $p < 1e-66$)}
-    \includegraphics[width=1.1\textwidth]{../overview/figures/stagingCogTestsScatterPlot_adniThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VWDPMMean_ADAS13.png}
-  \end{subfigure}
-  \begin{subfigure}{0.22\textwidth}
-    \centering
-    \figFont{ADAS-COG}\\ \pValFont{($\rho = -0.40$, $p < 1e-62$)}
-    \includegraphics[width=1.1\textwidth]{../overview/figures/stagingCogTestsScatterPlot_adniThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VWDPMMean_MMSE.png}
-  \end{subfigure}
-    \begin{subfigure}{0.22\textwidth}
-    \centering
-    \figFont{MMSE}\\ \pValFont{($\rho = -0.39$, $p < 1e-58$)}
-    \includegraphics[width=1.1\textwidth]{../overview/figures/stagingCogTestsScatterPlot_adniThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VWDPMMean_RAVLT.png}
-  \end{subfigure}
-    \begin{subfigure}{0.22\textwidth}
-    \centering
-    \figFont{RAVLT}\\ \pValFont{($\rho = 0.39$, $p < 1e-58$)}
-    \includegraphics[width=1.1\textwidth]{../overview/figures/stagingCogTestsScatterPlot_adniThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VWDPMMean_CDRSOB.png}
-  \end{subfigure}
-\end{figure}
-
-\vspace{-2em}
-
-
+ 
 \end{frame}
 
 
-
-\begin{frame}[label=current]
-\frametitle{Future research directions}
-
-\textbf{Modelling}:
-\begin{itemize}
-\item Incorporate biological mechanisms (Raj et al., 2012,  Georgiadis et al., 2018)
-\item Incorporate other sources of data: e.g. genetics (Sclesi et al, Brain, 2018)
-\item Account for heterogeneity (e.g. Young et al., Nature Comm., 2018)
-\end{itemize}
-
-\vfill
-
-\textbf{Simulations}: 
-\begin{itemize}
-\item Use disease progression models to simulate cohorts (Koval et al., arXiv, 2019)
-\end{itemize}
-
-\vfill
-
-\textbf{Applications}:
-\begin{itemize}
-\item Other NDs: Multiple Sclerosis, Huntington's, Parkinson's
-\item Other pathologies: e.g. tumours, lesions
-\end{itemize}
-
-\end{frame}
+% \begin{frame}[label=current]
+% \frametitle{Future research directions}
+% 
+% \textbf{Modelling}:
+% \begin{itemize}
+% \item Incorporate biological mechanisms (Raj et al., 2012,  Georgiadis et al., 2018)
+% \item Incorporate other sources of data: e.g. genetics (Sclesi et al, Brain, 2018)
+% \item Account for heterogeneity (e.g. Young et al., Nature Comm., 2018)
+% \end{itemize}
+% 
+% \vfill
+% 
+% \textbf{Simulations}: 
+% \begin{itemize}
+% \item Use disease progression models to simulate cohorts (Koval et al., arXiv, 2019)
+% \end{itemize}
+% 
+% \vfill
+% 
+% \textbf{Applications}:
+% \begin{itemize}
+% \item Other NDs: Multiple Sclerosis, Huntington's, Parkinson's
+% \item Other pathologies: e.g. tumours, lesions
+% \end{itemize}
+% 
+% \end{frame}
 
 
 % \begin{frame}[label=current]
@@ -1156,76 +1272,76 @@ $
 % \end{frame}
 
 
-\begin{frame}[label=current]
-\frametitle{Acknowledgements}
-
-% \includegraphics[width=\textwidth,trim=0 0 0 150, clip]{cmic_away_day}
- 
- \begin{small}
-\begin{columns}[T]
-%     \hspace{-4em}
-    \begin{column}{.3\textwidth}
-    \textbf{Collaborators}
-    \begin{enumerate}
-    \item Leon Aksman
-    \item Maura Bellio
-     \item Arman Eshaghi
-     \item Nicholas Firth
-     \item Sara Garbarino
-     \item Marco Lorenzi
-     \item Kyriaki Mengoudi
-     \item Neil Oxtoby
-     \item Alexandra Young
-    \end{enumerate}
-%     \includegraphics[scale=1]{pondLogo.png}  
-    \end{column}
-    
-    
-%     \begin{column}{.6\textwidth}
-%     \begin{center}
-%     \textbf{Project Supervisors}
-%     \end{center}
-%     \vspace{-2em}
-%       \begin{figure}
-%       \begin{subfigure}{0.3\textwidth}
-%       \centering
-%       Daniel Alexander
-%       \includegraphics[height=2cm]{Danny-Alexander.jpeg}  
-%       \end{subfigure}
-% 	\begin{subfigure}{0.3\textwidth}
-% 	\centering
-%       Sebastian Crutch
-%       \includegraphics[height=2cm]{Seb_Crutch_photo.JPG}  
-%       \end{subfigure}
-%   \begin{subfigure}{0.3\textwidth}
-% 	\centering
-%       Polina Golland
-%       \includegraphics[height=2cm, trim=0 00 0 0,clip]{polina}  
-%       \end{subfigure}
-%       
-%     \begin{center}
-%     \textbf{Funders}
-%     \end{center}
-%     %\vspace{-2em}
-%       \begin{subfigure}{0.3\textwidth}
-%       \centering
-%       \includegraphics[height=1cm]{epsrc_logo}  
-%       \end{subfigure}
-% 	\begin{subfigure}{0.3\textwidth}
-% 	\centering
-%       \includegraphics[height=1cm]{CDTlogo}  
-%       \end{subfigure}
-%      
-%       
-%       \vspace{2em}
+% \begin{frame}[label=current]
+% \frametitle{Acknowledgements}
 % 
-% \end{figure}
+% % \includegraphics[width=\textwidth,trim=0 0 0 150, clip]{cmic_away_day}
+%  
+%  \begin{small}
+% \begin{columns}[T]
+% %     \hspace{-4em}
+%     \begin{column}{.3\textwidth}
+%     \textbf{Collaborators}
+%     \begin{enumerate}
+%     \item Leon Aksman
+%     \item Maura Bellio
+%      \item Arman Eshaghi
+%      \item Nicholas Firth
+%      \item Sara Garbarino
+%      \item Marco Lorenzi
+%      \item Kyriaki Mengoudi
+%      \item Neil Oxtoby
+%      \item Alexandra Young
+%     \end{enumerate}
+% %     \includegraphics[scale=1]{pondLogo.png}  
+%     \end{column}
 %     
-% \end{column}
-\end{columns}
- 
-\end{small}
-
-
-\end{frame}
+%     
+% %     \begin{column}{.6\textwidth}
+% %     \begin{center}
+% %     \textbf{Project Supervisors}
+% %     \end{center}
+% %     \vspace{-2em}
+% %       \begin{figure}
+% %       \begin{subfigure}{0.3\textwidth}
+% %       \centering
+% %       Daniel Alexander
+% %       \includegraphics[height=2cm]{Danny-Alexander.jpeg}  
+% %       \end{subfigure}
+% % 	\begin{subfigure}{0.3\textwidth}
+% % 	\centering
+% %       Sebastian Crutch
+% %       \includegraphics[height=2cm]{Seb_Crutch_photo.JPG}  
+% %       \end{subfigure}
+% %   \begin{subfigure}{0.3\textwidth}
+% % 	\centering
+% %       Polina Golland
+% %       \includegraphics[height=2cm, trim=0 00 0 0,clip]{polina}  
+% %       \end{subfigure}
+% %       
+% %     \begin{center}
+% %     \textbf{Funders}
+% %     \end{center}
+% %     %\vspace{-2em}
+% %       \begin{subfigure}{0.3\textwidth}
+% %       \centering
+% %       \includegraphics[height=1cm]{epsrc_logo}  
+% %       \end{subfigure}
+% % 	\begin{subfigure}{0.3\textwidth}
+% % 	\centering
+% %       \includegraphics[height=1cm]{CDTlogo}  
+% %       \end{subfigure}
+% %      
+% %       
+% %       \vspace{2em}
+% % 
+% % \end{figure}
+% %     
+% % \end{column}
+% \end{columns}
+%  
+% \end{small}
+% 
+% 
+% \end{frame}
 

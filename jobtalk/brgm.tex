@@ -1,0 +1,244 @@
+\begin{frame}{Aim: image reconstruction using *pre-trained* generator models}
+
+\begin{columns}
+ \begin{column}{0.5\textwidth}
+  
+  \begin{itemize}
+   \item Adapt the state-of-the-art StyleGAN2 for medical image generation and reconstruction
+
+   \vspace{2em}
+   
+   \item Vision: bring this technology to medicine
+  \end{itemize}
+  
+ \vspace{1em}
+  
+ \incw{mriall}{1} 
+  
+  
+ \end{column} 
+ 
+ \begin{column}{0.5\textwidth}
+ \centering
+ StyleGAN2 (Karras et al, 2019)
+ \inc{stylegan} 
+ \end{column}
+
+\end{columns}
+
+
+
+\end{frame}
+
+\begin{frame}{Motivation 1: Computational requirements}
+
+\begin{itemize}
+ \item State-of-the-art deep learning methods are becoming difficult to train:
+ \begin{itemize}
+ \item Large computational resources
+ \item Large datasets
+ \item Long time to converge
+ 
+ \incw{datacenter}{0.7}
+\end{itemize}
+\vo
+ \item Currently few labs/companies have the resources to train them
+
+\vo
+ \item Solutions moving forward:
+ \begin{itemize}
+\item Adapting previously-trained models
+\item Combine smaller models into larger ones
+\end{itemize}
+\end{itemize}
+
+ 
+\end{frame}
+
+\begin{frame}{Motivation 2: Account for distribution shifts}
+
+
+\begin{itemize}
+ \item Distribution shifts happen all the time:
+ \begin{itemize}
+ \item Changes in hospital scanners, protocols, software upgrades
+ \item Can be continuous: population getting older due to better healthcare
+\end{itemize}
+
+\vspace{2em} 
+ \item Shifts in both inputs and outputs can result in combinatorial effects!
+\end{itemize}
+% \vspace{1em}
+
+\begin{center}
+\incw{compositionality}{1}
+\end{center}
+ 
+\end{frame}
+
+
+\begin{frame}{Motivation 3: Causality}
+
+
+\begin{itemize}
+ \item Closely follow the data-generating process
+ \item The right solution to deal with distribution shifts
+ \begin{itemize}
+ \item Both for inputs and intermediary variables
+\end{itemize}
+\end{itemize}
+
+
+\begin{center}
+\incw{causality}{1}
+\end{center}
+ 
+\end{frame}
+
+
+\begin{frame}{Method: We perform image reconstruction by combining two models\\
+% \begin{itemize}
+\ \ \ \ \ \  1. a pre-trained generator G (StyleGAN2)\\
+\ \ \ \ \ \  2. a known forward corruption model $f_1$
+% \end{itemize}
+}
+
+% We combine:
+
+\vt
+\incw{brgm_diagram}{1}
+ 
+\end{frame}
+
+
+\begin{frame}{Reconstructed image is given by computing the Bayesian maximum a-posteriori (MAP) estimate\\
+}
+
+\begin{itemize}
+ \item We optimise:
+$$ w^* = \argmax_w p(w)p(I|w)$$
+
+\item For uninformative prior $p(w)$ and Gaussian noise model (pixelwise independent), we get:
+
+$$ w^* = \argmin_w || I - f \circ G (w) ||_2^2$$
+
+\item This can be optimised with SGD
+
+\item Once we get $w^*$, the the reconstructed image is $G(w^*)$
+
+\end{itemize}
+
+\begin{center}
+\vt
+\incw{brgm_diagram_mine}{0.6}
+\end{center}
+ 
+\end{frame}
+
+\begin{frame}{Reconstruction in this basic formulation doesn't work}
+
+\begin{itemize}
+ \item We started from the original StyleGAN2 inversion
+ \item Yet the reconstruction was not good
+ \item We reached suitable solutions only after several changes 
+\end{itemize}
+
+\begin{center}
+\vt
+\incw{evol}{1}
+\end{center}
+ 
+\end{frame}
+
+\begin{frame}{Results on super-resolution}
+
+\begin{itemize}
+ \item We achieve state-of-the-art (SOTA) results on small inputs resolutions 16x16
+ \item On larger resolutions (>32x32), we achieve very good results, albeit not SOTA
+\end{itemize}
+
+\begin{center}
+\vt
+\incw{sr}{1}
+\end{center}
+ 
+\end{frame}
+
+\begin{frame}{Similar results on super-resolution for medical datasets}
+
+\begin{itemize}
+ \item We achieve state-of-the-art (SOTA) results on small inputs resolutions 16x16
+ \item On larger resolutions (>32x32), we achieve very good results, albeit not SOTA
+\end{itemize}
+
+\begin{center}
+\vt
+\incw{srmed}{0.7}
+\end{center}
+ 
+\end{frame}
+
+\begin{frame}{Inpainting also achieves state-of-the-art results}
+
+\begin{itemize}
+ \item Best previous method (SN-PatchGAN, CVPR 2019) does not work for large masks
+ \item Our method can ``hypothesize'' missing structure
+\end{itemize}
+
+\begin{center}
+% \vt
+\incw{inpaint2}{0.61}
+\end{center}
+ 
+\end{frame}
+
+\begin{frame}{Inpainting also achieves state-of-the-art results}
+
+\begin{itemize}
+ \item Best previous method (SN-PatchGAN, CVPR 2019) does not work for large masks
+ \item Our method can ``hypothesize'' missing structure
+\end{itemize}
+
+\begin{center}
+\vt
+\incw{inpaint_xray}{0.5}\incw{inpaint_brains}{0.5}
+\end{center}
+ 
+\end{frame}
+
+\begin{frame}{Our method also has limitations}
+
+\begin{itemize}
+ \item It can fail for images that are too dissimilar to the training ones
+ \begin{itemize}
+ \item Because generator cannot extrapolate easily
+ \end{itemize}
+ \begin{center}
+ \incw{failure}{0.6} 
+ \end{center}
+ 
+ \item Can be inconsistent with the input image
+ \begin{center}
+ \incw{inconsistency}{0.6}
+ \end{center}
+ 
+\end{itemize}
+ 
+\end{frame}
+
+
+\begin{frame}{Conclusion}
+ 
+ \begin{itemize}
+  \item Proposed a method for image reconstruction using pre-trained deep generative models
+  \item Solution is given by the Bayesian MAP estimate
+  \item State-of-the-art results on super-resolution and inpainting
+  
+ \end{itemize}
+
+ 
+\end{frame}
+
+
+
+

@@ -212,6 +212,9 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
 
 
 \newcommand{\ovHeight}{2cm}
+\newcommand{\vo}{\vspace{1em}}
+\newcommand{\vt}{\vspace{2em}}
+\newcommand{\vth}{\vspace{3em}}
 
 
 % % TODO continue with overview, move into commands
@@ -268,38 +271,46 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
 \definecolor{light-gray}{gray}{0.6}
 
 
-\newcommand{\inc}[1]{\includegraphics[width=\columnwidth, trim=2 2 2 2, clip]{#1}}
-\newcommand{\incw}[2]{\includegraphics[width=#2\columnwidth, trim=2 2 2 2, clip]{#1}}
+\newcommand{\inc}[1]{\includegraphics[width=\columnwidth, trim=4 4 4 4, clip]{#1}}
+\newcommand{\incw}[2]{\includegraphics[width=#2\columnwidth, trim=4 4 4 4, clip]{#1}}
 
 \begin{frame}{Machine Learning algorithms have achieved impressive milestones}
 
-\begin{columns}
+\begin{columns}[t]
 \begin{column}{0.5\textwidth}
 \centering
-
 \begin{figure}
+\vspace{-2em}
+
  Object detection (YOLO)
- \inc{yolo}
+ \incw{yolo}{0.8}
+ 
+ \vt
  
   Image Generation (StyleGAN2)
- \inc{stylegan}
+ \incw{stylegan_small}{0.8}
 \end{figure}
 
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
 Text-to-Image Generation (DALL-E)
-\begin{figure}
-\inc{dalle}
+\inc{dalle2}
+prompt: ``an armchair in the shape of an avocado''
+
+\vspace{1.5em}
 
 Text generation (GPT-3)
 \inc{gpt3}
-\end{figure}
 \end{column}
 
-
-
 \end{columns}
+
+\vo 
+
+\begin{itemize}
+ \item Largely driven by increases in data and compute
+\end{itemize}
 
  
  
@@ -315,7 +326,7 @@ Text generation (GPT-3)
 \begin{itemize}
 \item Prediction of clinical variables not always working: 
 \begin{itemize}
-\item No algorithm could predict ADAS scores in TADPOLE Challenge
+\item No algorithm, out of 33, could predict ADAS scores in Alzheimer's disease (TADPOLE Challenge, Marinescu et al., 2020)
 \end{itemize}
 \vspace{2em}
 
@@ -323,9 +334,9 @@ Text generation (GPT-3)
 
 \vspace{2em}
 
-\item Segmentation results still inaccurate
+\item Segmentation of pathologies and organs still inaccurate:
 \begin{itemize}
-\item SOTA placenta segmentation is \textcolor{red}{semi}-automatic, Wang et al, 2019
+\item SOTA placenta segmentation is \textcolor{red}{semi}-automatic
 \end{itemize}
 
 
@@ -335,12 +346,19 @@ Text generation (GPT-3)
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
-Brain image generation (Han, 2018)
+Brain MRI generation (Han, 2018)
 \begin{figure}
 \inc{brain-gen}
 
-Pneumonia segmentation (Wang, 2020)
-\incw{medseg}{0.8}
+\vo
+
+%Pneumonia segmentation (Wang, 2020)
+%\incw{medseg}{0.7}
+
+Placenta segmentation (Wang, 2020)
+\incw{semi-automatic}{0.7}
+
+
 \end{figure}
 \end{column}
 \end{columns}
@@ -371,9 +389,11 @@ Pneumonia segmentation (Wang, 2020)
  \item Noisy, lack of ground truth
 \begin{itemize}
     \item Alzheimer's clinical diagnois: Sensitivity 70\%--87\%; specificity 44\%--70\%  
+    \item Gold standard = biopsy
 \end{itemize}
+\vo 
 
- \incw{goldstandard}{0.7}
+ \incw{goldstandard}{0.9}
 
 
 \end{itemize}
@@ -386,9 +406,10 @@ Pneumonia segmentation (Wang, 2020)
 \begin{itemize}
 \item Lack of good input data
 
-\begin{itemize}
-\item Stroke scans with limited contrast
-\end{itemize}
+% \begin{itemize}
+% \item Stroke scans with limited contrast
+% \end{itemize}
+Stroke scans with limited contrast
 \incw{strokescan}{0.7}
 
 \vspace{2em}
@@ -414,6 +435,8 @@ Pneumonia segmentation (Wang, 2020)
 
 \begin{frame}{What can we do?}
 
+
+\vspace{-3em}
 \begin{columns}[t]
 \begin{column}{0.5\textwidth}
 \centering
@@ -434,14 +457,17 @@ Pneumonia segmentation (Wang, 2020)
 \end{itemize}
 
 % \incw{goldstandard}{0.7}
-
-
 \end{itemize}
 
+\vspace{2em}
+
+% \vspace{-4em}
 
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
+
+% \vspace{-1.5em}
 
 \begin{itemize}
 \item Lack of good input data
@@ -451,7 +477,7 @@ Pneumonia segmentation (Wang, 2020)
 \end{itemize}
 % \incw{strokescan}{0.7}
 
-\vspace{2em}
+\vspace{0.5em}
 
 \item Small datasets, inability to scale 
 \begin{itemize}
@@ -464,17 +490,43 @@ Pneumonia segmentation (Wang, 2020)
 
 \end{itemize}
 % \incw{imgcount}{0.7}
-
-
 \end{itemize}
+
+\vspace{2em}
+
+
 
 
 \end{column}
 \end{columns}
 
 
-\end{frame}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
 
+Solution: Time-series model with\\ latent disease stage\\
+= Disease Progression Model\\
+%\includegraphics[height=\ovHeight]{\upgradeReportLoc/images/vwdpm/blend14_adniThavgFWHM0InithistCl3Pr0Ra1_VWDPMStd.png}
+\includegraphics[height=3cm]{dpm_small}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+Solution: Image Reconstruction\\ using Deep Generative Models\\
+\includegraphics[height=2cm, trim=6 6 6 6,clip]{brgm_diagram_small}
+
+\end{column}
+\end{columns}
+
+
+
+
+
+
+
+\end{frame}
 
 
 \begin{frame}{Outline}
@@ -487,7 +539,115 @@ Pneumonia segmentation (Wang, 2020)
 
 \end{frame}
 
-% \input{dive.tex}
+\input{dive.tex}
+
+\begin{frame}{Outline}
+
+\end{frame}
+
+% \input{brgm.tex}
+
+\begin{frame}{Outline}
+ 
+ 
+\end{frame}
+
+\begin{frame}{Future work}
+
+
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+Biological simulators\\
+\incw{heartsim}{0.5}
+
+\vo
+
+Multimodal modelling\\
+images + text + structural data  
+\incw{xray}{0.3}\incw{medreport}{0.267}
+
+\vo
+
+Domain knowledge through large-scale parsing of medical articles\\
+\incw{lotsoftext}{0.8}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+Better and faster reconstruction of medical images\\
+\incw{mrirecon}{0.6}
+
+\vo
+
+Disease Progression Modelling
+\incw{daninet}{0.6}
+
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+\begin{frame}{Future work: Brain tissue and anatomy simulator}
+
+
+Simulator for brain anatomy from genetics:
+\begin{itemize}
+ \item Using deep generative models
+ \item Accouting for distributions shifts
+ \item Following causal principles
+\end{itemize}
+
+\vt
+
+\incw{brainsimulator}{0.9}
+
+\end{frame}
+
+\begin{frame}{Long-term vision}
+
+
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+
+Early diagnosis and prognosis
+\incw{smartwatch}{0.7}
+
+AI augumenting humans\\
+\incw{vr}{0.7}
+
+
+
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+
+Robotic Surgery
+\incw{roboticsurgery}{0.8}
+
+\vo
+
+Drug development
+\incw{drugdevelopment}{0.8}
+
+
+\end{column}
+\end{columns}
+
+
+
+
+\end{frame}
 
 
 \end{document}
