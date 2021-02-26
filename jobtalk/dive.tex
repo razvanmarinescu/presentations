@@ -8,6 +8,7 @@
 % 
 % \end{frame}
 
+\section{Disease Progression Modelling}
 
 \begin{frame}
 \frametitle{Alzheimer's Disease is a Devastating Disease}
@@ -259,7 +260,7 @@ This leads to a technique that simultaneously:
 \vspace{-3em}
 % \textbf{Background}:
 \begin{itemize}
-  \item Modelling the progression of Alzheimer's disease can potentially help drug development
+%   \item Modelling the progression of Alzheimer's disease can potentially help drug development
   \item Several data-driven disease progression models have been recently formulated:
   
 %   \vfill 
@@ -270,25 +271,25 @@ This leads to a technique that simultaneously:
   \centering
     \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
    \centering
-    \textbf{Event-Based Model}\\ \footnotesize{(Fontejin et al., Neuroimage, 2012, Young et al., Brain, 2014)}\\    %TODO fix alignment of brains here
+    \textbf{Event-Based Model}\\ 
     \begin{subfigure}{0.57\textwidth}
-    \vspace{-9em}
+    \vspace{-6em}
     \includegraphics[width=\textwidth,trim=0 0 450 0,clip]{young_progression2}
     
-    \includegraphics[width=\textwidth,trim=450 0 0 0,clip]{young_progression2} 
+%     \includegraphics[width=\textwidth,trim=450 0 0 0,clip]{young_progression2} 
     \end{subfigure}
 %     \vspace{1em}
     \includegraphics[width=0.4\textwidth]{young_positional_variance}
    \end{minipage}
    \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
     \centering
-    \textbf{Disease Progression Score}\\ \footnotesize{(Jedynak et al.,Neuroimage, 2012)}
+    \textbf{Disease Progression Score}\\ 
     \includegraphics[width=0.8\textwidth,trim=0 80 0 0, clip]{dps_diagram}
    \end{minipage}
 
    \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
     \centering
-    \textbf{Manifold-based model}\\ \footnotesize{(Schiratti et al., IPMI, 2015)}
+    \textbf{Manifold-based model}\\ 
     \includegraphics[width=1\textwidth,trim=0 270 0 0, clip]{schiratti}
     
     \vspace{2em}
@@ -297,7 +298,7 @@ This leads to a technique that simultaneously:
    \end{minipage}
    \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
     \centering
-    \textbf{Self-Modelling Regression}\\ \footnotesize{(Donohue et al., Alz. \& Dementia, 2014)}
+    \textbf{Self-Modelling Regression}\\ 
     \includegraphics[width=0.8\textwidth]{semor_diagram_cropped}
    \end{minipage}
 
@@ -308,6 +309,7 @@ This leads to a technique that simultaneously:
 %   \vspace{-5em}
   
   \item Yet, all these models assumed extracted features from contiguous regions (i.e. atlas-based)
+  \item We aim to avoid imposing spatial correlation
   
 \end{itemize}
 
@@ -315,39 +317,34 @@ This leads to a technique that simultaneously:
 
 
 
-\begin{frame}
-\frametitle{Background - Disease Progression Modelling}
-
-\newcommand{\mnpHeight}{3cm}
-
-\vspace{-3em}
-% \textbf{Background}:
-\textbf{Voxelwise disease progression model} (Bilgel et al., IPMI, 2015)
-\begin{itemize}
-  \item Built on PET data measuring amyloid load at each voxel
-  \item Estimates a unique trajectory for each voxel
-  \item However, it uses a spatial correlation function
-
-  \vspace{2em}
-  \includegraphics[width=0.85\textwidth]{bilgel_neuroimage}
-  \vspace{2em}
-
-  \item We aim to avoid imposing spatial correlation
-  
-  \end{itemize}
-
-
-
-\end{frame}
-
-
+% \begin{frame}
+% \frametitle{Background - Disease Progression Modelling}
+% 
+% \newcommand{\mnpHeight}{3cm}
+% 
+% \vspace{-3em}
+% % \textbf{Background}:
+% \textbf{Voxelwise disease progression model} (Bilgel et al., IPMI, 2015)
+% \begin{itemize}
+%   \item Built on PET data measuring amyloid load at each voxel
+%   \item Estimates a unique trajectory for each voxel
+%   \item However, it uses a spatial correlation function
+% 
+%   \vspace{2em}
+%   \includegraphics[width=0.85\textwidth]{bilgel_neuroimage}
+%   \vspace{2em}
+% 
+% 
+%   
+%   \end{itemize}
+% 
+% 
+% 
+% \end{frame}
 
 
-\newcommand{\outFolder}{../overview/modelDiagram}
-\newcommand{\lw}{0.5mm}
 
-\newcommand{\yes}{{\LARGE \textcolor{green!50!black}{\checkmark} \par}}
-\newcommand{\no}{{\LARGE \textcolor{red}{\xmark} \par}}
+
 
 
 \begin{frame}
@@ -926,39 +923,39 @@ $
 
 
 
-\begin{frame}
-\frametitle{Methods - Numerical Optimisation and Initialisation}
-
-\textbf{Numerical optimisation} 
-\begin{itemize}
-\item E- and M-steps have no analytical solution
-\item Perform numerical optimisation with Nelder-Mead
-\begin{itemize}
-  \item robust and fast convergence
-\end{itemize}
-\item EM still converges with partial E- and M-steps
-\end{itemize}
-%\end{block}
-
-\vfill
-
-\textbf{Initialisation}
-
-\begin{itemize}
- \item We set $\alpha_i=1$ and $\beta_i=0$, $\forall i$
- \item We initialise $z_{lk} = p(Z_l = k|V_l,\Theta^{old})$ using k-means clustering
- \begin{itemize}
-  \item feature vector for vertex $l$: $\left[ V_l^{ij} | (i,j) \in I \right]$ (measurements for all subjects at that location)
- \end{itemize}
-
- \item Estimate the optimal number of clusters with the Bayesian Information Criterion (BIC)
- \begin{itemize}
-  \item Number of parameters: $5K + 2S$
- \end{itemize}
-
-\end{itemize}
-
-\end{frame}
+% \begin{frame}
+% \frametitle{Methods - Numerical Optimisation and Initialisation}
+% 
+% \textbf{Numerical optimisation} 
+% \begin{itemize}
+% \item E- and M-steps have no analytical solution
+% \item Perform numerical optimisation with Nelder-Mead
+% \begin{itemize}
+%   \item robust and fast convergence
+% \end{itemize}
+% \item EM still converges with partial E- and M-steps
+% \end{itemize}
+% %\end{block}
+% 
+% \vfill
+% 
+% \textbf{Initialisation}
+% 
+% \begin{itemize}
+%  \item We set $\alpha_i=1$ and $\beta_i=0$, $\forall i$
+%  \item We initialise $z_{lk} = p(Z_l = k|V_l,\Theta^{old})$ using k-means clustering
+%  \begin{itemize}
+%   \item feature vector for vertex $l$: $\left[ V_l^{ij} | (i,j) \in I \right]$ (measurements for all subjects at that location)
+%  \end{itemize}
+% 
+%  \item Estimate the optimal number of clusters with the Bayesian Information Criterion (BIC)
+%  \begin{itemize}
+%   \item Number of parameters: $5K + 2S$
+%  \end{itemize}
+% 
+% \end{itemize}
+% 
+% \end{frame}
 
 
 \begin{frame}
@@ -1216,10 +1213,22 @@ $
 % \end{frame}
 
 
-\begin{frame}{Conclusion}
+\begin{frame}{DIVE Summary}
 
 \begin{itemize}
- \item 
+ \item We modelled the continuous progression of Alzheimer's disease and related dementias
+ 
+ \vo
+ 
+ \item Used clustering, in EM framework, to model spatial correlation
+ 
+ \vo
+ 
+ \item However, such models require good quality data, to extract biomarkers
+ 
+ \vo
+ 
+ \item How can we do such modelling for scans with limited resolution and contrast?
 \end{itemize}
 
  

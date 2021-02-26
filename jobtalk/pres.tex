@@ -8,6 +8,13 @@
 \usepackage{multicol} 
 \usepackage{animate}[2017/05/18]
 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage[thinc]{esdiff}
+
 % \usepackage{pdfx}
  
 % \usepackage[utf8]{inputenc}
@@ -136,7 +143,7 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
     \usebeamerfont{institute in head/foot}razvan@csail.mit.edu
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{institute in head/foot}%
-    \usebeamerfont{institute in head/foot}https://people.csail.mit.edu/razvan/
+    \usebeamerfont{institute in head/foot}http://razvan.csail.mit.edu
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
     \usebeamerfont{title in head/foot}\insertsection
@@ -200,6 +207,12 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
 \newcommand{\voxFld}{../../voxelwiseDPM}
 \newcommand{\tadpoleFld}{../../tadpole}
 \newcommand{\diffEqModelFld}{../../diffEqModel}
+
+\newcommand{\outFolder}{../overview/modelDiagram}
+\newcommand{\lw}{0.5mm}
+
+\newcommand{\yes}{{\LARGE \textcolor{green!50!black}{\checkmark} \par}}
+\newcommand{\no}{{\LARGE \textcolor{red}{\xmark} \par}}
 
 
 
@@ -319,20 +332,20 @@ Text generation (GPT-3)
 
 \begin{frame}{However, such milestones have not been translated to medical applications}
 
-\begin{columns}
+\begin{columns}[t]
 \begin{column}{0.5\textwidth}
 \centering
 
 \begin{itemize}
 \item Prediction of clinical variables not always working: 
 \begin{itemize}
-\item No algorithm, out of 33, could predict ADAS scores in Alzheimer's disease (TADPOLE Challenge, Marinescu et al., 2020)
+\item No algorithm/33, could predict cognitive scores in Alzheimer's\\ (TADPOLE Challenge, Marinescu 2020)
 \end{itemize}
-\vspace{2em}
+\vspace{4em}
 
 \item Generated images are crude, not high-resolution, mostly 2D
 
-\vspace{2em}
+\vspace{4em}
 
 \item Segmentation of pathologies and organs still inaccurate:
 \begin{itemize}
@@ -368,7 +381,7 @@ Placenta segmentation (Wang, 2020)
 \end{frame}
 
 
-\begin{frame}{Why are Machine Learning models not working in medical imaging?}
+\begin{frame}{Why are Machine Learning models not working on medical applications?}
 
 \vspace{-4em}
 
@@ -409,7 +422,9 @@ Placenta segmentation (Wang, 2020)
 % \begin{itemize}
 % \item Stroke scans with limited contrast
 % \end{itemize}
-Stroke scans with limited contrast
+\begin{center}
+\small{e.g. limited contrast}
+\end{center}
 \incw{strokescan}{0.7}
 
 \vspace{2em}
@@ -473,7 +488,7 @@ Stroke scans with limited contrast
 \item Lack of good input data
 
 \begin{itemize}
-  \item Reconstruct better images (compressed sensing)
+  \item Reconstruct better images
 \end{itemize}
 % \incw{strokescan}{0.7}
 
@@ -505,8 +520,11 @@ Stroke scans with limited contrast
 \begin{column}{0.5\textwidth}
 \centering
 
-Solution: Time-series model with\\ latent disease stage\\
-= Disease Progression Model\\
+Solution: Disease Progression Model\\
+\vo
+
+%Time-series model with\\ latent disease stage\\
+% = Disease Progression Model\\
 %\includegraphics[height=\ovHeight]{\upgradeReportLoc/images/vwdpm/blend14_adniThavgFWHM0InithistCl3Pr0Ra1_VWDPMStd.png}
 \includegraphics[height=3cm]{dpm_small}
 
@@ -515,15 +533,43 @@ Solution: Time-series model with\\ latent disease stage\\
 \centering
 
 Solution: Image Reconstruction\\ using Deep Generative Models\\
+\vo
 \includegraphics[height=2cm, trim=6 6 6 6,clip]{brgm_diagram_small}
 
 \end{column}
 \end{columns}
 
+\end{frame}
 
 
+\begin{frame}{Outline}
 
+\begin{enumerate}
+ \item Disease progression modelling of Alzheimer's disease 
+ \begin{enumerate} 
+  \item Towards unsupervised clustering of biomarker trajectories\\
+ \end{enumerate}
+   
+% \includegraphics[height=2cm]{dpm_small} 
+% \vt 
+%  \item Unsupervised clustering of trajectories
+ 
+   \begin{tikzpicture}[scale=1]
+     \node (roi) at (0,0) {\includegraphics[height=1.5cm]{dpm_small}};
+     \node (vw) at (4,0) {\includegraphics[height=1.5cm]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}};
+     \draw[line width=1.5,->] (roi) -> (vw);
+  \end{tikzpicture}
+  
+  \vt
 
+ \item Image Reconstruction using Deep Generative Models\\
+ \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\vt
+ 
+  \item Future work\\
+
+\end{enumerate}
+ 
 
 
 \end{frame}
@@ -531,31 +577,104 @@ Solution: Image Reconstruction\\ using Deep Generative Models\\
 
 \begin{frame}{Outline}
 
-\begin{itemize}
- \item 
-\end{itemize}
+\begin{enumerate}
+ \item \textbf{Disease progression modelling of Alzheimer's disease}
+ \begin{enumerate} 
+  \item Towards unsupervised clustering of biomarker trajectories\\
+ \end{enumerate}
+   
+% \includegraphics[height=2cm]{dpm_small} 
+% \vt 
+%  \item Unsupervised clustering of trajectories
  
+   \begin{tikzpicture}[scale=1]
+     \node (roi) at (0,0) {\includegraphics[height=1.5cm]{dpm_small}};
+     \node (vw) at (4,0) {\includegraphics[height=1.5cm]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}};
+     \draw[line width=1.5,->] (roi) -> (vw);
+  \end{tikzpicture}
+  
+  \vt
 
+ \item Image Reconstruction using Deep Generative Models\\
+ \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\vt
+ 
+  \item Future work\\
 
+\end{enumerate}
 \end{frame}
+
 
 \input{dive.tex}
 
-\begin{frame}{Outline}
-
-\end{frame}
-
-% \input{brgm.tex}
 
 \begin{frame}{Outline}
+
+\begin{enumerate}
+ \item Disease progression modelling of Alzheimer's disease
+ \begin{enumerate} 
+  \item Towards unsupervised clustering of biomarker trajectories\\
+ \end{enumerate}
+   
+% \includegraphics[height=2cm]{dpm_small} 
+% \vt 
+%  \item Unsupervised clustering of trajectories
  
+   \begin{tikzpicture}[scale=1]
+     \node (roi) at (0,0) {\includegraphics[height=1.5cm]{dpm_small}};
+     \node (vw) at (4,0) {\includegraphics[height=1.5cm]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}};
+     \draw[line width=1.5,->] (roi) -> (vw);
+  \end{tikzpicture}
+  
+  \vt
+
+ \item \textbf{Image Reconstruction using Deep Generative Models}\\
+ \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\vt
  
+  \item Future work\\
+
+\end{enumerate}
 \end{frame}
+
+
+\input{brgm.tex}
+
+
+\begin{frame}{Outline}
+
+\begin{enumerate}
+ \item Disease progression modelling of Alzheimer's disease
+ \begin{enumerate} 
+  \item Towards unsupervised clustering of biomarker trajectories\\
+ \end{enumerate}
+   
+% \includegraphics[height=2cm]{dpm_small} 
+% \vt 
+%  \item Unsupervised clustering of trajectories
+ 
+   \begin{tikzpicture}[scale=1]
+     \node (roi) at (0,0) {\includegraphics[height=1.5cm]{dpm_small}};
+     \node (vw) at (4,0) {\includegraphics[height=1.5cm]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}};
+     \draw[line width=1.5,->] (roi) -> (vw);
+  \end{tikzpicture}
+  
+  \vt
+
+ \item Image Reconstruction using Deep Generative Models\\
+ \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\vt
+ 
+  \item \textbf{Future work}\\
+
+\end{enumerate}
+\end{frame}
+
 
 \begin{frame}{Future work}
 
 
-
+\vspace{-2em}
 \begin{columns}[t]
 \begin{column}{0.5\textwidth}
 \centering
@@ -563,28 +682,29 @@ Solution: Image Reconstruction\\ using Deep Generative Models\\
 Biological simulators\\
 \incw{heartsim}{0.5}
 
-\vo
+\vt
+\vt
 
 Multimodal modelling\\
 images + text + structural data  
 \incw{xray}{0.3}\incw{medreport}{0.267}
-
-\vo
-
-Domain knowledge through large-scale parsing of medical articles\\
-\incw{lotsoftext}{0.8}
 
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
 
 Better and faster reconstruction of medical images\\
-\incw{mrirecon}{0.6}
+\incw{mri_recon}{0.6}
 
 \vo
 
 Disease Progression Modelling
 \incw{daninet}{0.6}
+
+\vo
+
+Domain knowledge from large-scale parsing of medical articles\\
+\incw{lotsoftext}{0.4}
 
 \end{column}
 \end{columns}
@@ -609,7 +729,7 @@ Simulator for brain anatomy from genetics:
 
 \end{frame}
 
-\begin{frame}{Long-term vision}
+\begin{frame}{Long-term vision: AI to contribute to all aspects of heathcare}
 
 
 
