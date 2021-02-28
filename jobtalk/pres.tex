@@ -55,6 +55,8 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 
 \usepackage{tikz}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary{decorations}
 \usetikzlibrary{arrows,positioning, shapes.symbols,shapes.callouts,patterns,shapes,chains,calc,backgrounds,fadings}
 
 % \definecolor{parCol}{rgb}{0.1, 0.1, 1}
@@ -347,10 +349,10 @@ Text generation (GPT-3)
 
 \vspace{4em}
 
-\item Segmentation of pathologies and organs still inaccurate:
-\begin{itemize}
-\item SOTA placenta segmentation is \textcolor{red}{semi}-automatic
-\end{itemize}
+% \item Segmentation of pathologies and organs still inaccurate:
+% \begin{itemize}
+% \item SOTA placenta segmentation is \textcolor{red}{semi}-automatic
+% \end{itemize}
 
 
 \end{itemize}
@@ -368,8 +370,8 @@ Brain MRI generation (Han, 2018)
 %Pneumonia segmentation (Wang, 2020)
 %\incw{medseg}{0.7}
 
-Placenta segmentation (Wang, 2020)
-\incw{semi-automatic}{0.7}
+% Placenta segmentation (Wang, 2020)
+% \incw{semi-automatic}{0.7}
 
 
 \end{figure}
@@ -381,60 +383,84 @@ Placenta segmentation (Wang, 2020)
 \end{frame}
 
 
+% Of 179 persons (average age, 86.9 years) with probable AD, 87.7% had pathologically confirmed AD, and 45.8% had mixed pathologies, most commonly AD with macroscopic infarcts (n = 54), followed by AD with neocortical LB disease (n = 19) and both (n = 8). 
+% Of the 134 persons with MCI, 54.4% had pathologically diagnosed AD (58.7% amnestic; 49.2% nonamnestic); 19.4% had mixed pathologies (22.7% amnestic; 15.3% nonamnestic). Macroscopic infarcts without pathologically diagnosed AD accounted for 4.5% of probable AD, 13.3% of amnestic MCI, and 18.6% of nonamnestic MCI. Pure neocortical LB disease was uncommon in all persons with cognitive impairment (<6%). Microscopic infarcts (without macroscopic infarcts) were common as a mixed pathology, but rarely accounted for a clinical diagnosis of probable AD (n = 4) or MCI (n = 3).
+
 \begin{frame}{Why are Machine Learning models not working on medical applications?}
 
-\vspace{-4em}
+\vspace{-2em}
 
 
 \begin{columns}[t]
 \begin{column}{0.5\textwidth}
 \centering
 
+\textbf{\large Lack of good labels}
+% \begin{itemize}
+% \item Lack of ground truth 
+
+% ``Probable'' Alzheimer's disease diagnosis
 \begin{itemize}
-\item Lack of good labels
-\begin{itemize}
- \item Categorical instead of continuous
- \incw{severity}{0.7}
+%  \item 
+
+\item Alzheimer's diagnosis accuracy just 42\%
+
+\begin{center}
+\incw{ad_chart_schneider}{0.4}\\ 
+\end{center}
+
+\vspace{2.7em}
+
+\item Labels are categorical instead of continuous\\
+\vo
+\incw{brain_prog_thresh}{1}
+
 \end{itemize}
 
  \vspace{2em}
  
- \item Noisy, lack of ground truth
-\begin{itemize}
-    \item Alzheimer's clinical diagnois: Sensitivity 70\%--87\%; specificity 44\%--70\%  
-    \item Gold standard = biopsy
-\end{itemize}
-\vo 
 
- \incw{goldstandard}{0.9}
+% \item Alzheimer's clinical diagnois: Sensitivity 70\%--87\%; specificity 44\%--70\%  
+% \vo 
+
+%  \incw{goldstandard}{0.9}
 
 
-\end{itemize}
+% \end{itemize}
 
 
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
 
+\textbf{\large Lack of good input data/signal}
 \begin{itemize}
-\item Lack of good input data
+\item Limited contrast
 
 % \begin{itemize}
 % \item Stroke scans with limited contrast
 % \end{itemize}
 \begin{center}
-\small{e.g. limited contrast}
-\end{center}
 \incw{strokescan}{0.7}
+\end{center}
+
 
 \vspace{2em}
 
-\item Small datasets, inability to scale 
+\item Low-resolution
 
-\begin{itemize}
-\item most have  $<100$ scans (Maier-Hein, 2018)
-\end{itemize}
-\incw{imgcount}{0.7}
+\begin{center}
+\incw{stroke_lowres2}{0.4} 
+\end{center}
+
+
+
+% \item Small datasets, inability to scale 
+% 
+% \begin{itemize}
+% \item most have  $<100$ scans (Maier-Hein, 2018)
+% \end{itemize}
+% \incw{imgcount}{0.7}
 
 
 \end{itemize}
@@ -447,32 +473,318 @@ Placenta segmentation (Wang, 2020)
  
 \end{frame}
 
+\newcommand{\diagfld}{brgm_diagram}
+\newcommand{\fstikz}[1]{\footnotesize{#1}}
+
+
+\newcommand{\brgmprev}{
+\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.5}]
+
+\def\rightimgX{4.5}
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (cxr_text) at (1,4.75) {\footnotesize{Low Res.}};
+
+%top image left
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brin_clean}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{High Res.}};
+
+%top image center
+\node (cxr_img) at (1, 1) {\includegraphics[width=2cm]{\diagfld/crop.png}};
+%top image left
+\node (blur_img) at (\rightimgX, 1) {\includegraphics[width=2cm]{\diagfld/original.png}};
+
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+
+\node (left_img_top_out_2) at (2,1) {};
+\node (right_img_top_in_2) at (\rightimgX - 1, 1) {};
+
+\draw[->, thick]
+(left_img_top_out_2)
+to
+(right_img_top_in_2) ;
+
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+\node (rng_text) at (2.75,3.75) {$f_1^{-1}(I)$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Learned}};
+\node (rng_text) at (2.75,3) {\fstikz{Inverse}};
+\node (rng_text) at (2.75,2.75) {\fstikz{Corruption}};
+
+\node (rng_text) at (2.75,1.25) {$f_2^{-1}(I)$};
+
+\end{tikzpicture}
+}
+
+\newcommand{\brgmours}{
+\begin{tikzpicture}[scale=0.75, every node/.style={scale=0.75}]
+
+\def\rightimgX{4.5}
+
+%Top left
+\filldraw[fill=gray!50!white, draw=black, label={Latent}] (-2,2.5) rectangle (-1.5,4.5);
+\node (rng_text) at (-1.75,4.75) {\footnotesize{Latent}};
+\node (rng_text) at (-1.75,3.5) {$w$};
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+\node (cxr_text) at (1,4.75) {\footnotesize{High Res.}};
+
+%top image right
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
+
+\node (blur_img) at (\rightimgX+2.3, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX+2.3,4.75) {\footnotesize{Input}};
+
+\draw[decoration={brace,mirror,raise=5pt},decorate]
+  (4.5,2.5) -- node[below=6pt] {loss} (6.8,2.5);
+
+
+\node (rng_top_out) at (-1.5,3.5) {};
+\node (center_img_left_in) at (0, 3.5) {};
+
+\draw[->, thick]
+(rng_top_out)
+to
+(center_img_left_in) ;
+@inproceedings{roth2005fields,
+  title={Fields of experts: A framework for learning image priors},
+  author={Roth, Stefan and Black, Michael J},
+  booktitle={2005 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR'05)},
+  volume={2},
+  pages={860--867},
+  year={2005},
+  organization={IEEE}
+}
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+% \draw[->, dashed, blue, thick]
+% (right_img_top_out)
+% to [in=-60, out=-120]
+% (left_img_top_in) ;
+
+
+\node (left_img_bot_out) at (0,2.5) {};
+\node (rng_bot_out) at (-1.5, 2.5) {};
+\draw[->, dashed, red, thick]
+(rng_bot_out)
+to [in=-120, out=-60]
+(left_img_bot_out);
+
+\node (rng_text) at (-0.75,3.75) {$G(w)$};
+\node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
+\node (rng_text) at (-0.75,3) {\fstikz{Generation}};
+
+\node (rng_text) at (2.75,3.75) {$f_1$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Known}};
+\node (rng_text) at (2.75,3) {\fstikz{Corruption}};
+
+\node (rng_text) at (-0.75,1.75) {\fstikz{Learned a-priori}};
+\node (rng_text) at (-0.75,1.5) {\fstikz{given High Res Data}};
+% \node (rng_text) at (-0.75,1.25) {\fstikz{given High Res Data}};
+
+\node (rng_text) at (-0.5,0.75) {\fstikz{Can be redone}};
+\node (rng_text) at (-0.5,0.5) {\fstikz{using the same $G(w)$}};
+\node (rng_text) at (-0.5,0.25) {\fstikz{for multiple $f_i$}};
+
+
+% \node (rng_text) at (2.75,1.75) {\fstikz{Optimized at}};
+% \node (rng_text) at (2.75,1.5) {\fstikz{Test Time}};
+
+
+
+\node (left_img_center_out) at (1,2.5) {};
+\node (right_bot_out_extra) at (3.9 - 1, 1) {};
+\draw[->, thick]
+(left_img_center_out)
+to [in=90, out=-90]
+(1,1) 
+to [out=0, in=180]
+(right_bot_out_extra);
+
+\node (right_bot_out_extra_2) at (3.9 - 1, 0.5) {};
+\draw[->, thick]
+(left_img_center_out)
+to [in=90, out=-90]
+(1,0.5) 
+to [out=0, in=180]
+(right_bot_out_extra_2);
+
+
+\node (rng_text) at (1.75,1.25) {$f_2$};
+\node (rng_text) at (1.75,0.75) {$f_3$};
+\node (rng_text) at (1.75,0.25) {$\vdots$};
+
+
+\node (blur_img) at (3.5+0.5, 0.5) {\includegraphics[width=1cm]{\diagfld/brain_kspace.png}};
+\node (blur_img) at (3.5, 1.0) {\includegraphics[width=1cm,frame]{\diagfld/brain_inpaint}};
+
+\end{tikzpicture}
+}
+
+
+\newcommand{\brgmoursshort}{
+\begin{tikzpicture}[scale=0.75, every node/.style={scale=0.75}]
+
+\def\rightimgX{4.5}
+
+%Top left
+\filldraw[fill=gray!50!white, draw=black, label={Latent}] (-2,2.5) rectangle (-1.5,4.5);
+\node (rng_text) at (-1.75,4.75) {\footnotesize{Latent}};
+\node (rng_text) at (-1.75,3.5) {$w$};
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+\node (cxr_text) at (1,4.75) {\footnotesize{High Res.}};
+
+%top image right
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
+
+
+% \draw[decoration={brace,mirror,raise=5pt},decorate]
+%   (4.5,2.5) -- node[below=6pt] {loss} (6.8,2.5);
+
+
+\node (rng_top_out) at (-1.5,3.5) {};
+\node (center_img_left_in) at (0, 3.5) {};
+
+\draw[->, thick]
+(rng_top_out)
+to
+(center_img_left_in) ;
+@inproceedings{roth2005fields,
+  title={Fields of experts: A framework for learning image priors},
+  author={Roth, Stefan and Black, Michael J},
+  booktitle={2005 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR'05)},
+  volume={2},
+  pages={860--867},
+  year={2005},
+  organization={IEEE}
+}
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+% \draw[->, dashed, blue, thick]
+% (right_img_top_out)
+% to [in=-60, out=-120]
+% (left_img_top_in) ;
+
+
+\node (left_img_bot_out) at (0,2.5) {};
+\node (rng_bot_out) at (-1.5, 2.5) {};
+% \draw[->, dashed, red, thick]
+% (rng_bot_out)
+% to [in=-120, out=-60]
+% (left_img_bot_out);
+
+% \node (rng_text) at (-0.75,3.75) {$G(w)$};
+\node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
+\node (rng_text) at (-0.75,3) {\fstikz{Generation}};
+
+% \node (rng_text) at (2.75,3.75) {$f_1$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Known}};
+\node (rng_text) at (2.75,3) {\fstikz{Corruption}};
+
+% \node (rng_text) at (-0.75,1.75) {\fstikz{Learned a-priori}};
+% \node (rng_text) at (-0.75,1.5) {\fstikz{given High Res Data}};
+% % \node (rng_text) at (-0.75,1.25) {\fstikz{given High Res Data}};
+% 
+% \node (rng_text) at (-0.5,0.75) {\fstikz{Can be redone}};
+% \node (rng_text) at (-0.5,0.5) {\fstikz{using the same $G(w)$}};
+% \node (rng_text) at (-0.5,0.25) {\fstikz{for multiple $f_i$}};
+
+
+% \node (rng_text) at (2.75,1.75) {\fstikz{Optimized at}};
+% \node (rng_text) at (2.75,1.5) {\fstikz{Test Time}};
+
+
+
+% \node (left_img_center_out) at (1,2.5) {};
+% \node (right_bot_out_extra) at (3.9 - 1, 1) {};
+% \draw[->, thick]
+% (left_img_center_out)
+% to [in=90, out=-90]
+% (1,1) 
+% to [out=0, in=180]
+% (right_bot_out_extra);
+% 
+% \node (right_bot_out_extra_2) at (3.9 - 1, 0.5) {};
+% \draw[->, thick]
+% (left_img_center_out)
+% to [in=90, out=-90]
+% (1,0.5) 
+% to [out=0, in=180]
+% (right_bot_out_extra_2);
+
+
+% \node (rng_text) at (1.75,1.25) {$f_2$};
+% \node (rng_text) at (1.75,0.75) {$f_3$};
+% \node (rng_text) at (1.75,0.25) {$\vdots$};
+
+
+% \node (blur_img) at (3.5+0.5, 0.5) {\includegraphics[width=1cm]{\diagfld/brain_kspace.png}};
+% \node (blur_img) at (3.5, 1.0) {\includegraphics[width=1cm,frame]{\diagfld/brain_inpaint}};
+
+\end{tikzpicture}
+}
+
 
 \begin{frame}{What can we do?}
 
 
-\vspace{-3em}
+\vspace{-8em}
 \begin{columns}[t]
 \begin{column}{0.5\textwidth}
 \centering
 
-\begin{itemize}
-\item Lack of good labels
-\begin{itemize}
- \item Infer continuous disease staging
- 
-%  \incw{severity}{0.7}
-\end{itemize}
+\textbf{\large Lack of good labels}
 
- \vspace{2em}
- 
- \item Noisy, lack of ground truth
-\begin{itemize}
-   \item Infer true labels from noisy ones  
-\end{itemize}
-
-% \incw{goldstandard}{0.7}
-\end{itemize}
+% \begin{itemize}
+% \item Alzheimer's diagnosis accuracy just 42\%
+% % \begin{itemize}
+% %  \item Infer continuous disease staging
+% %  
+% % %  \incw{severity}{0.7}
+% % \end{itemize}
+% 
+%  \vspace{2em}
+%  
+%  \item Noisy labels
+% % \begin{itemize}
+% %    \item Infer true labels from noisy ones  
+% % \end{itemize}
+% 
+% % \incw{goldstandard}{0.7}
+% \end{itemize}
 
 \vspace{2em}
 
@@ -482,30 +794,32 @@ Placenta segmentation (Wang, 2020)
 \begin{column}{0.5\textwidth}
 \centering
 
+\textbf{\large Lack of good input data/signal}
+
 % \vspace{-1.5em}
 
-\begin{itemize}
-\item Lack of good input data
-
-\begin{itemize}
-  \item Reconstruct better images
-\end{itemize}
-% \incw{strokescan}{0.7}
-
-\vspace{0.5em}
-
-\item Small datasets, inability to scale 
-\begin{itemize}
-\item Acquire more data
-\item Design algorithms for small datasets
-\begin{itemize}
- \item Transfer learning
- \item Few-shot or Zero-shot learning
-\end{itemize}
-
-\end{itemize}
-% \incw{imgcount}{0.7}
-\end{itemize}
+% \begin{itemize}
+% \item Lack of good input data
+% 
+% % \begin{itemize}
+% %   \item Reconstruct better images
+% % \end{itemize}
+% % \incw{strokescan}{0.7}
+% 
+% \vspace{0.5em}
+% 
+% \item Small datasets, inability to scale 
+% % \begin{itemize}
+% % \item Acquire more data
+% % \item Design algorithms for small datasets
+% % % \begin{itemize}
+% % %  \item Transfer learning
+% % %  \item Few-shot or Zero-shot learning
+% % % \end{itemize}
+% % 
+% % \end{itemize}
+% % \incw{imgcount}{0.7}
+% \end{itemize}
 
 \vspace{2em}
 
@@ -520,7 +834,8 @@ Placenta segmentation (Wang, 2020)
 \begin{column}{0.5\textwidth}
 \centering
 
-Solution: Disease Progression Model\\
+Solution: Unsupervised Learning of Continuous Dynamics\\
+= Disease Progression Modelling\\
 \vo
 
 %Time-series model with\\ latent disease stage\\
@@ -534,7 +849,8 @@ Solution: Disease Progression Model\\
 
 Solution: Image Reconstruction\\ using Deep Generative Models\\
 \vo
-\includegraphics[height=2cm, trim=6 6 6 6,clip]{brgm_diagram_small}
+% \includegraphics[height=2cm, trim=6 6 6 6,clip]{brgm_diagram_small}
+\brgmoursshort
 
 \end{column}
 \end{columns}
@@ -563,7 +879,8 @@ Solution: Image Reconstruction\\ using Deep Generative Models\\
   \vt
 
  \item Image Reconstruction using Deep Generative Models\\
- \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+%  \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\brgmoursshort
 \vt
  
   \item Future work\\
@@ -596,7 +913,8 @@ Solution: Image Reconstruction\\ using Deep Generative Models\\
   \vt
 
  \item Image Reconstruction using Deep Generative Models\\
- \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+%  \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\brgmoursshort
 \vt
  
   \item Future work\\
@@ -629,7 +947,8 @@ Solution: Image Reconstruction\\ using Deep Generative Models\\
   \vt
 
  \item \textbf{Image Reconstruction using Deep Generative Models}\\
- \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+%  \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\brgmoursshort
 \vt
  
   \item Future work\\
@@ -638,7 +957,7 @@ Solution: Image Reconstruction\\ using Deep Generative Models\\
 \end{frame}
 
 
-\input{brgm.tex}
+% \input{brgm.tex}
 
 
 \begin{frame}{Outline}
@@ -662,7 +981,8 @@ Solution: Image Reconstruction\\ using Deep Generative Models\\
   \vt
 
  \item Image Reconstruction using Deep Generative Models\\
- \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+%  \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\brgmoursshort
 \vt
  
   \item \textbf{Future work}\\
@@ -694,17 +1014,18 @@ images + text + structural data
 \centering
 
 Better and faster reconstruction of medical images\\
-\incw{mri_recon}{0.6}
+\incw{mri_recon}{0.8}
 
-\vo
+\vt
+\vt
 
 Disease Progression Modelling
-\incw{daninet}{0.6}
+\incw{daninet}{1}
 
-\vo
+% \vo
 
-Domain knowledge from large-scale parsing of medical articles\\
-\incw{lotsoftext}{0.4}
+% Domain knowledge from large-scale parsing of medical articles\\
+% \incw{lotsoftext}{0.4}
 
 \end{column}
 \end{columns}
