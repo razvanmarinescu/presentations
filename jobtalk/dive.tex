@@ -27,7 +27,7 @@
  \onslide<2-> \item Q: Why did clinical trials fail? A: Treatments were not administered early enough 
  \vspace{1em}
  \onslide<3-> \item Q: How can we then identify subjects \textbf{early} in order to administer treatments? 
- \onslide<3-> \item A: Biomarkers ...
+ \onslide<3-> \item A: Disease progression model ...
  
 
 \end{itemize}
@@ -36,179 +36,34 @@
 
 \end{frame}
 
-% Also say that we cannot build the model on age
-\begin{frame}
-\frametitle{Biomarker Evolution creates a Unique Disease Signature\\
-that can be used for Staging Individuals in Clinical Trials}
-% explain what are the challenges
+\newcommand{\sz}{0.8}
 
-\begin{figure}
-\centering 
-\vspace{1em}
-\includegraphics[height=5cm]{adniDiseaseProgression}
-\hspace{-4em}ADNI website 
-
-\end{figure}
+\begin{frame}{Building a Disease Progression Model}
 
 
-\begin{itemize}
- \item Problem: the X-axis is inferred, we don't observe it directly
- \item Accurate disease staging $\rightarrow$ better patient stratification
- \item Problem: This is a "hypothetical" (i.e. qualitative) disease progression model
- \item Why construct a quantitative model? 
-\end{itemize}
-
-\end{frame}
-
-
-% \section{Disease Progression Modelling}
-
-
-
-\begin{frame}
-\frametitle{Benefits of Quantitative Disease Progression Models}
-
+\hspace{4em} \begin{center}
 \begin{overprint}
- \onslide<1>\begin{figure}
- \centering
-\includegraphics[height=5cm,trim=0 0 650 0,clip]{dpmDiffDiag1.png}
-\end{figure}
-
-\onslide<2> \begin{figure}
- \centering
-\includegraphics[height=5cm,trim=0 0 650 0,clip]{dpmDiffDiag2.png}
-\end{figure}
-
-\onslide<3-> \begin{figure}
- \centering
-\includegraphics[height=5cm,trim=0 0 0 0,clip]{dpmDiffDiag2.png}
-\end{figure}
-
+\onslide<1> \incw{dps_series9}{\sz}
+\onslide<2> \incw{dps_series8}{\sz}
+\onslide<3> \incw{dps_series7}{\sz}
+\onslide<4> \incw{dps_series6}{\sz}
+\onslide<5> \incw{dps_series5}{\sz}
+\onslide<6> \incw{dps_series4}{\sz}
+\onslide<7> \incw{dps_series3}{\sz}
+\onslide<8> \incw{dps_series2}{\sz}
+\onslide<9> \incw{dps_series1}{\sz}
+\onslide<10> \incw{dps_series0}{\sz}
 \end{overprint}
-
-\vspace{1em}
-\begin{itemize}
- \onslide<1-> \item Basic biological insight
- \onslide<2-> \item Staging can help stratification in clinical trials
- \onslide<3-> \item Differential diagnosis and prognosis
- 
- \vspace{1.5em}
-%  \onslide<4-> \item[] How can we build such a disease progression model?
-\end{itemize}
+\end{center}
 
 \end{frame}
 
-
-
-
-
-% \begin{frame}[label=current]
-% \frametitle{My PhD Contributions}
-% 
-% \begin{figure}
-% \centering
-% 
-% 
-% \ovEBM
-% \ovVWDPM
-% 
-% \ovDKT
-% \ovTadpole
-% 
-% \ovPainter
-% 
-% \end{figure}
-% 
-% \end{frame}
-
-
-
-
-% \section{DIVE}
-% 
-% \begin{frame}
-% \frametitle{My PhD Contributions}
-% 
-% %% new slide
-% 
-% \begin{figure}
-% \centering
-% 
-% 
-% {\transparent{0.4} 
-% \ovEBM 
-% }
-% \ovVWDPM
-% 
-% {\transparent{0.4} 
-% \ovDKT
-% \ovTadpole
-% 
-% \ovPainter
-% }
-% 
-% \end{figure}
-% 
-% \end{frame}
-
-
 \begin{frame}
-\frametitle{Aim: Build a Disease Progression Model of Pathology over the Brain that Avoids Limitations of Previous Models}
-
-
-\newcommand{\aimImgScale}{0.8}
-\newcommand{\mnpHeight}{3cm}
-
-\vspace{-2em}
-
-% FWHM0 avg thickness map MCI & AD
-\begin{figure}[h]
-  \centering
-  \begin{minipage}[t][\mnpHeight][t]{0.3\textwidth}
-   \centering
-   Avoids pre-defined ROI parcellation\\
-  \begin{tikzpicture}[scale=1]
-    \node[inner sep=0] (image) at (0,0) {\includegraphics[width=0.5\textwidth,trim=0 0 26 0,clip]{seeley_2009_topleft.png}}; 
-  \end{tikzpicture}
-%     \caption{}
-%       \label{fig:adniClust}
-  \end{minipage}
-   \begin{minipage}[t][\mnpHeight][t]{0.3\textwidth}
-  \centering
-  Avoids simplistic spatial correlation structure\\
-%   \vspace{1em}
-  \begin{tikzpicture}[scale=1]
-    \node[inner sep=0] (corr_text) at (0,0) {\includegraphics[width=\aimImgScale\textwidth, trim=0 0 360 0, clip]{bilgel_neuroimage}};
-  \end{tikzpicture}
-  \vspace{0.5em}
-  \end{minipage}
-   \begin{minipage}[t][\mnpHeight][t]{0.3\textwidth}
-  \centering
-  Avoids simplistic biomarker trajectories
-  \begin{tikzpicture}[scale=1]
-    \node[inner sep=0] (corr_text) at (0,0) {\includegraphics[width=\aimImgScale\textwidth,trim=0 0 0 30,clip]{biomkStepFunctions}};
-  \end{tikzpicture}
-  \end{minipage}
-\end{figure}
-
-\vfill
-
-This leads to a technique that simultaneously:
-\begin{itemize}
- \item parcellates the brain into disconnected components that undergo similar progression
- \item estimates biomarker trajectories
-\end{itemize}
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Motivation: Correlate with brain networks + better prediction/staging}
+\frametitle{Aim: Build a disease progression model for voxelwise data}
 
 
 \begin{itemize}
- \item \textbf{Aim}: Move from ROI-based analysis to voxelwise/vertexwise
+ \item \textbf{Aim}: Move from ROI-based analysis to voxelwise
 \end{itemize}
 
 \begin{figure}
@@ -252,68 +107,68 @@ This leads to a technique that simultaneously:
 
 
 
-\begin{frame}
-\frametitle{Background - Disease Progression Modelling}
-
-\newcommand{\mnpHeight}{3cm}
-
-\vspace{-3em}
-% \textbf{Background}:
-\begin{itemize}
-%   \item Modelling the progression of Alzheimer's disease can potentially help drug development
-  \item Several data-driven disease progression models have been recently formulated:
-  
-%   \vfill 
-  
-  \hspace{-2em}
-  \begin{small}
-  \begin{figure}[h]
-  \centering
-    \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
-   \centering
-    \textbf{Event-Based Model}\\ 
-    \begin{subfigure}{0.57\textwidth}
-    \vspace{-6em}
-    \includegraphics[width=\textwidth,trim=0 0 450 0,clip]{young_progression2}
-    
-%     \includegraphics[width=\textwidth,trim=450 0 0 0,clip]{young_progression2} 
-    \end{subfigure}
-%     \vspace{1em}
-    \includegraphics[width=0.4\textwidth]{young_positional_variance}
-   \end{minipage}
-   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
-    \centering
-    \textbf{Disease Progression Score}\\ 
-    \includegraphics[width=0.8\textwidth,trim=0 80 0 0, clip]{dps_diagram}
-   \end{minipage}
-
-   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
-    \centering
-    \textbf{Manifold-based model}\\ 
-    \includegraphics[width=1\textwidth,trim=0 270 0 0, clip]{schiratti}
-    
-    \vspace{2em}
-    
-    
-   \end{minipage}
-   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
-    \centering
-    \textbf{Self-Modelling Regression}\\ 
-    \includegraphics[width=0.8\textwidth]{semor_diagram_cropped}
-   \end{minipage}
-
-
-  \end{figure}
-  \end{small}
-  
-%   \vspace{-5em}
-  
-  \item Yet, all these models assumed extracted features from contiguous regions (i.e. atlas-based)
-  \item We aim to avoid imposing spatial correlation
-  
-\end{itemize}
-
-\end{frame}
+%\begin{frame}
+%\frametitle{Background - Disease Progression Modelling}
+%
+%\newcommand{\mnpHeight}{3cm}
+%
+%\vspace{-3em}
+%% \textbf{Background}:
+%\begin{itemize}
+%%   \item Modelling the progression of Alzheimer's disease can potentially help drug development
+%  \item Several data-driven disease progression models have been recently formulated:
+%  
+%%   \vfill 
+%  
+%  \hspace{-2em}
+%  \begin{small}
+%  \begin{figure}[h]
+%  \centering
+%    \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
+%   \centering
+%    \textbf{Event-Based Model}\\ 
+%    \begin{subfigure}{0.57\textwidth}
+%    \vspace{-6em}
+%    \includegraphics[width=\textwidth,trim=0 0 450 0,clip]{young_progression2}
+%    
+%%     \includegraphics[width=\textwidth,trim=450 0 0 0,clip]{young_progression2} 
+%    \end{subfigure}
+%%     \vspace{1em}
+%    \includegraphics[width=0.4\textwidth]{young_positional_variance}
+%   \end{minipage}
+%   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
+%    \centering
+%    \textbf{Disease Progression Score}\\ 
+%    \includegraphics[width=0.8\textwidth,trim=0 80 0 0, clip]{dps_diagram}
+%   \end{minipage}
+%
+%   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
+%    \centering
+%    \textbf{Manifold-based model}\\ 
+%    \includegraphics[width=1\textwidth,trim=0 270 0 0, clip]{schiratti}
+%    
+%    \vspace{2em}
+%    
+%    
+%   \end{minipage}
+%   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
+%    \centering
+%    \textbf{Self-Modelling Regression}\\ 
+%    \includegraphics[width=0.8\textwidth]{semor_diagram_cropped}
+%   \end{minipage}
+%
+%
+%  \end{figure}
+%  \end{small}
+%  
+%%   \vspace{-5em}
+%  
+%  \item Yet, all these models assumed extracted features from contiguous regions (i.e. atlas-based)
+%  \item We aim to avoid imposing spatial correlation
+%  
+%\end{itemize}
+%
+%\end{frame}
 
 
 
@@ -347,74 +202,74 @@ This leads to a technique that simultaneously:
 
 
 
-\begin{frame}
-\frametitle{Method Idea - Combine Unsupervised Learning and Disease Progression Modelling}
-% method slide 1
-
-\vspace{-1em}
-
-\begin{columns}[T]
-%     \hspace{-2em}
-  \begin{column}{.47\textwidth}
-  
-  \begin{center}
-   
-  Only Unsupervised Learning (i.e. Clustering)
-  
-%   \hrulefill
-  
-  \begin{figure}
-  \centering
-  \includegraphics[height=3cm]{clust24_drcThFWHM0Initk-meansCl4Pr0Ra1Mrf5_VDPM_MRFPCA.png}
-  \end{figure}
-  \vspace{-1.5em}
- 
-  \begin{itemize}
-   \item Can identify disconnected atrophy patterns \yes
-   \item No biomarker trajectories \no
-   \item No disease staging of subjects  \no
-  \end{itemize}
-
- 
-
-  
-  \end{center}  
-  \end{column}
-  \hspace{-2em}
-  \vrule{}
-  \begin{column}{.47\textwidth}
-  \begin{center}
-    
-  Only Disease Progression Modelling
-  
-%   \hrulefill
-  
-  \begin{figure}
-    \centering
-    \includegraphics[height=3cm,trim=120 0 120 0]{Disease_progression_one_sigmoid_confidence.png}
-  \end{figure}
-  \vspace{-1.5em}
-
-  \begin{itemize}
-   \item Cannot identify disconnected atrophy patterns \no
-   \item Can estimate biomarker trajectories \yes
-   \item Can estimate subjects disease stages \yes
-  \end{itemize}
-
-  
-  \end{center}
-  \end{column}
-\end{columns}
-
-\vspace{1.5em}
-
-\begin{itemize}
-  \item Estimate trajectories for each vertex on the cortical surface
-  \item Vertex measures pathology (e.g. thickness, amyloid) at that location
-\end{itemize}
-
-
-\end{frame}
+%\begin{frame}
+%\frametitle{Method Idea - Combine Unsupervised Learning and Disease Progression Modelling}
+%% method slide 1
+%
+%\vspace{-1em}
+%
+%\begin{columns}[T]
+%%     \hspace{-2em}
+%  \begin{column}{.47\textwidth}
+%  
+%  \begin{center}
+%   
+%  Only Unsupervised Learning (i.e. Clustering)
+%  
+%%   \hrulefill
+%  
+%  \begin{figure}
+%  \centering
+%  \includegraphics[height=3cm]{clust24_drcThFWHM0Initk-meansCl4Pr0Ra1Mrf5_VDPM_MRFPCA.png}
+%  \end{figure}
+%  \vspace{-1.5em}
+% 
+%  \begin{itemize}
+%   \item Can identify disconnected atrophy patterns \yes
+%   \item No biomarker trajectories \no
+%   \item No disease staging of subjects  \no
+%  \end{itemize}
+%
+% 
+%
+%  
+%  \end{center}  
+%  \end{column}
+%  \hspace{-2em}
+%  \vrule{}
+%  \begin{column}{.47\textwidth}
+%  \begin{center}
+%    
+%  Only Disease Progression Modelling
+%  
+%%   \hrulefill
+%  
+%  \begin{figure}
+%    \centering
+%    \includegraphics[height=3cm,trim=120 0 120 0]{Disease_progression_one_sigmoid_confidence.png}
+%  \end{figure}
+%  \vspace{-1.5em}
+%
+%  \begin{itemize}
+%   \item Cannot identify disconnected atrophy patterns \no
+%   \item Can estimate biomarker trajectories \yes
+%   \item Can estimate subjects disease stages \yes
+%  \end{itemize}
+%
+%  
+%  \end{center}
+%  \end{column}
+%\end{columns}
+%
+%\vspace{1.5em}
+%
+%\begin{itemize}
+%  \item Estimate trajectories for each vertex on the cortical surface
+%  \item Vertex measures pathology (e.g. thickness, amyloid) at that location
+%\end{itemize}
+%
+%
+%\end{frame}
 
 
 
@@ -430,131 +285,8 @@ This leads to a technique that simultaneously:
 \end{frame}
 
 
-
 \begin{frame}
-\frametitle{Method Step 1 - Model Disease Progression Scores for Every Subject}
-
-\begin{columns}[T]
-    \begin{column}{.7\textwidth}
-     %\begin{block}{}
-    
-%     \textbf{Idea}
-%     \begin{itemize}
-%       \item Combine two techniques:
-%       \begin{itemize}
-%       \item unsupervised learning (clustering)
-%       \item disease progression modelling
-%       \end{itemize}
-%       
-%       \item Estimate trajectories for each vertex on the cortical surface
-%       \item Vertex measures cortical thickness at that location
-% 
-%     \end{itemize}
-    
-    
-    \vspace{-2em}
-   
-%     \textbf{Method outline}:
-%     \setbeamertemplate{enumerate items}[default]
-%      \begin{enumerate}
-    Each subject $i$ at visit $j$ has an associated \emph{disease progression score} (DPS) $s_{ij}$:
-      $$s_{ij} = \alpha_i t_{ij} + \beta_i$$
-      
-      where:
-      \begin{itemize}
-       \item $s_{ij}$ - disease progression score of subject $i$ at timepoint $j$
-       \item $t_{ij}$ - age of subject $i$ at timepoint $j$
-       \item $\alpha_i $ - progression speed of subject $i$
-       \item $\beta_i $ - time shift of subject $i$
-      \end{itemize}
-            
-%      \end{enumerate}
-     
-
-    %\end{block}
-    \end{column}
-    \hspace{-2em}
-    \begin{column}{.25\textwidth}
-    %\begin{block}{}
-    
-    \vspace{1em}
-    \begin{figure}
-    \centering
-    \includegraphics[scale=0.15]{disease_axis.png}
-    \end{figure}
-
-    %\end{block}
-    \end{column}
-  \end{columns}
-
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{Step 2 - Model Evolution of Pathology at Specific Location in the Brain}
-% method slide 2
-\begin{columns}[T]
-%     \hspace{-2em}
-    \begin{column}{.7\textwidth}
-     %\begin{block}{}
-    
-
-    \setbeamertemplate{enumerate items}[default]
-     \begin{itemize}
-  
-      \item Each biomarker measurement $V_l^{ij}$ follows a sigmoidal curve $f(\cdot\ ;\theta)$ along the disease progression:
-      
-      $$ V_l^{ij} \approx f(s_{ij};\theta_k) = \frac{a_k}{1+exp(-b_k(s-c_k))} + d_k $$
-      
-      where
-      \begin{itemize}
-      \item  $V_l^{ij}$ - biomaker (e.g. thickness, amyloid) at location $l$ for subject $i$, timepoint $j$
-       \item $\theta_k = [a_k, b_k, c_k, d_k]$ - parameters of $k$-th sigmoid curve
-      \end{itemize}
-      
-      \vspace{2em}
-      
-      \item We assume Gaussian noise along the $k$-th trajectory:
-
-      $$p(V_l^{ij} | \alpha_i, \beta_i, \theta_k, \sigma_k) \sim N(f(\alpha_i t_{ij} + \beta_i ; \theta_k), \sigma_k)$$
-            
-      where:
-      \begin{itemize}
-       \item $N$ - pdf of the Gaussian distribution
-       \item $\sigma_k$ - noise level
-       
-      \end{itemize}
-            
-     \end{itemize}
-     
-
-    %\end{block}
-    \end{column}
-    \hspace{-2em}
-    \begin{column}{.25\textwidth}
-    %\begin{block}{}
-    
-    \begin{figure}
-    \centering
-    \includegraphics[scale=0.14, trim=120 0 120 0]{Disease_progression_one_sigmoid_confidence.png}
-    \end{figure}
-
-    %\end{block}
-    \end{column}
-  \end{columns}
-
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}
-\frametitle{Our Model So Far}
+\frametitle{Building the model using a generative Bayesian framework}
 % method slide 3
 
 \begin{columns}[T]
@@ -569,15 +301,23 @@ This leads to a technique that simultaneously:
 %     \textbf{Method outline - continued}:
    \begin{enumerate}      
       
-      \item Model disease progression score for one subject $i$ at visit $j$:
+      \onslide<1-> \item Model disease progression score for one subject $i$ at visit $j$:
       $$s_{ij} = \alpha_i t_{ij} + \beta_i$$
       
       \vspace{1em}
       
-      \item Model biomarker trajectory of one vertex (point) on the brain:
-      $$p(V_l^{ij} | \alpha_i, \beta_i, \theta_k, \sigma_k) \sim N(f(\alpha_i t_{ij} + \beta_i ; \theta_k), \sigma_k)$$
+      \onslide<2-> \item Model biomarker trajectory of one vertex (point) $l$ on the brain:
+      \onslide<2-> $$p(V_l^{ij} | \alpha_i, \beta_i, \theta_k, \sigma_k) \sim N(f(\alpha_i t_{ij} + \beta_i ; \theta_k), \sigma_k)$$
       
+      \vspace{1em}
+      
+      \onslide<3-> \item Extend to all vertices and subjects:
+      \onslide<3-> $$  p(V, Z | \alpha, \beta, \theta, \sigma) = \prod_l^L \prod_{(i,j) \in I} N(V_l^{ij} | f(\alpha_i t_{ij} + \beta_i ; \theta_{Z_l}), \sigma_{Z_l}) $$
+
+      \vspace{1em}
   
+      \onslide<4-> \item Marginalise over the hidden variables $Z_l$ (cluster assignments):
+      \onslide<4-> \small{$$p(V|\alpha, \beta, \theta, \sigma) = \prod_{l=1}^L \sum_{k=1}^K p(Z_l = k) \prod_{(i,j) \in I} N(V_l^{ij} | f(\alpha_i t_{ij} + \beta_i \ ; \theta_k), \sigma_k)$$}
      
      \end{enumerate}
      
@@ -589,232 +329,19 @@ This leads to a technique that simultaneously:
 
     \vspace{-2em}
     
-    \begin{figure}
+    \onslide<1-> \begin{figure}
     \centering
-    \includegraphics[height=1.5cm]{disease_axis.png}
+    \includegraphics[height=2cm]{disease_axis.png}
     \end{figure}
     
-    \begin{figure}
+    \onslide<2-> \begin{figure}
     \centering
-    \includegraphics[height=1.5cm, trim=120 0 120 0]{Disease_progression_one_sigmoid_confidence.png}
+    \includegraphics[height=2cm, trim=120 0 120 0]{Disease_progression_one_sigmoid_confidence.png}
     \end{figure}
     
-
-    %\end{block}
-    \end{column}
-  \end{columns}
-  
-  \vspace{6em}
-  
-%   \begin{itemize}
-% 
-%   
-%   \end{itemize}
-
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}
-\frametitle{Step 3: Group Vertices with Similar Progression Dynamics into Clusters}
-% method slide 3
-
-\begin{columns}[T]
-%     \hspace{-4em}
-    \begin{column}{.7\textwidth} % TODO remove columns here, not needed anymore
-     %\begin{block}{}
-   
-    \setbeamertemplate{enumerate items}[default]
-     
-%     \textbf{Idea:} Group vertices with similar progression dynamics into clusters\\ 
-%    \vspace{2em}
-%     \textbf{Method outline - continued}:
-   \begin{itemize}      
-      
-      \item Define $Z_l$ as the cluster that generated vertex $l$:
-      $$ p(V_l^{ij} | \alpha_i, \beta_i, \theta_{Z_l}, \sigma_{Z_l}, Z_l) \sim N(f(\alpha_i t_{ij} + \beta_i ; \theta_{Z_l}), \sigma_{Z_l}) $$
-        where
-	\begin{itemize}
-	\item $Z_l$ - discreete latent variable allocating\\ vertex $l$ to a cluster $k \in [1 \dots K]$
-	\end{itemize}
-      \vspace{1em}
-      \item Extend to all subjects and vertices:
-  $$  p(V, Z | \alpha, \beta, \theta, \sigma) = \prod_l^L \prod_{(i,j) \in I} N(V_l^{ij} | f(\alpha_i t_{ij} + \beta_i ; \theta_{Z_l}), \sigma_{Z_l}) $$
-  where
-  \begin{itemize}
-  \item $L$ - the total number of vertices on the cortical surface
-  \item $I = {(i,j)}$ - set of available timepoints for each subject $i$ and timepoint $j$   
-  \item we assume independence across subjects and voxels in different clusters
-  \end{itemize}
-     
-  \end{itemize}
-     
-
-    %\end{block}
-    \end{column}
-%     \hspace{-3em}
-    \begin{column}{.3\textwidth}
-    %\begin{block}{}
-
-%         \node  (brain) at (1.3,4.5) {\includegraphics[scale=0.1]{disease_progression_staging.png}};
-    
-       
-    \begin{figure}
+    \onslide<3-> \begin{figure}
     \centering
-    \includegraphics[scale=0.28, trim=120 0 120 70]{\outFolder/sigManyBiomkClustering.png}
-    \end{figure}
-    
-
-    %\end{block}
-    \end{column}
-  \end{columns}
-  
-%   \begin{itemize}
-% 
-%   
-%   \end{itemize}
-
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}
-\frametitle{Our Model So Far}
-% method slide 3
-
-\begin{columns}[T]
-%     \hspace{-4em}
-    \begin{column}{.7\textwidth} % TODO remove columns here, not needed anymore
-     %\begin{block}{}
-   
-%     \setbeamertemplate{enumerate items}[default]
-     
-%     \textbf{Idea:} Group vertices with similar progression dynamics into clusters\\ 
-%    \vspace{2em}
-%     \textbf{Method outline - continued}:
-   \begin{enumerate}      
-      
-      \item Model disease progression score for one subject $i$ at visit $j$:
-      $$s_{ij} = \alpha_i t_{ij} + \beta_i$$
-      
-      \vspace{1em}
-      
-      \item Model biomarker trajectory of one vertex (point) on the brain:
-      $$p(V_l^{ij} | \alpha_i, \beta_i, \theta_k, \sigma_k) \sim N(f(\alpha_i t_{ij} + \beta_i ; \theta_k), \sigma_k)$$
-      
-      \vspace{1em}
-      
-      \item Extend to all vertices and subjects:
-  $$  p(V, Z | \alpha, \beta, \theta, \sigma) = \prod_l^L \prod_{(i,j) \in I} N(V_l^{ij} | f(\alpha_i t_{ij} + \beta_i ; \theta_{Z_l}), \sigma_{Z_l}) $$
-
-      \vspace{1em}
-  
-     
-     \end{enumerate}
-     
-
-    %\end{block}
-    \end{column}
-%     \hspace{-3em}
-    \begin{column}{.3\textwidth}
-
-    \vspace{-2em}
-    
-    \begin{figure}
-    \centering
-    \includegraphics[height=1.5cm]{disease_axis.png}
-    \end{figure}
-    
-    \begin{figure}
-    \centering
-    \includegraphics[height=1.5cm, trim=120 0 120 0]{Disease_progression_one_sigmoid_confidence.png}
-    \end{figure}
-    
-    \begin{figure}
-    \centering
-    \includegraphics[height=1.5cm, trim=120 0 120 70]{\outFolder/sigManyBiomkClustering.png}
-    \end{figure}
-
-    %\end{block}
-    \end{column}
-  \end{columns}
-  
-  \vspace{6em}
-  
-%   \begin{itemize}
-% 
-%   
-%   \end{itemize}
-
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}
-\frametitle{Step 4: Marginalise over the Hidden Variables Z (Cluster Assignments)}
-% method slide 3
-
-\begin{columns}[T]
-%     \hspace{-4em}
-    \begin{column}{.7\textwidth} % TODO remove columns here, not needed anymore
-     %\begin{block}{}
-   
-%     \setbeamertemplate{enumerate items}[default]
-     
-%     \textbf{Idea:} Group vertices with similar progression dynamics into clusters\\ 
-%    \vspace{2em}
-%     \textbf{Method outline - continued}:
-   \begin{enumerate}      
-      
-      \item Model disease progression score for one subject $i$ at visit $j$:
-      $$s_{ij} = \alpha_i t_{ij} + \beta_i$$
-      
-      \vspace{1em}
-      
-      \item Model biomarker trajectory of one vertex (point) on the brain:
-      $$p(V_l^{ij} | \alpha_i, \beta_i, \theta_k, \sigma_k) \sim N(f(\alpha_i t_{ij} + \beta_i ; \theta_k), \sigma_k)$$
-      
-      \vspace{1em}
-      
-      \item Extend to all vertices and subjects:
-  $$  p(V, Z | \alpha, \beta, \theta, \sigma) = \prod_l^L \prod_{(i,j) \in I} N(V_l^{ij} | f(\alpha_i t_{ij} + \beta_i ; \theta_{Z_l}), \sigma_{Z_l}) $$
-
-      \vspace{1em}
-  
-      \item Marginalise over the hidden variables $Z_l$ (cluster assignments):
-  \small{$$p(V|\alpha, \beta, \theta, \sigma) = \prod_{l=1}^L \sum_{k=1}^K p(Z_l = k) \prod_{(i,j) \in I} N(V_l^{ij} | f(\alpha_i t_{ij} + \beta_i \ ; \theta_k), \sigma_k)$$}
-     
-     \end{enumerate}
-     
-
-    %\end{block}
-    \end{column}
-%     \hspace{-3em}
-    \begin{column}{.3\textwidth}
-
-    \vspace{-2em}
-    
-    \begin{figure}
-    \centering
-    \includegraphics[height=1.5cm]{disease_axis.png}
-    \end{figure}
-    
-    \begin{figure}
-    \centering
-    \includegraphics[height=1.5cm, trim=120 0 120 0]{Disease_progression_one_sigmoid_confidence.png}
-    \end{figure}
-    
-    \begin{figure}
-    \centering
-    \includegraphics[height=1.5cm, trim=120 0 120 70]{\outFolder/sigManyBiomkClustering.png}
+    \includegraphics[height=2cm, trim=120 0 120 70]{\outFolder/sigManyBiomkClustering.png}
     \end{figure}
 
     %\end{block}
@@ -831,95 +358,6 @@ This leads to a technique that simultaneously:
 
 
 
-\begin{frame}
-\frametitle{Step 5: Modelling Spatial Correlation using Markov Random Fields}
-
-\textbf{Motivation}
-\begin{itemize}
- \item measurements from neighouring vertices are inherently correlated
- \item can "fill-in holes", eliminate noisy cluster assignments due to noise 
-\end{itemize}
-
-
-% MRF extension
-$$ p(V, Z | \alpha, \beta, \theta, \sigma) = \prod_l^L \prod_{(i,j) \in I} N(V_l^{ij} | f(\alpha_i t_{ij} + \beta_i | \theta_{Z_l}), \sigma_{Z_l}) \textcolor{red}{\prod_{l_1 \sim l_2} \Psi (Z_{l_1}, Z_{l_2})}$$
-
-where 
-\begin{itemize}
- \item $
- \Psi (Z_{l_1}=k_1, Z_{l_2}=k_2) = 
- \begin{cases}
-  exp(\lambda) & \text{if } k_1 = k_2\\
-  exp(-\lambda) & \text{otherwise}
- \end{cases}
-$
- \item $\lambda$ - MRF parameter
-\end{itemize}
-
-
-\vspace{-1em}
-
-\begin{figure}
-\begin{subfigure}{0.3\textwidth}
-\centering
- \includegraphics[scale=0.15]{slopeCol_drcThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VWDPMMeanAD.png}
- \caption{Without MRF}
- \end{subfigure}
- \begin{subfigure}{0.3\textwidth}
- \centering
- \includegraphics[scale=0.15]{slopeCol_drcThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VDPM_MRFAD.png}
- \caption{With MRF,  $\alpha = 5$.}
- \end{subfigure}
-\end{figure}
-
-
-
-\end{frame}
-
-
-
-
-
-\begin{frame}[label=current]
-\frametitle{Model Fitting with Expectation-Maximisation (EM)}
-
-% \newcommand{\mycirc}[2]{\draw (#1,#2) circle (3cm);}
-
-% \newcommand{\outFolder}{.}
-% \small{
-    \vspace{-4em}
-    \begin{itemize}
-    \item \textbf{E-step}:
-    \begin{itemize}
-    \item Estimate vertex assignment to clusters $z_{lk}^{(u)} = \zeta_{lk}(\lambda^{(u)})$:
-     
-    $$ \lambda^{(u)} = \argmax_{\lambda}\ \sum_{l=1}^L \sum_{k=1}^K \zeta_{lk}(\lambda) \left[  D_{lk} \  + \lambda \sum_{l_2 \in N_l}  \zeta_{l_2 k}(\lambda)\  -\lambda^2 \sum_{l_2 \in N_l} (1- \zeta_{l_2 k}(\lambda))  \right]$$\\
-    $$    \zeta_{lk}(\lambda) \approx exp \left( D_{lk} +   \sum_{l_2 \in N_l} log\ \left[ exp(-\lambda^2) + z_{l_2k}^{(u-1)} (exp(\lambda) - exp(-\lambda^2)) \right] \right) $$
-    where:
-    $$ D_{lk} = -\frac{1}{2}log\ (2 \pi \left(\sigma_k^{(u)}\right)^2) |I| - \frac{1}{2\left(\sigma_k^{(u)}\right)^2} \sum_{i,j \in I} (V_l^{ij} - f(\alpha_i^{(u)} t_{ij} + \beta_i^{(u)} | \theta_k^{(u)}))^2$$
-        
-    \end{itemize}
-    \item \textbf{M-step}:
-    \begin{itemize}
-     \item Update trajectories:
-     
-     \begin{equation}
- \label{eq:theta}
- \theta_k = \argmin_{\theta_k} \left[\sum_{l=1}^L z_{lk} \sum_{(i,j) \in I} (V_l^{ij} - f(\alpha_i t_{ij} + \beta_i | \theta_k))^2 \right] - log\ p(\theta_k) 
-\end{equation}
-     
-     \item Update subject progression scores:
-     
-     \begin{equation}
-\label{eq:alpha}
- \alpha_i, \beta_i = \argmin_{\alpha_i, \beta_i}  \left[ \sum_{l=1}^L \sum_{k=1}^K z_{lk} \frac{1}{2\sigma_k^2} \sum_{j \in I_i} (V_l^{ij} - f(\alpha_i t_{ij} + \beta_i | \theta_k))^2\right] - log\ p(\alpha_i, \beta_i)
-\end{equation}
-     
-    \end{itemize}
-    \end{itemize}
-\vspace{-3em}
-    
-\end{frame}
 
 
 
@@ -963,7 +401,7 @@ $
 
 
 
-\newcommand{\scalingFactor}{1.2}
+\newcommand{\scalingFactor}{1.1}
 \newcommand{\gradLimLeft}{-1.6}
 \newcommand{\gradLimRight}{1.6}
 
@@ -997,33 +435,33 @@ $
   
 
   
-  \begin{subfigure}[b]{0.25 \textwidth}
+  \begin{subfigure}[b]{0.2 \textwidth}
    \centering
    \Large{ADNI MRI}
   \includegraphics[width=\textwidth,trim=0 0 0 20,clip]{\voxFld/selected_resfiles/adniThick/atrophyExtent24_adniThInitk-meansCl3Pr1Ra1_VDPM_MRF.png}
   \end{subfigure} 
   ~
-  \begin{subfigure}[b]{0.25 \textwidth}
+  \begin{subfigure}[b]{0.2 \textwidth}
    \centering
    \Large{DRC tAD}
   \includegraphics[width=\textwidth,trim=0 0 0 20,clip]{\voxFld/selected_resfiles/drcAD/atrophyExtent24_drcThInitk-meansCl3Pr1Ra1_VDPM_MRFAD.png}
   \end{subfigure}
   \vspace{0.5em}
 
-  \begin{subfigure}[b]{0.25 \textwidth}
+  \begin{subfigure}[b]{0.2 \textwidth}
    \centering
    \Large{DRC PCA}
   \includegraphics[width=\textwidth,trim=0 0 0 20,clip]{\voxFld/selected_resfiles/drcPCA/atrophyExtent24_drcThInitk-meansCl5Pr1Ra1_VDPM_MRFPCA.png}
   \end{subfigure}
   ~
-  \begin{subfigure}[b]{0.25 \textwidth}
+  \begin{subfigure}[b]{0.2 \textwidth}
    \centering
    \Large{ADNI PET AV45}
   \includegraphics[width=\textwidth,trim=0 0 0 20,clip]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}
   \end{subfigure}
   
   \small{Marinescu et al., NeuroImage, 2019}\\
-  \small{source code: https://github.com/mrazvan22/dive}
+  %\small{source code: https://github.com/mrazvan22/dive}
 
 \end{figure}
 
@@ -1124,7 +562,7 @@ $
 
 % \newcommand{\ipmiPaperFold}{.}
 \newcommand{\outFoldADNICVbrains}{../overview/figures_ipmi_paper/crossvalid/adniThavgFWHM0Initk-meansCl3Pr0Ra1_VWDPMMean}
-\newcommand{\scaleFig}{0.16}
+\newcommand{\scaleFig}{0.19}
 
 \begin{frame}
 \frametitle{Validation - Model Robustly Estimates Atrophy Patterns}
@@ -1138,7 +576,7 @@ $
     \centering
     
 %     \newcounter{classnumber}
-    \foreach \n in {0,...,9}{
+    \foreach \n in {1,...,5}{
     \begin{subfigure}[b]{\scaleFig\textwidth}
     \centering
     f=\n \\
@@ -1154,7 +592,7 @@ $
 \vspace{-2em}
 \begin{center}
 \small{Marinescu et al., Neuroimage, 2019}\\
-\small{source code: https://github.com/mrazvan22/dive}
+%\small{source code: https://github.com/mrazvan22/dive}
 \end{center}
 
 \end{frame}
