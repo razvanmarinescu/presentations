@@ -395,7 +395,7 @@ Brain MRI generation (Han, 2018)
 \begin{column}{0.5\textwidth}
 \centering
 
-\textbf{\large Lack of good labels}
+\onslide<1-> \textbf{\large Lack of good labels}
 % \begin{itemize}
 % \item Lack of ground truth 
 
@@ -403,17 +403,17 @@ Brain MRI generation (Han, 2018)
 \begin{itemize}
 %  \item 
 
-\item Alzheimer's diagnosis accuracy just 42\%
+\onslide<1-> \item Alzheimer's diagnosis accuracy just 42\%
 
-\begin{center}
+\onslide<1-> \begin{center}
 \incw{ad_chart_schneider}{0.35}\\ 
 \end{center}
 
 \vspace{2.5em}
 
-\item Labels are categorical instead of continuous\\
+\onslide<2-> \item Labels are categorical instead of continuous\\
 \vo
-\incw{brain_prog_thresh}{1}
+\onslide<2-> \incw{brain_prog_thresh}{1}
 
 \end{itemize}
 
@@ -424,23 +424,23 @@ Brain MRI generation (Han, 2018)
 \begin{column}{0.5\textwidth}
 \centering
 
-\textbf{\large Lack of good input data/signal}
+\onslide<3-> \textbf{\large Lack of good input data/signal}
 \begin{itemize}
-\item Limited contrast
+\onslide<3-> \item Limited contrast
 
 % \begin{itemize}
 % \item Stroke scans with limited contrast
 % \end{itemize}
-\begin{center}
+\onslide<3-> \begin{center}
 \incw{strokescan}{0.55}
 \end{center}
 
 
 \vspace{1em}
 
-\item Low-resolution
+\onslide<4-> \item Low-resolution
 
-\begin{center}
+\onslide<4-> \begin{center}
 \incw{stroke_lowres2}{0.35} 
 \end{center}
 
@@ -652,11 +652,6 @@ to [out=0, in=180]
 \node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
 \node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
 
-
-% \draw[decoration={brace,mirror,raise=5pt},decorate]
-%   (4.5,2.5) -- node[below=6pt] {loss} (6.8,2.5);
-
-
 \node (rng_top_out) at (-1.5,3.5) {};
 \node (center_img_left_in) at (0, 3.5) {};
 
@@ -664,15 +659,7 @@ to [out=0, in=180]
 (rng_top_out)
 to
 (center_img_left_in) ;
-@inproceedings{roth2005fields,
-  title={Fields of experts: A framework for learning image priors},
-  author={Roth, Stefan and Black, Michael J},
-  booktitle={2005 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR'05)},
-  volume={2},
-  pages={860--867},
-  year={2005},
-  organization={IEEE}
-}
+
 \node (left_img_top_out) at (2,3.5) {};
 \node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
 
@@ -684,18 +671,9 @@ to
 \node (left_img_top_in) at (2,2.5) {};
 \node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
 
-% \draw[->, dashed, blue, thick]
-% (right_img_top_out)
-% to [in=-60, out=-120]
-% (left_img_top_in) ;
-
-
 \node (left_img_bot_out) at (0,2.5) {};
 \node (rng_bot_out) at (-1.5, 2.5) {};
-% \draw[->, dashed, red, thick]
-% (rng_bot_out)
-% to [in=-120, out=-60]
-% (left_img_bot_out);
+
 
 % \node (rng_text) at (-0.75,3.75) {$G(w)$};
 \node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
@@ -705,48 +683,11 @@ to
 \node (rng_text) at (2.75,3.25) {\fstikz{Known}};
 \node (rng_text) at (2.75,3) {\fstikz{Corruption}};
 
-% \node (rng_text) at (-0.75,1.75) {\fstikz{Learned a-priori}};
-% \node (rng_text) at (-0.75,1.5) {\fstikz{given High Res Data}};
-% % \node (rng_text) at (-0.75,1.25) {\fstikz{given High Res Data}};
-% 
-% \node (rng_text) at (-0.5,0.75) {\fstikz{Can be redone}};
-% \node (rng_text) at (-0.5,0.5) {\fstikz{using the same $G(w)$}};
-% \node (rng_text) at (-0.5,0.25) {\fstikz{for multiple $f_i$}};
-
-
-% \node (rng_text) at (2.75,1.75) {\fstikz{Optimized at}};
-% \node (rng_text) at (2.75,1.5) {\fstikz{Test Time}};
-
-
-
-% \node (left_img_center_out) at (1,2.5) {};
-% \node (right_bot_out_extra) at (3.9 - 1, 1) {};
-% \draw[->, thick]
-% (left_img_center_out)
-% to [in=90, out=-90]
-% (1,1) 
-% to [out=0, in=180]
-% (right_bot_out_extra);
-% 
-% \node (right_bot_out_extra_2) at (3.9 - 1, 0.5) {};
-% \draw[->, thick]
-% (left_img_center_out)
-% to [in=90, out=-90]
-% (1,0.5) 
-% to [out=0, in=180]
-% (right_bot_out_extra_2);
-
-
-% \node (rng_text) at (1.75,1.25) {$f_2$};
-% \node (rng_text) at (1.75,0.75) {$f_3$};
-% \node (rng_text) at (1.75,0.25) {$\vdots$};
-
-
-% \node (blur_img) at (3.5+0.5, 0.5) {\includegraphics[width=1cm]{\diagfld/brain_kspace.png}};
-% \node (blur_img) at (3.5, 1.0) {\includegraphics[width=1cm,frame]{\diagfld/brain_inpaint}};
-
 \end{tikzpicture}
 }
+
+
+
 
 
 \begin{frame}{What can we do?}
@@ -951,7 +892,7 @@ Solution: Image Reconstruction\\ using Deep Generative Models\\
 \end{frame}
 
 
-% \input{brgm.tex}
+\input{brgm.tex}
 
 
 \begin{frame}{Outline}
@@ -1047,17 +988,19 @@ Simulator for brain anatomy from genetics:
 \begin{frame}{Long-term vision: AI to contribute to all aspects of heathcare}
 
 
-
+\vspace{-2em}
 \begin{columns}[t]
 \begin{column}{0.5\textwidth}
 \centering
 
 
-Early diagnosis and prognosis
-\incw{smartwatch}{0.7}
+Early diagnosis and prognosis\\
+\incw{smartwatch}{0.5}
+
+\vo
 
 AI augumenting humans\\
-\incw{vr}{0.7}
+\incw{vr}{0.5}
 
 
 
@@ -1067,13 +1010,13 @@ AI augumenting humans\\
 \centering
 
 
-Robotic Surgery
-\incw{roboticsurgery}{0.8}
+Robotic Surgery\\
+\incw{roboticsurgery}{0.6}
 
-\vo
+\vspace{1.5em}
 
-Drug development
-\incw{drugdevelopment}{0.8}
+Drug development\\
+\incw{drugdevelopment}{0.6}
 
 
 \end{column}
