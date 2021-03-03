@@ -985,7 +985,7 @@ Simulator for brain anatomy from genetics:
 
 \end{frame}
 
-\begin{frame}{Long-term vision: AI to contribute to all aspects of heathcare}
+\begin{frame}{Long-term vision: AI to make accurate diagnoses and predictions}
 
 
 \vspace{-2em}
@@ -994,13 +994,11 @@ Simulator for brain anatomy from genetics:
 \centering
 
 
-Early diagnosis and prognosis\\
-\incw{smartwatch}{0.5}
+Accurate diagnosis and prognosis\\
+%\incw{ai-diagnosis}{0.9}
+\includegraphics[height=3cm]{ai-diagnosis}
 
-\vo
-
-AI augumenting humans\\
-\incw{vr}{0.5}
+% \vo
 
 
 
@@ -1010,13 +1008,17 @@ AI augumenting humans\\
 \centering
 
 
-Robotic Surgery\\
-\incw{roboticsurgery}{0.6}
+Augument humans\\
+%\incw{ai-assist}{0.9}
+\includegraphics[height=3cm]{ai-assist}
 
-\vspace{1.5em}
-
-Drug development\\
-\incw{drugdevelopment}{0.6}
+% Robotic Surgery\\
+% \incw{roboticsurgery}{0.6}
+% 
+% \vspace{1.5em}
+% 
+% Drug development\\
+% \incw{drugdevelopment}{0.6}
 
 
 \end{column}
@@ -1026,6 +1028,136 @@ Drug development\\
 
 
 \end{frame}
+
+
+\begin{frame}{Conclusion}
+
+
+\vspace{-2em}
+\begin{center}
+\large{\textbf{Key problems in Machine Learning in Medicine}} 
+\end{center}
+
+
+% \vspace{-8em}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+\textbf{\large Lack of good labels}
+
+% \begin{itemize}
+% \item Alzheimer's diagnosis accuracy just 42\%
+% % \begin{itemize}
+% %  \item Infer continuous disease staging
+% %  
+% % %  \incw{severity}{0.7}
+% % \end{itemize}
+% 
+%  \vspace{2em}
+%  
+%  \item Noisy labels
+% % \begin{itemize}
+% %    \item Infer true labels from noisy ones  
+% % \end{itemize}
+% 
+% % \incw{goldstandard}{0.7}
+% \end{itemize}
+
+\vspace{1em}
+
+% \vspace{-4em}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+\textbf{\large Lack of good input data}
+
+% \vspace{-1.5em}
+
+% \begin{itemize}
+% \item Lack of good input data
+% 
+% % \begin{itemize}
+% %   \item Reconstruct better images
+% % \end{itemize}
+% % \incw{strokescan}{0.7}
+% 
+% \vspace{0.5em}
+% 
+% \item Small datasets, inability to scale 
+% % \begin{itemize}
+% % \item Acquire more data
+% % \item Design algorithms for small datasets
+% % % \begin{itemize}
+% % %  \item Transfer learning
+% % %  \item Few-shot or Zero-shot learning
+% % % \end{itemize}
+% % 
+% % \end{itemize}
+% % \incw{imgcount}{0.7}
+% \end{itemize}
+
+\vspace{1em}
+
+
+\end{column}
+\end{columns}
+
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+Solution: Unsupervised Learning through\\
+Disease Progression Modelling\\
+\vo
+
+%Time-series model with\\ latent disease stage\\
+% = Disease Progression Model\\
+%\includegraphics[height=\ovHeight]{\upgradeReportLoc/images/vwdpm/blend14_adniThavgFWHM0InithistCl3Pr0Ra1_VWDPMStd.png}
+\begin{tikzpicture}[scale=1]
+    \node (roi) at (0,0) {\includegraphics[height=1.5cm]{dpm_small}};
+    \node (vw) at (4,0) {\includegraphics[height=1.5cm]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}};
+    \draw[line width=1.5,->] (roi) -> (vw);
+\end{tikzpicture}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+Solution: Image Reconstruction\\ using Deep Generative Models\\
+\vo
+% \includegraphics[height=2cm, trim=6 6 6 6,clip]{brgm_diagram_small}
+\brgmoursshort
+
+\end{column}
+\end{columns}
+ 
+\begin{center}
+ \large{\textbf{Future work}}
+\end{center}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+Disease Progression Modelling over Images
+\incw{daninet}{0.8}
+ 
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+Brain Anatomy Simulator
+ \incw{brainsimulator}{0.8}
+\end{column}
+\end{columns}
+
+
+
+ 
+ 
+\end{frame}
+
 
 
 \begin{frame}
