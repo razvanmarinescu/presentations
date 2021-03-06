@@ -343,12 +343,12 @@ Seeley et al., Neuron, 2009
       
       \vspace{1em}
       
-      \onslide<2-> \item Model biomarker trajectory of one vertex (point) $l$ on the brain:
+      \onslide<2-> \item Model biomarker trajectory of one location $l$ on the brain:
       \onslide<2-> $$p(V_l^{ij} | \alpha_i, \beta_i, \theta_k, \sigma_k) \sim N(f(\alpha_i t_{ij} + \beta_i ; \theta_k), \sigma_k)$$
       
       \vspace{1em}
       
-      \onslide<3-> \item Extend to all vertices and subjects:
+      \onslide<3-> \item Extend to all locations and subjects:
       \onslide<3-> $$  p(V, Z | \alpha, \beta, \theta, \sigma) = \prod_l^L \prod_{(i,j) \in I} N(V_l^{ij} | f(\alpha_i t_{ij} + \beta_i ; \theta_{Z_l}), \sigma_{Z_l}) $$
 
       \vspace{1em}
