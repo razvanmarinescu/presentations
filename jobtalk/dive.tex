@@ -55,13 +55,18 @@
 \onslide<7> \incw{dps_series3}{\sz}
 \onslide<8> \incw{dps_series2}{\sz}
 \onslide<9> \incw{dps_series1}{\sz}
-\onslide<10-> \incw{dps_series0}{\sz}
+\onslide<10> \incw{dps_series0}{\sz}
+\onslide<11-12> \incw{dps_series10}{\sz}
+\onslide<13> \incw{dps_series11}{\sz}
+\onslide<14> \incw{dps_series12}{\sz}
+\onslide<15-> \incw{dps_series13}{\sz}
 \end{overprint}
 \end{center}
 
 \begin{itemize}
 \onslide<11-> \item Can now build population model
 \onslide<12-> \item Early diagnosis
+\onslide<15-> \item More accurate by analyzing all brain regions
 \end{itemize}
 \end{column}
 \begin{column}[t]{0.2\textwidth}
@@ -91,80 +96,14 @@
 
 
 
-% \begin{frame}
-% \frametitle{Previous Disease Progression Models required Brain Segmentation ``a-priori''}
-% 
-% \newcommand{\mnpHeight}{3cm}
-% 
-% \vspace{-3em}
-% % \textbf{Background}:
-% \begin{itemize}
-% %   \item Modelling the progression of Alzheimer's disease can potentially help drug development
-%  \item Several data-driven disease progression models have been recently formulated:
-%  
-% %   \vfill 
-%  
-%  \hspace{-2em}
-%  \begin{small}
-%  \begin{figure}[h]
-%  \centering
-% %    \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
-% %   \centering
-% %    \textbf{Event-Based Model}\\ 
-% %    \begin{subfigure}{0.57\textwidth}
-% %    \vspace{-6em}
-% %    \includegraphics[width=\textwidth,trim=0 0 450 0,clip]{young_progression2}
-% %    
-% % %     \includegraphics[width=\textwidth,trim=450 0 0 0,clip]{young_progression2} 
-% %    \end{subfigure}
-% % %     \vspace{1em}
-% %    \includegraphics[width=0.4\textwidth]{young_positional_variance}
-% %   \end{minipage}
-%   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
-%    \centering
-%    \textbf{Disease Progression Score}\\ 
-%    \includegraphics[width=0.8\textwidth,trim=0 80 0 0, clip]{dps_diagram}
-%   \end{minipage}
-%     \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
-%    \centering
-%    \textbf{Self-Modelling Regression}\\ 
-%    \includegraphics[width=0.8\textwidth]{semor_diagram_cropped}
-%   \end{minipage}
-% 
-% 
-% %   \begin{minipage}[t][\mnpHeight][t]{0.49\linewidth}
-% %    \centering
-% %    \textbf{Manifold-based model}\\ 
-% %    \includegraphics[width=1\textwidth,trim=0 270 0 0, clip]{schiratti}
-% %    
-% %    \vspace{2em}
-% %    
-% %    
-% %   \end{minipage}
-% 
-% 
-%  \end{figure}
-%  \end{small}
-%  
-% %   \vspace{-5em}
-%  
-%  \item Yet, all these models assumed extracted features from contiguous regions (i.e. atlas-based)
-% %  \item We aim to avoid imposing spatial correlation
-%  
-% \end{itemize}
-% 
-% \end{frame}
-
-
-
-
 \begin{frame}
-\frametitle{Aim: Build a disease progression model for voxelwise data}
+\frametitle{Aim: Build a disease progression model for vertexwise data}
 
 
-% \begin{itemize}
-\textbf{Aim}: Move from segmentation-based analysis to voxelwise
-% \end{itemize}
+\textbf{Aim}: Move from segmentation-based analysis to vertexwise
+\begin{itemize}
+ \item vertex = point on the brain surface
+\end{itemize}
 
 \begin{figure}
  \centering
@@ -203,121 +142,33 @@ Seeley et al., Neuron, 2009
 
 \end{frame}
 
+\newcommand{\incht}[2]{\includegraphics[height=#2]{#1}}
 
-
-
-
-
-
-% \begin{frame}
-% \frametitle{Background - Disease Progression Modelling}
-% 
-% \newcommand{\mnpHeight}{3cm}
-% 
-% \vspace{-3em}
-% % \textbf{Background}:
-% \textbf{Voxelwise disease progression model} (Bilgel et al., IPMI, 2015)
-% \begin{itemize}
-%   \item Built on PET data measuring amyloid load at each voxel
-%   \item Estimates a unique trajectory for each voxel
-%   \item However, it uses a spatial correlation function
-% 
-%   \vspace{2em}
-%   \includegraphics[width=0.85\textwidth]{bilgel_neuroimage}
-%   \vspace{2em}
-% 
-% 
-%   
-%   \end{itemize}
-% 
-% 
-% 
-% \end{frame}
-
-
-
-
-
-
-%\begin{frame}
-%\frametitle{Method Idea - Combine Unsupervised Learning and Disease Progression Modelling}
-%% method slide 1
-%
-%\vspace{-1em}
-%
-%\begin{columns}[T]
-%%     \hspace{-2em}
-%  \begin{column}{.47\textwidth}
-%  
-%  \begin{center}
-%   
-%  Only Unsupervised Learning (i.e. Clustering)
-%  
-%%   \hrulefill
-%  
-%  \begin{figure}
-%  \centering
-%  \includegraphics[height=3cm]{clust24_drcThFWHM0Initk-meansCl4Pr0Ra1Mrf5_VDPM_MRFPCA.png}
-%  \end{figure}
-%  \vspace{-1.5em}
-% 
-%  \begin{itemize}
-%   \item Can identify disconnected atrophy patterns \yes
-%   \item No biomarker trajectories \no
-%   \item No disease staging of subjects  \no
-%  \end{itemize}
-%
-% 
-%
-%  
-%  \end{center}  
-%  \end{column}
-%  \hspace{-2em}
-%  \vrule{}
-%  \begin{column}{.47\textwidth}
-%  \begin{center}
-%    
-%  Only Disease Progression Modelling
-%  
-%%   \hrulefill
-%  
-%  \begin{figure}
-%    \centering
-%    \includegraphics[height=3cm,trim=120 0 120 0]{Disease_progression_one_sigmoid_confidence.png}
-%  \end{figure}
-%  \vspace{-1.5em}
-%
-%  \begin{itemize}
-%   \item Cannot identify disconnected atrophy patterns \no
-%   \item Can estimate biomarker trajectories \yes
-%   \item Can estimate subjects disease stages \yes
-%  \end{itemize}
-%
-%  
-%  \end{center}
-%  \end{column}
-%\end{columns}
-%
-%\vspace{1.5em}
-%
-%\begin{itemize}
-%  \item Estimate trajectories for each vertex on the cortical surface
-%  \item Vertex measures pathology (e.g. thickness, amyloid) at that location
-%\end{itemize}
-%
-%
-%\end{frame}
-
-
+\newcommand{\hsp}{\hspace{3em}}
+\newcommand{\hei}{6.5cm}
 
 \begin{frame}[label=current]
-\frametitle{DIVE clusters vertices/voxels with similar trajectories of pathology}
+\frametitle{Our model clusters vertices with similar trajectories of pathology}
 
-\begin{figure}
-\centering
-\includegraphics[height=5.5cm]{vwdpm_diagram.pdf}
-\end{figure}
+\begin{columns}
+\begin{column}{1\textwidth}
 
+\begin{center}
+\begin{overprint}
+\onslide<1> \hsp\incht{vwdpm_series7.pdf}{\hei}
+\onslide<2> \hsp\incht{vwdpm_series6.pdf}{\hei}
+\onslide<3> \hsp\incht{vwdpm_series5.pdf}{\hei}
+\onslide<4> \hsp\incht{vwdpm_series4.pdf}{\hei}
+\onslide<5> \hsp\incht{vwdpm_series3.pdf}{\hei}
+\onslide<6> \hsp\incht{vwdpm_series2.pdf}{\hei}
+\onslide<7-> \hsp\incht{vwdpm_series1.pdf}{\hei}
+\end{overprint}
+\end{center}
+
+\onslide<8-> \textbf{\large Contribution: Model can estimate pathology evolution \textcolor{red}{at each point} on the brain surface}
+
+\end{column}
+\end{columns}
     
 \end{frame}
 
@@ -434,7 +285,7 @@ Seeley et al., Neuron, 2009
 
 
 \begin{frame}
-\frametitle{DIVE Finds Plausible Atrophy Patterns on Four Datasets}
+\frametitle{Our Model Finds Plausible Atrophy Patterns on Four Datasets}
 
 
 
