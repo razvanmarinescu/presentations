@@ -72,8 +72,8 @@
 \begin{column}[t]{0.2\textwidth}
 \vspace{-8em}
 
-\onslide<13-> Previous models:
-\onslide<13-> \begin{itemize}
+\onslide<16-> Previous models:
+\onslide<16-> \begin{itemize}
  \item Jedynak, 2012
  \item Fontejin, 2012 
  \item Donohue, 2014
@@ -83,7 +83,7 @@
 
 \vspace{2em}
 
-\onslide<14-> Limitation: require brain segmentation a-priori
+\onslide<17-> Limitation: require brain segmentation a-priori
 
 \end{column}
 
@@ -120,7 +120,11 @@
 \begin{subfigure}{0.48\textwidth}
 \textbf{Why}:
 \begin{enumerate}
-\item Atrophy correlates with functional networks, which are not spatially connected (Seeley et al., Neuron, 2009)
+\item Atrophy correlates with functional networks, which are spatially disconnected (Seeley et al., 2009)
+\begin{itemize}
+ \item Atrophy = breakdown of neurons
+ \item Functional network = connections between neurons
+\end{itemize}
 \vspace{2em}
 \item Better biomarker prediction and disease staging
 \end{enumerate}
@@ -296,8 +300,8 @@ Seeley et al., Neuron, 2009
 \definecolor{barGreen}{rgb}{0.4,1,0.4}
 
 \begin{itemize}
- \item Similar patterns of tAD atrophy in independent datasets: ADNI and UCL DRC
- \item Distinct patterns of atrophy in different diseases (tAD and PCA) and modalities (MRI vs PET)
+ \item Similar patterns of atrophy in independent Alzheimer's MRI datasets (ADNI vs DRC)
+ \item Distinct patterns of atrophy in different diseases (Alzheimer's vs PCA) and modalities (MRI vs PET)
 \end{itemize}
 
 
@@ -325,26 +329,26 @@ Seeley et al., Neuron, 2009
   
   \begin{subfigure}[b]{0.2 \textwidth}
    \centering
-   \Large{ADNI MRI}
+   \Large{ADNI}
   \includegraphics[width=\textwidth,trim=0 0 0 20,clip]{\voxFld/selected_resfiles/adniThick/atrophyExtent24_adniThInitk-meansCl3Pr1Ra1_VDPM_MRF.png}
   \end{subfigure} 
   ~
   \begin{subfigure}[b]{0.2 \textwidth}
    \centering
-   \Large{DRC tAD}
+   \Large{DRC}
   \includegraphics[width=\textwidth,trim=0 0 0 20,clip]{\voxFld/selected_resfiles/drcAD/atrophyExtent24_drcThInitk-meansCl3Pr1Ra1_VDPM_MRFAD.png}
   \end{subfigure}
   \vspace{0.5em}
 
   \begin{subfigure}[b]{0.2 \textwidth}
    \centering
-   \Large{DRC PCA}
+   \Large{PCA}
   \includegraphics[width=\textwidth,trim=0 0 0 20,clip]{\voxFld/selected_resfiles/drcPCA/atrophyExtent24_drcThInitk-meansCl5Pr1Ra1_VDPM_MRFPCA.png}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{0.2 \textwidth}
    \centering
-   \Large{ADNI PET AV45}
+   \Large{PET}
   \includegraphics[width=\textwidth,trim=0 0 0 20,clip]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}
   \end{subfigure}
   
