@@ -1,0 +1,1369 @@
+\documentclass[8pt,xcolor=table,aspectratio=169]{beamer}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{transparent}
+\usepackage{epstopdf} %converting to PDF
+\usepackage{multicol} 
+\usepackage{animate}[2017/05/18]
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage[thinc]{esdiff}
+
+% \usepackage{pdfx}
+ 
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+\usepackage[table]{xcolor}    % loads also »colortbl« 
+%  \usepackage{enumitem}
+% \usepackage{ucltemplate}
+\usepackage{color}
+
+\usepackage{comment}
+
+\usepackage{tabularx} % make width of table columns evenly distributed (see http://tex.stackexchange.com/questions/60601/evenly-distributing-column-widths)
+% \newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+% make entire row bold or italic in table
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
+\clearrow
+
+
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+
+%\usepackage{pgfgantt} % for grantt charts
+\usepackage{rotating}
+\usepackage[graphicx]{realboxes}
+\usepackage[export]{adjustbox}
+\usepackage{array}
+
+\usepackage{rotating}
+% \usepackage{tabularx, booktabs} % make width of table columns evenly distributed (see http://tex.stackexchange.com/questions/60601/evenly-distributing-column-widths)
+% \newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary{decorations}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows,positioning, shapes.symbols,shapes.callouts,patterns,shapes,chains,calc,backgrounds,fadings}
+
+% \definecolor{parCol}{rgb}{0.1, 0.1, 1}
+% \definecolor{stCol}{rgb}{0.1, 0.6, 0.1}
+% \definecolor{bothCol}{rgb}{0, 0.5, 0.5}
+
+\definecolor{parCol}{rgb}{0, 0, 0}
+\definecolor{stCol}{rgb}{0, 0, 0}
+\definecolor{bothCol}{rgb}{0, 0, 0}
+\definecolor{blue3}{HTML}{86B7FC} % med blue
+\definecolor{blue1}{HTML}{B5F1FF} % light blue
+\definecolor{blue2}{HTML}{E0F9FF} % very light blue
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\setlength{\tabcolsep}{0.2em}
+
+ 
+ %% OVERVIEW OF WORK SO FAR %%
+ 
+%Information to be included in the title page:
+\title{Medical Image Generation and Analysis\\ using\\ Bayesian Generative Models}
+\author[Raz]{
+R\u{a}zvan V. Marinescu\vspace{1em}}
+
+\institute{\small{Massachusetts Institute of Technology}
+
+% \vspace{0em}
+% \small{Centre for Medical Image Computing, University College London, UK}
+}
+
+\date{}
+
+% logo of my university
+\titlegraphic{
+   \begin{figure}
+%    \begin{subfigure}{0.32\textwidth}
+%    \hspace{2em}
+%    \includegraphics[height=1.0cm]{ucl_logo}
+%    \end{subfigure}
+   \begin{subfigure}{0.32\textwidth}
+   \centering
+   \includegraphics[height=1.0cm]{MIT_logo.png} 
+   \end{subfigure}
+%    \begin{subfigure}{0.32\textwidth}
+%    \centering
+%    \includegraphics[height=1.0cm]{pondLogo.png} 
+%    \end{subfigure}
+   \end{figure}
+   
+%    \tiny{Slides available online: https://people.csail.mit.edu/razvan/talk/martinos2019/pres.pdf}
+}
+
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{author in head/foot}{fg=black, bg=white} 
+\setbeamercolor{institute in head/foot}{fg=black, bg=white} 
+\setbeamercolor{title in head/foot}{fg=black, bg=white}
+\setbeamercolor{date in head/foot}{fg=black, bg=white}
+
+\setbeamersize{text margin left=10pt,text margin right=10pt}
+% \setbeamertemplate{frametitle}{
+%     \vspace{0.9em}
+%     \insertframetitle
+% %     \vspace{-3em}
+% }
+\setbeamertemplate{frametitle}{%
+    \vspace{0.5em}
+    \usebeamerfont{frametitle}\insertframetitle%
+    \vphantom{g}% To avoid fluctuations per frame
+    %\hrule% Uncomment to see desired effect, without a full-width hrule
+    \par% <-- added
+    \hspace*{-\dimexpr0.5\paperwidth-0.5\textwidth}% <-- calculation of left margin width
+    \rule[0.5\baselineskip]{\paperwidth}{0.4pt}%
+}
+
+\setbeamertemplate{footline}
+{
+  \vspace{-3em}
+  \leavevmode%
+   \rule{\paperwidth}{0.3pt}
+  \hbox{%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}Razvan V. Marinescu
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{institute in head/foot}%
+    \usebeamerfont{institute in head/foot}razvan@csail.mit.edu
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{institute in head/foot}%
+    \usebeamerfont{institute in head/foot}http://razvan.csail.mit.edu
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertsection
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.10\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% \usepackage{beamerthemesplit}
+
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}
+
+
+\makeatletter
+\long\def\beamer@author[#1]#2{%
+  \def\and{\tabularnewline}
+  \def\insertauthor{\def\inst{\beamer@insttitle}\def\and{\tabularnewline}%
+  \begin{tabular}{rl}#2\end{tabular}}%
+  \def\beamer@shortauthor{#1}%
+  \ifbeamer@autopdfinfo%
+    \def\beamer@andstripped{}%
+    \beamer@stripands#1 \and\relax
+    {\let\inst=\@gobble\let\thanks=\@gobble\def\and{, }\hypersetup{pdfauthor={\beamer@andstripped}}}
+  \fi%
+}
+\makeatother
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{caption}[numbered]
+\setbeamercolor{caption name}{fg=black}
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{itemize subitem}{fg=black}
+\setbeamercolor{enumerate item}{fg=black}
+\setbeamercolor{enumerate subitem}{fg=black}
+\setbeamertemplate{enumerate item}[default]
+\setbeamertemplate{enumerate subitem}[default]
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+\begin{document}
+ 
+\section{Introduction}
+
+\frame{\titlepage}
+ 
+\setbeamerfont{frametitle}{size=\large}
+
+\newcommand{\upgradeReportLoc}{../../upgrade_report}
+\newcommand{\epsrcPresLoc}{\upgradeReportLoc/epsrcPres}
+\newcommand{\jointModellingDiseaseLoc}{../../jointModellingDisease}
+\newcommand{\pcaLongPaperLoc}{../../PCA_long_paper}
+\newcommand{\voxFld}{../../voxelwiseDPM}
+\newcommand{\tadpoleFld}{../../tadpole}
+\newcommand{\diffEqModelFld}{../../diffEqModel}
+
+\newcommand{\outFolder}{../overview/modelDiagram}
+\newcommand{\lw}{0.5mm}
+
+\newcommand{\yes}{{\LARGE \textcolor{green!50!black}{\checkmark} \par}}
+\newcommand{\no}{{\LARGE \textcolor{red}{\xmark} \par}}
+
+
+
+\newcommand*{\pcaLongFigs}{\pcaLongPaperLoc/figures}
+
+
+% \includeonlyframes{1-20}
+%\includeonlyframes{current}
+
+
+
+\newcommand{\ovHeight}{2cm}
+\newcommand{\vo}{\vspace{1em}}
+\newcommand{\vt}{\vspace{2em}}
+\newcommand{\vth}{\vspace{3em}}
+
+
+% % TODO continue with overview, move into commands
+\newcommand{\ovEBM}{
+\begin{subfigure}{0.47\textwidth}
+\centering
+1. Modelled progression of PCA and tAD\\
+(using existing methods)
+\includegraphics[height=\ovHeight]{ebm_thumb.png}
+\end{subfigure}
+}
+
+\newcommand{\ovVWDPM}{
+\begin{subfigure}{0.47\textwidth}
+\centering
+% \vspace{2.8em}
+2. Developed Novel Spatio-temporal Model \\ (DIVE)\\
+\includegraphics[height=\ovHeight]{\upgradeReportLoc/images/vwdpm/blend14_adniThavgFWHM0InithistCl3Pr0Ra1_VWDPMStd.png}
+\end{subfigure}
+}
+
+
+\newcommand{\ovDKT}{
+\begin{subfigure}{0.47\textwidth}
+\centering
+\vspace{2em}
+3. Developed Novel Transfer Learning \\ method (DKT) \\
+\vspace{0.5em}
+\includegraphics[height=2.2cm]{\jointModellingDiseaseLoc/paper/figures/disease_knowledge_transfer.pdf}
+\end{subfigure}
+}
+
+
+\newcommand{\ovTadpole}{
+\begin{subfigure}{0.47\textwidth}
+\centering
+\vspace{-2em}
+4. Organised TADPOLE Competition\\
+\vspace{1em}
+\includegraphics[height=1.2cm,valign=t]{\upgradeReportLoc/epsrcPres/tadpole} 
+\end{subfigure}
+}
+
+\newcommand{\ovPainter}{
+\begin{subfigure}{\textwidth}
+\centering
+\vspace{0.5em}
+5. Created BrainPainter software\\
+\includegraphics[height=1.5cm]{cortical-front_1}\includegraphics[height=1.5cm]{cortical-back_1}\includegraphics[height=1.5cm]{subcortical_1}
+\end{subfigure}
+}
+
+
+\definecolor{light-gray}{gray}{0.6}
+
+
+\newcommand{\inc}[1]{\includegraphics[width=\columnwidth, trim=4 4 4 4, clip]{#1}}
+\newcommand{\incw}[2]{\includegraphics[width=#2\columnwidth, trim=4 4 4 4, clip]{#1}}
+\newcommand{\inch}[2]{\includegraphics[height=#2, trim=4 4 4 4, clip]{#1}}
+
+\begin{frame}{Machine Learning algorithms have achieved impressive milestones}
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+\begin{figure}
+\vspace{-2em}
+
+ Object detection (YOLO)
+ \incw{yolo}{0.7}
+ 
+ \vt
+ 
+  Image Generation (StyleGAN2)
+ \incw{stylegan_small}{0.7}
+\end{figure}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+Text-to-Image Generation (DALL-E)
+\inc{dalle2}
+prompt: ``an armchair in the shape of an avocado''
+
+\vspace{1.5em}
+
+Text generation (GPT-3)
+\inc{gpt3}
+\end{column}
+
+\end{columns}
+
+\vo 
+
+\begin{itemize}
+ \item Largely driven by increases in data and compute
+\end{itemize}
+ 
+\end{frame}
+
+\begin{frame}{Machine Learning holds great promise for improving healthcare}
+
+\begin{columns}
+ \begin{column}[t]{0.5\textwidth}
+ \centering
+ \textbf{\large{Diagnose with unprecedented accuracy}}
+ \vo
+  
+  \includegraphics[width=0.75\columnwidth, trim=0 370 0 0, clip]{ai-diagnosis}
+%  \incw{ml_predict_covid}{0.7} 
+%  \inch{ai_radiology}{1.2cm}\inch{ai_radiology_pic}{1.2cm}
+
+%  \incw{}
+ 
+ \vt
+ 
+%  \textbf{\large{Fast Diagnosis}}
+ \inch{ai_12_ways}{1.3cm}\inch{ai_12_ways_pic}{1.3cm}
+ 
+ 
+ \end{column}
+ \begin{column}[t]{0.5\textwidth}
+ \centering
+ \textbf{\large{Augment doctors}}
+ \vo
+ 
+ \incw{ai_augment}{0.7}
+ \vt
+ 
+ \includegraphics[height=0.9cm, trim=4 4 4 4, clip]{ai_improves_imaging_title2}\includegraphics[height=0.9cm, trim=8 8 8 8, clip]{ai_improves_imaging_photo} 
+ \vspace{2em}
+
+  
+ 
+ \end{column}
+
+\end{columns}
+
+%\begin{center}
+%\textbf{\large{Improve patient healthcare and save lifes}}\\
+%\incw{ai_improves_care}{0.3} 
+%\end{center}
+
+
+ 
+\end{frame}
+
+
+
+\begin{frame}{However, for many medical applications, these promises have not been fulfilled}
+
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+\textbf{\large Prediction of clinical variables not always working} 
+
+\vt
+
+% \begin{itemize}
+No algorithm/33 could predict cognitive scores in Alzheimer's (TADPOLE Challenge, Marinescu 2020)
+% \end{itemize}
+\vspace{2em}
+
+\incw{tadpole_logo}{0.6}
+
+\incw{tadpole_adas}{0.8}
+
+
+
+
+
+% \end{itemize}
+
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+% \begin{itemize}
+\textbf{\large Generated images are crude, not high-resolution, mostly 2D}
+% \end{itemize}
+
+\vt
+
+Brain MRI generation (Han, 2018)
+\begin{figure}
+\inc{brain-gen}
+
+\vo
+
+%Pneumonia segmentation (Wang, 2020)
+%\incw{medseg}{0.7}
+
+% Placenta segmentation (Wang, 2020)
+% \incw{semi-automatic}{0.7}
+
+
+\end{figure}
+\end{column}
+\end{columns}
+
+ 
+ 
+\end{frame}
+
+
+% Of 179 persons (average age, 86.9 years) with probable AD, 87.7% had pathologically confirmed AD, and 45.8% had mixed pathologies, most commonly AD with macroscopic infarcts (n = 54), followed by AD with neocortical LB disease (n = 19) and both (n = 8). 
+% Of the 134 persons with MCI, 54.4% had pathologically diagnosed AD (58.7% amnestic; 49.2% nonamnestic); 19.4% had mixed pathologies (22.7% amnestic; 15.3% nonamnestic). Macroscopic infarcts without pathologically diagnosed AD accounted for 4.5% of probable AD, 13.3% of amnestic MCI, and 18.6% of nonamnestic MCI. Pure neocortical LB disease was uncommon in all persons with cognitive impairment (<6%). Microscopic infarcts (without macroscopic infarcts) were common as a mixed pathology, but rarely accounted for a clinical diagnosis of probable AD (n = 4) or MCI (n = 3).
+
+\begin{frame}{Why are Machine Learning models not working on medical applications?}
+
+\vspace{-1em}
+
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+\onslide<1-> \textbf{\large Lack of good labels}
+% \begin{itemize}
+% \item Lack of ground truth 
+
+% ``Probable'' Alzheimer's disease diagnosis
+\begin{itemize}
+%  \item 
+
+\onslide<1-> \item Alzheimer's diagnosis accuracy just 42\%
+
+\onslide<1-> \begin{center}
+\incw{ad_chart_schneider}{0.35}\\ 
+\end{center}
+
+\vspace{2.5em}
+
+\onslide<2-> \item Labels are categorical instead of continuous\\
+\vo
+\onslide<2-> \incw{brain_prog_thresh}{1}
+
+\end{itemize}
+
+ \vspace{1em}
+ 
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+\onslide<3-> \textbf{\large Lack of good input data/signal}
+\begin{itemize}
+\onslide<3-> \item Limited contrast
+
+% \begin{itemize}
+% \item Stroke scans with limited contrast
+% \end{itemize}
+\onslide<3-> \begin{center}
+\incw{strokescan}{0.55}
+\end{center}
+
+
+\vspace{1em}
+
+\onslide<4-> \item Low-resolution
+
+\onslide<4-> \begin{center}
+\incw{stroke_lowres2}{0.35} 
+\end{center}
+
+
+
+% \item Small datasets, inability to scale 
+% 
+% \begin{itemize}
+% \item most have  $<100$ scans (Maier-Hein, 2018)
+% \end{itemize}
+% \incw{imgcount}{0.7}
+
+
+\end{itemize}
+
+
+\end{column}
+\end{columns}
+
+ 
+ 
+\end{frame}
+
+\newcommand{\diagfld}{brgm_diagram}
+\newcommand{\fstikz}[1]{\footnotesize{#1}}
+
+\newcommand{\dgs}{0.85}
+
+\newcommand{\brgmprev}{
+\begin{tikzpicture}[scale=\dgs, every node/.style={scale=\dgs}]
+
+\def\rightimgX{4.5}
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (cxr_text) at (1,4.75) {\footnotesize{Low Res.}};
+
+%top image left
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{High Res.}};
+
+%top image center
+\node (cxr_img) at (1, 1) {\includegraphics[width=2cm,frame]{\diagfld/brain_inpaint}};
+%top image left
+\node (blur_img) at (\rightimgX, 1) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+
+\node (left_img_top_out_2) at (2,1) {};
+\node (right_img_top_in_2) at (\rightimgX - 1, 1) {};
+
+\draw[->, thick]
+(left_img_top_out_2)
+to
+(right_img_top_in_2) ;
+
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+\node (rng_text) at (2.75,3.75) {$f_1^{-1}$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Learned}};
+\node (rng_text) at (2.75,3) {\fstikz{Inverse}};
+\node (rng_text) at (2.75,2.75) {\fstikz{Corruption}};
+
+\node (rng_text) at (2.75,1.25) {$f_2^{-1}$};
+
+\end{tikzpicture}
+}
+
+\newcommand{\brgmours}{
+\begin{tikzpicture}[scale=\dgs, every node/.style={scale=\dgs}]
+
+\def\rightimgX{4.5}
+
+%Top left
+\filldraw[fill=gray!50!white, draw=black, label={Latent}] (-2,2.5) rectangle (-1.5,4.5);
+\node (rng_text) at (-1.75,4.75) {\footnotesize{Latent}};
+\node (rng_text) at (-1.75,3.5) {$w$};
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+\node (cxr_text) at (1,4.75) {\footnotesize{High Res.}};
+
+%top image right
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
+
+\node (blur_img) at (\rightimgX+2.3, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX+2.3,4.75) {\footnotesize{Input}};
+
+\draw[decoration={brace,mirror,raise=5pt},decorate]
+  (4.5,2.5) -- node[below=6pt] {loss} (6.8,2.5);
+
+
+\node (rng_top_out) at (-1.5,3.5) {};
+\node (center_img_left_in) at (0, 3.5) {};
+
+\draw[->, thick]
+(rng_top_out)
+to
+(center_img_left_in) ;
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+% \draw[->, dashed, blue, thick]
+% (right_img_top_out)
+% to [in=-60, out=-120]
+% (left_img_top_in) ;
+
+
+\node (left_img_bot_out) at (0,2.5) {};
+\node (rng_bot_out) at (-1.5, 2.5) {};
+%\draw[->, dashed, red, thick]
+%(rng_bot_out)
+%to [in=-120, out=-60]
+%(left_img_bot_out);
+
+\node (rng_text) at (-0.75,3.75) {$G(w)$};
+\node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
+\node (rng_text) at (-0.75,3) {\fstikz{Generation}};
+
+\node (rng_text) at (2.75,3.75) {$f_1$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Known}};
+\node (rng_text) at (2.75,3) {\fstikz{Corruption}};
+
+
+\node (left_img_center_out) at (1,2.5) {};
+\node (right_bot_out_extra) at (3.9 - 1, 1) {};
+\draw[->, thick]
+(left_img_center_out)
+to [in=90, out=-90]
+(1,1) 
+to [out=0, in=180]
+(right_bot_out_extra);
+
+\node (right_bot_out_extra_2) at (3.9 - 1, 0.5) {};
+\draw[->, thick]
+(left_img_center_out)
+to [in=90, out=-90]
+(1,0.5) 
+to [out=0, in=180]
+(right_bot_out_extra_2);
+
+
+\node (rng_text) at (1.75,1.25) {$f_2$};
+\node (rng_text) at (1.75,0.75) {$f_3$};
+\node (rng_text) at (1.75,0.25) {$\vdots$};
+
+
+\node (blur_img) at (3.5+0.5, 0.5) {\includegraphics[width=1cm]{\diagfld/brain_kspace.png}};
+\node (blur_img) at (3.5, 1.0) {\includegraphics[width=1cm,frame]{\diagfld/brain_inpaint}};
+
+\end{tikzpicture}
+}
+
+
+\newcommand{\brgmoursshortloss}{
+\begin{tikzpicture}[scale=\dgs, every node/.style={scale=\dgs}]
+
+\def\rightimgX{4.5}
+
+%Top left
+\filldraw[fill=gray!50!white, draw=black, label={Latent}] (-2,2.5) rectangle (-1.5,4.5);
+\node (rng_text) at (-1.75,4.75) {\footnotesize{Latent}};
+\node (rng_text) at (-1.75,3.5) {$w$};
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+\node (cxr_text) at (1,4.75) {\footnotesize{High Res.}};
+
+%top image right
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
+
+\node (blur_img) at (\rightimgX+2.3, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX+2.3,4.75) {\footnotesize{Input}};
+
+\draw[decoration={brace,mirror,raise=5pt},decorate]
+  (4.5,2.5) -- node[below=6pt] {loss} (6.8,2.5);
+
+
+\node (rng_top_out) at (-1.5,3.5) {};
+\node (center_img_left_in) at (0, 3.5) {};
+
+\draw[->, thick]
+(rng_top_out)
+to
+(center_img_left_in) ;
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+% \draw[->, dashed, blue, thick]
+% (right_img_top_out)
+% to [in=-60, out=-120]
+% (left_img_top_in) ;
+
+
+\node (left_img_bot_out) at (0,2.5) {};
+\node (rng_bot_out) at (-1.5, 2.5) {};
+%\draw[->, dashed, red, thick]
+%(rng_bot_out)
+%to [in=-120, out=-60]
+%(left_img_bot_out);
+
+\node (rng_text) at (-0.75,3.75) {$G(w)$};
+\node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
+\node (rng_text) at (-0.75,3) {\fstikz{Generation}};
+
+\node (rng_text) at (2.75,3.75) {$f_1$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Known}};
+\node (rng_text) at (2.75,3) {\fstikz{Corruption}};
+
+
+%\node (left_img_center_out) at (1,2.5) {};
+%\node (right_bot_out_extra) at (3.9 - 1, 1) {};
+%\draw[->, thick]
+%(left_img_center_out)
+%to [in=90, out=-90]
+%(1,1) 
+%to [out=0, in=180]
+%(right_bot_out_extra);
+%
+%\node (right_bot_out_extra_2) at (3.9 - 1, 0.5) {};
+%\draw[->, thick]
+%(left_img_center_out)
+%to [in=90, out=-90]
+%(1,0.5) 
+%to [out=0, in=180]
+%(right_bot_out_extra_2);
+
+
+%\node (rng_text) at (1.75,1.25) {$f_2$};
+%\node (rng_text) at (1.75,0.75) {$f_3$};
+%\node (rng_text) at (1.75,0.25) {$\vdots$};
+%
+%
+%\node (blur_img) at (3.5+0.5, 0.5) {\includegraphics[width=1cm]{\diagfld/brain_kspace.png}};
+%\node (blur_img) at (3.5, 1.0) {\includegraphics[width=1cm,frame]{\diagfld/brain_inpaint}};
+
+\end{tikzpicture}
+}
+
+
+\newcommand{\brgmoursshort}{
+\begin{tikzpicture}[scale=0.75, every node/.style={scale=0.75}]
+
+\def\rightimgX{4.5}
+
+%Top left
+\filldraw[fill=gray!50!white, draw=black, label={Latent}] (-2,2.5) rectangle (-1.5,4.5);
+\node (rng_text) at (-1.75,4.75) {\footnotesize{Latent}};
+\node (rng_text) at (-1.75,3.5) {$w$};
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+\node (cxr_text) at (1,4.75) {\footnotesize{High Res.}};
+
+%top image right
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
+
+\node (rng_top_out) at (-1.5,3.5) {};
+\node (center_img_left_in) at (0, 3.5) {};
+
+\draw[->, thick]
+(rng_top_out)
+to
+(center_img_left_in) ;
+
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+\node (left_img_bot_out) at (0,2.5) {};
+\node (rng_bot_out) at (-1.5, 2.5) {};
+
+
+% \node (rng_text) at (-0.75,3.75) {$G(w)$};
+\node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
+\node (rng_text) at (-0.75,3) {\fstikz{Generation}};
+
+% \node (rng_text) at (2.75,3.75) {$f_1$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Known}};
+\node (rng_text) at (2.75,3) {\fstikz{Corruption}};
+
+\end{tikzpicture}
+}
+
+
+
+
+
+\begin{frame}{What can we do?}
+
+
+%\vspace{-8em}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+\textbf{\large Lack of good labels}
+
+% \begin{itemize}
+% \item Alzheimer's diagnosis accuracy just 42\%
+% % \begin{itemize}
+% %  \item Infer continuous disease staging
+% %  
+% % %  \incw{severity}{0.7}
+% % \end{itemize}
+% 
+%  \vspace{2em}
+%  
+%  \item Noisy labels
+% % \begin{itemize}
+% %    \item Infer true labels from noisy ones  
+% % \end{itemize}
+% 
+% % \incw{goldstandard}{0.7}
+% \end{itemize}
+
+\vspace{2em}
+
+% \vspace{-4em}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+\textbf{\large Lack of good input data/signal}
+
+% \vspace{-1.5em}
+
+% \begin{itemize}
+% \item Lack of good input data
+% 
+% % \begin{itemize}
+% %   \item Reconstruct better images
+% % \end{itemize}
+% % \incw{strokescan}{0.7}
+% 
+% \vspace{0.5em}
+% 
+% \item Small datasets, inability to scale 
+% % \begin{itemize}
+% % \item Acquire more data
+% % \item Design algorithms for small datasets
+% % % \begin{itemize}
+% % %  \item Transfer learning
+% % %  \item Few-shot or Zero-shot learning
+% % % \end{itemize}
+% % 
+% % \end{itemize}
+% % \incw{imgcount}{0.7}
+% \end{itemize}
+
+\vspace{2em}
+
+
+
+
+\end{column}
+\end{columns}
+
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+Solution: Unsupervised Learning of Continuous Dynamics\\
+= Disease Progression Modelling\\
+\vo
+
+%Time-series model with\\ latent disease stage\\
+% = Disease Progression Model\\
+%\includegraphics[height=\ovHeight]{\upgradeReportLoc/images/vwdpm/blend14_adniThavgFWHM0InithistCl3Pr0Ra1_VWDPMStd.png}
+\includegraphics[height=3cm]{dpm_small}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+Solution: Image Reconstruction\\ using Deep Generative Models\\
+\vo
+% \includegraphics[height=2cm, trim=6 6 6 6,clip]{brgm_diagram_small}
+\brgmoursshort
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}{Outline}
+
+
+
+
+\begin{enumerate}
+ \item Disease progression modelling of Alzheimer's disease 
+ \begin{enumerate} 
+  \item Towards unsupervised clustering of biomarker trajectories\\
+ \end{enumerate}
+   
+% \includegraphics[height=2cm]{dpm_small} 
+% \vt 
+%  \item Unsupervised clustering of trajectories
+ 
+   \begin{tikzpicture}[scale=1]
+     \node (roi) at (0,0) {\includegraphics[height=1.5cm]{dpm_small}};
+     \node (vw) at (4,0) {\includegraphics[height=1.5cm]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}};
+     \draw[line width=1.5,->] (roi) -> (vw);
+  \end{tikzpicture}
+  
+  \vt
+
+ \item Image Reconstruction using Deep Generative Models\\
+%  \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\brgmoursshort
+\vt
+ 
+  \item Future work towards brain anatomy simulators\\
+
+\end{enumerate}
+ 
+
+
+\end{frame}
+
+
+\begin{frame}{Outline}
+
+\begin{enumerate}
+ \item \textbf{Disease progression modelling of Alzheimer's disease}
+ \begin{enumerate} 
+  \item Towards unsupervised clustering of biomarker trajectories\\
+ \end{enumerate}
+   
+% \includegraphics[height=2cm]{dpm_small} 
+% \vt 
+%  \item Unsupervised clustering of trajectories
+ 
+   \begin{tikzpicture}[scale=1]
+     \node (roi) at (0,0) {\includegraphics[height=1.5cm]{dpm_small}};
+     \node (vw) at (4,0) {\includegraphics[height=1.5cm]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}};
+     \draw[line width=1.5,->] (roi) -> (vw);
+  \end{tikzpicture}
+  
+  \vt
+
+ \item Image Reconstruction using Deep Generative Models\\
+%  \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\brgmoursshort
+\vt
+ 
+  \item Future work towards brain anatomy simulators\\
+
+
+\end{enumerate}
+\end{frame}
+
+
+ %\input{dive.tex}
+
+
+\begin{frame}{Outline}
+
+\begin{enumerate}
+ \item Disease progression modelling of Alzheimer's disease
+ \begin{enumerate} 
+  \item Towards unsupervised clustering of biomarker trajectories\\
+ \end{enumerate}
+   
+% \includegraphics[height=2cm]{dpm_small} 
+% \vt 
+%  \item Unsupervised clustering of trajectories
+ 
+   \begin{tikzpicture}[scale=1]
+     \node (roi) at (0,0) {\includegraphics[height=1.5cm]{dpm_small}};
+     \node (vw) at (4,0) {\includegraphics[height=1.5cm]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}};
+     \draw[line width=1.5,->] (roi) -> (vw);
+  \end{tikzpicture}
+  
+  \vt
+
+ \item \textbf{Image Reconstruction using Deep Generative Models}\\
+%  \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\brgmoursshort
+\vt
+ 
+  \item Future work towards brain anatomy simulators\\
+
+
+\end{enumerate}
+\end{frame}
+
+
+ \input{brgm.tex}
+
+\begin{frame}{3D-StyleGAN}
+
+
+
+\begin{columns}
+\begin{column}[t]{0.5\textwidth}
+\begin{itemize}
+ \item Extended StyleGAN2 to 3D
+ \item Fixed problems related to GPU memory 
+ \item Working on 2mm resolution, but on 1mm not yet
+\end{itemize}
+
+\centering
+\onslide<2-> 3D-StyleGAN
+\onslide<2-> \incw{3dstylegan}{0.8}\\
+(submitted to MICCAI 2021)
+\end{column}
+\begin{column}[t]{0.5\textwidth}
+
+\begin{itemize}
+\onslide<3-> \item In future, model progression in 3D brain image space.   
+\end{itemize}
+\vt
+
+\centering
+\onslide<3-> Disease Progression Modelling
+\onslide<3-> \incw{daninet}{1}
+\end{column}
+\end{columns}
+
+
+\begin{center}
+
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Outline}
+
+\begin{enumerate}
+ \item Disease progression modelling of Alzheimer's disease
+ \begin{enumerate} 
+  \item Towards unsupervised clustering of biomarker trajectories\\
+ \end{enumerate}
+   
+% \includegraphics[height=2cm]{dpm_small} 
+% \vt 
+%  \item Unsupervised clustering of trajectories
+ 
+   \begin{tikzpicture}[scale=1]
+     \node (roi) at (0,0) {\includegraphics[height=1.5cm]{dpm_small}};
+     \node (vw) at (4,0) {\includegraphics[height=1.5cm]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}};
+     \draw[line width=1.5,->] (roi) -> (vw);
+  \end{tikzpicture}
+  
+  \vt
+
+ \item Image Reconstruction using Deep Generative Models\\
+%  \includegraphics[height=1.5cm, trim=6 6 300 6,clip]{brgm_diagram_small}
+\brgmoursshort
+\vt
+ 
+  \item \textbf{Future work towards brain anatomy simulators}\\
+
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Long-term vision}
+
+\vspace{-2em}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+\textbf{\large Accurate diagnosis and prognosis through AI}\\
+\includegraphics[height=4.3cm]{ai-diagnosis}
+
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+\textbf{\large AI to augment doctors}\\
+\includegraphics[height=4.3cm]{ai_augment_full}
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}{Future work}
+
+
+\vspace{-2em}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+Biological simulators\\
+\incw{heartsim}{0.5}
+
+\vt
+\vt
+
+Multimodal modelling\\
+images + text + structural data  
+\incw{xray}{0.3}\incw{medreport}{0.267}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+Better and faster reconstruction of medical images\\
+\incw{mri_recon}{0.8}
+
+\vt
+\vt
+
+Disease Progression Modelling
+\incw{daninet}{1}
+
+% \vo
+
+% Domain knowledge from large-scale parsing of medical articles\\
+% \incw{lotsoftext}{0.4}
+
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+\begin{frame}{Future work: Brain tissue and anatomy simulator}
+
+
+Simulator for brain anatomy from genetics:
+\begin{itemize}
+ \item Using deep generative models
+ \item Accounting for distributions shifts
+ \item Following causal principles
+\end{itemize}
+
+\vt
+
+\incw{brainsimulator}{0.9}
+
+\end{frame}
+
+
+
+\begin{frame}{Conclusion}
+
+
+% \vspace{-2em}
+% \begin{center}
+% \large{\textbf{Key problems in Machine Learning in Medicine}} 
+% \end{center}
+
+
+% \vspace{-8em}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+\textbf{\large Problem: Lack of good labels}
+
+
+\vspace{1em}
+
+% \vspace{-4em}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+\textbf{\large Problem: Lack of good input data}
+
+
+\vspace{1em}
+
+
+\end{column}
+\end{columns}
+
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+
+\onslide<2-> Solution: Unsupervised Learning through\\
+\onslide<2-> Disease Progression Modelling\\
+\vo
+
+%Time-series model with\\ latent disease stage\\
+% = Disease Progression Model\\
+%\includegraphics[height=\ovHeight]{\upgradeReportLoc/images/vwdpm/blend14_adniThavgFWHM0InithistCl3Pr0Ra1_VWDPMStd.png}
+\onslide<2-> \begin{tikzpicture}[scale=1]
+    \node (roi) at (0,0) {\includegraphics[height=1.5cm]{dpm_small}};
+    \node (vw) at (4,0) {\includegraphics[height=1.5cm]{\voxFld/selected_resfiles/adniPet/atrophyExtent24_adniPetInitk-meansCl18Pr1Ra1_VDPM_MRF.png}};
+    \draw[line width=1.5,->] (roi) -> (vw);
+\end{tikzpicture}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+
+\onslide<2-> Solution: Image Reconstruction\\ using \onslide<2-> Deep Generative Models\\
+\vo
+% \includegraphics[height=2cm, trim=6 6 6 6,clip]{brgm_diagram_small}
+\onslide<2-> \brgmoursshort
+
+\end{column}
+\end{columns}
+ 
+\begin{center}
+\onslide<3-> \large{\textbf{Long-term vision}}
+\end{center}
+\vspace{-1em}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+% Disease Progression Modelling over Images
+% \incw{daninet}{0.8}
+
+\onslide<3-> \textbf{\large Accurate diagnosis and prognosis through AI}\\
+\onslide<3-> \includegraphics[height=2cm, trim=0 400 0 0,clip]{ai-diagnosis}
+ 
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+% Brain Anatomy Simulator
+%  \incw{brainsimulator}{0.8}
+
+\onslide<3-> \textbf{\large AI to augment doctors}\\
+\onslide<3->\includegraphics[height=2cm]{ai_augment}
+\end{column}
+\end{columns}
+
+
+ 
+\end{frame}
+
+
+
+% \begin{frame}
+% \frametitle{Step 5: Modelling Spatial Correlation using Markov Random Fields}
+% 
+% \textbf{Motivation}
+% \begin{itemize}
+%  \item measurements from neighouring vertices are inherently correlated
+%  \item can "fill-in holes", eliminate noisy cluster assignments due to noise 
+% \end{itemize}
+% 
+% 
+% % MRF extension
+% $$ p(V, Z | \alpha, \beta, \theta, \sigma) = \prod_l^L \prod_{(i,j) \in I} N(V_l^{ij} | f(\alpha_i t_{ij} + \beta_i | \theta_{Z_l}), \sigma_{Z_l}) \textcolor{red}{\prod_{l_1 \sim l_2} \Psi (Z_{l_1}, Z_{l_2})}$$
+% 
+% where 
+% \begin{itemize}
+%  \item $
+%  \Psi (Z_{l_1}=k_1, Z_{l_2}=k_2) = 
+%  \begin{cases}
+%   exp(\lambda) & \text{if } k_1 = k_2\\
+%   exp(-\lambda) & \text{otherwise}
+%  \end{cases}
+% $
+%  \item $\lambda$ - MRF parameter
+% \end{itemize}
+% 
+% 
+% \vspace{-1em}
+% 
+% \begin{figure}
+% \begin{subfigure}{0.3\textwidth}
+% \centering
+%  \includegraphics[scale=0.15]{slopeCol_drcThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VWDPMMeanAD.png}
+%  \caption{Without MRF}
+%  \end{subfigure}
+%  \begin{subfigure}{0.3\textwidth}
+%  \centering
+%  \includegraphics[scale=0.15]{slopeCol_drcThFWHM0Initk-meansCl3Pr0Ra1Mrf5_VDPM_MRFAD.png}
+%  \caption{With MRF,  $\alpha = 5$.}
+%  \end{subfigure}
+% \end{figure}
+% 
+% 
+% 
+% \end{frame}
+% 
+% 
+% 
+% \begin{frame}[label=current]
+% \frametitle{Model Fitting with Expectation-Maximisation (EM)}
+% 
+% % \newcommand{\mycirc}[2]{\draw (#1,#2) circle (3cm);}
+% 
+% % \newcommand{\outFolder}{.}
+% % \small{
+%     \vspace{-4em}
+%     \begin{itemize}
+%     \item \textbf{E-step}:
+%     \begin{itemize}
+%     \item Estimate vertex assignment to clusters $z_{lk}^{(u)} = \zeta_{lk}(\lambda^{(u)})$:
+%      
+%     $$ \lambda^{(u)} = \argmax_{\lambda}\ \sum_{l=1}^L \sum_{k=1}^K \zeta_{lk}(\lambda) \left[  D_{lk} \  + \lambda \sum_{l_2 \in N_l}  \zeta_{l_2 k}(\lambda)\  -\lambda^2 \sum_{l_2 \in N_l} (1- \zeta_{l_2 k}(\lambda))  \right]$$\\
+%     $$    \zeta_{lk}(\lambda) \approx exp \left( D_{lk} +   \sum_{l_2 \in N_l} log\ \left[ exp(-\lambda^2) + z_{l_2k}^{(u-1)} (exp(\lambda) - exp(-\lambda^2)) \right] \right) $$
+%     where:
+%     $$ D_{lk} = -\frac{1}{2}log\ (2 \pi \left(\sigma_k^{(u)}\right)^2) |I| - \frac{1}{2\left(\sigma_k^{(u)}\right)^2} \sum_{i,j \in I} (V_l^{ij} - f(\alpha_i^{(u)} t_{ij} + \beta_i^{(u)} | \theta_k^{(u)}))^2$$
+%         
+%     \end{itemize}
+%     \item \textbf{M-step}:
+%     \begin{itemize}
+%      \item Update trajectories:
+%      
+%      \begin{equation}
+%  \label{eq:theta}
+%  \theta_k = \argmin_{\theta_k} \left[\sum_{l=1}^L z_{lk} \sum_{(i,j) \in I} (V_l^{ij} - f(\alpha_i t_{ij} + \beta_i | \theta_k))^2 \right] - log\ p(\theta_k) 
+% \end{equation}
+%      
+%      \item Update subject progression scores:
+%      
+%      \begin{equation}
+% \label{eq:alpha}
+%  \alpha_i, \beta_i = \argmin_{\alpha_i, \beta_i}  \left[ \sum_{l=1}^L \sum_{k=1}^K z_{lk} \frac{1}{2\sigma_k^2} \sum_{j \in I_i} (V_l^{ij} - f(\alpha_i t_{ij} + \beta_i | \theta_k))^2\right] - log\ p(\alpha_i, \beta_i)
+% \end{equation}
+%      
+%     \end{itemize}
+%     \end{itemize}
+% \vspace{-3em}
+%     
+% \end{frame}
+
+
+\end{document}
+
+
+

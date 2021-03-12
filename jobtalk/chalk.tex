@@ -199,7 +199,7 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
  
 \section{Introduction}
 
-\frame{\titlepage}
+%\frame{\titlepage}
  
 \setbeamerfont{frametitle}{size=\large}
 
@@ -239,7 +239,7 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
 \begin{column}{0.5\textwidth}
 \centering
 
-\textbf{\large Accurate diagnosis and prognosis through AI}\\
+\textbf{\large Accurate diagnosis and prognosis through ML}\\
 \includegraphics[height=4.3cm]{ai-diagnosis}
 
 
@@ -247,7 +247,7 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
 \begin{column}{0.5\textwidth}
 \centering
 
-\textbf{\large AI to augment humans}\\
+\textbf{\large ML to augment doctors}\\
 \includegraphics[height=4.3cm]{ai_augment_full}
 
 \end{column}
@@ -265,8 +265,9 @@ R\u{a}zvan V. Marinescu\vspace{1em}}
 \begin{column}{0.5\textwidth}
 \centering
 
-Biological simulators\\
-\incw{heartsim}{0.5}
+Biological anatomy simulators\\
+%\incw{heartsim}{0.5}
+\incw{brain_sim}{0.3}
 
 \vt
 \vt
@@ -300,6 +301,12 @@ Disease Progression Modelling
 \end{frame}
 
 
+\newcommand{\tco}[1]{\textcolor{blue}{#1}}
+\newcommand{\tct}[1]{\textcolor{red}{#1}}
+\newcommand{\tcu}[1]{\textcolor{gray}{#1}}
+\newcommand{\tcv}[1]{\textcolor{orange}{#1}}
+\newcommand{\tcw}[1]{\textcolor{purple}{#1}}
+
 \begin{frame}{Future work: Brain tissue and anatomy simulator}
 
 
@@ -310,9 +317,12 @@ Simulator for brain anatomy from genetics:
  \item Following causal principles
 \end{itemize}
 
-\vt
+%\vt
 
 \incw{brainsimulator}{0.9}
+
+\onslide<2-> Can compute posterior over any variable, e.g. posterior over PET given motion corrupted (MOT) scan:
+\onslide<2-> $$ p(\tct{PET}|\tco{MOT}) = \sum_{\tcu{GEN}} p(\tcu{GEN}) p(\tct{PET}|\tcu{GEN}) \sum_{\tcv{MRI}} p(\tcv{MRI}|\tcu{GEN}) \sum_{\tcw{T1}} p(\tcw{T1} | \tcv{MRI}) p(\tco{MOT}|\tcw{T1}) $$
 
 \end{frame}
 
@@ -321,23 +331,28 @@ Simulator for brain anatomy from genetics:
 %\end{frame}
 
 
+
 \begin{frame}{Multimodal modelling}
 
+%\vspace{-1cm}
+
 \begin{itemize}
-\item Modalities: scan contrasts (T1/T2), Diffusion imaging, PET, diagnostic report
-\onslide<3-> \item Later on, replace latent with genetics and covariates
+\item Extend models for multimodal generation: scan contrasts (T1/T2), Diffusion imaging, PET, diagnostic report, cognitive tests
+\onslide<3-> $$\min_G\; \max_D\; \mathbb{E}_{\tco{X},\tct{Y}}[log\ D(\tco{X},\tct{Y})] + \mathbb{E}_z[log (1 - D(\tco{G_x(z)}, \tct{G_y(z)}))] $$
+\onslide<4-> \item Later on, replace latent with genetics and covariates
 \end{itemize}
+%\vspace{0.5cm}
 
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \centering
 \onslide<2-> Generic latent space\\
-\onslide<2-> \incw{future_multimodal}{0.5}
+\onslide<2-> \inch{future_multimodal}{4.8cm}
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
-\onslide<3-> Genetics as latent space\\
-\onslide<3-> \incw{future_multimodal_part2}{0.5}
+\onslide<4-> Instantiated latent space\\
+\onslide<4-> \inch{future_multimodal_part2}{4.8cm}
 \end{column}
 \end{columns}
 
@@ -348,9 +363,12 @@ Simulator for brain anatomy from genetics:
 
 \begin{itemize}
 \item Current models mostly work with features extracted from scans (low dimensionality)
-\item Aim: make models work with raw, 3D scans
-\item First  build a good 3D brain scan generator
-\item Then estimate progression over time
+\item Aim: model progression \textbf{directly in the space of 3D MRI scans}
+\begin{enumerate}
+ \onslide<2-> \item Build a good 3D brain MRI generator
+ \onslide<3-> \item Estimate progression over time, e.g. through a conditional variable
+\end{enumerate}
+ \onslide<3->  $$\min_G\; \max_D\; \mathbb{E}_{X,a}[log\ D(X,\tct{a})] + \mathbb{E}_{z,\tct{a}}[log (1 - D(G(z,\tct{a})))] $$
 \end{itemize}
 
 \vo
@@ -358,21 +376,16 @@ Simulator for brain anatomy from genetics:
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \centering
-3D-StyleGAN
-\incw{3dstylegan}{0.8}\\
-(submitted to MICCAI, 2021)
+\onslide<2-> 3D-StyleGAN
+\onslide<2-> \incw{3dstylegan}{0.8}\\
+(submitted to MICCAI 2021)
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
-Disease Progression Modelling
-\incw{daninet}{1}
+\onslide<3-> Disease Progression Modelling
+\onslide<3-> \incw{daninet}{1}
 \end{column}
 \end{columns}
-
-%\begin{center}
-%
-%\end{center}
-
 
 
 \end{frame}
