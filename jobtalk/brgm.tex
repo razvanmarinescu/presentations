@@ -149,145 +149,172 @@ to
 
 \end{frame}
 
-%\begin{frame}{Current image reconstruction methods have several limitations}
-%
-%
-%\begin{columns}
-% \begin{column}{0.5\textwidth}
-%
-% \begin{itemize}
-% \item Require large computational resources and data
-% 
-% \vt
-% 
-% \item Are specific to particular corruption tasks
-% 
-% \vt 
-% 
-% \item Cannot deal with distribution shifts:
-% \begin{itemize}
-%   \item in inputs: e.g. older populations
-%   \item in corruption type: e.g. change in blur kernel
-% \end{itemize}
-% 
-%  
-% \end{itemize}
-%
-% \end{column}
-%
-% \begin{column}{0.5\textwidth}
-%  \centering
-%%\incw{task-specific}{0.8}
-% \brgmprev  
-%  
-% \end{column}
-%\end{columns} 
-%
-% 
-%\end{frame}
-%
-%
-%
-%\begin{frame}{Limitation 1: State-of-the-art DL methods have large computational requirements}
-%
-%\begin{itemize}
-%\item Requirements = Computation Time + Advanced Hardware + Large Datasets
-%
-%\vo 
-%
-%\item Most computation now runs on clouds\\ 
-%%  \begin{itemize}
-%%  \item Large computational resources
-%%  \item Large datasets
-%%  \item Long time to converge
-%% \end{itemize}
-%
-% \incw{datacenter}{0.5}
-%
-%\vo
-%
-% \item Currently few labs/companies have the resources to train state-of-the-art models
-% \begin{itemize}
-%  \item StyleGAN2: 9 days on 4 GPUs
-%  \item GPT-3: 355 years on single GPU
-% \end{itemize}
-%
-% 
-%\vo
-%
-%
-%\vo
-% \item Solutions moving forward:
-% \begin{itemize}
-%\item Adapting previously-trained models
-%\item Combine smaller models into larger ones
-%\end{itemize}
-%\end{itemize}
-%
-% 
-%\end{frame}
-%
-%\begin{frame}{Limitation 2: Distribution shifts require model re-training}
-%
-%
-%\begin{itemize}
-% \item Distribution shifts happen all the time:
-% \begin{itemize}
-% \item Changes in hospital scanners, protocols, software upgrades
-% \item Can be continuous: population getting older due to better healthcare
-%\end{itemize}
-%
-%\vt
-% \item Shifts can result in combinatorial effects in number of re-training instances!
-%
-%\vt
-% 
-% \item Compositionality is one potential solution
-% 
-%\end{itemize}
-%% \vspace{1em}
-%
-%\begin{center}
-%\incw{compositionality}{1}
-%\end{center}
-% 
-%\end{frame}
-%
-%
-%\begin{frame}{Limitation 3: Models are anti-causal}
-%
-%
-%\begin{itemize}
-% \item Existing model don't follow the data-generation process
-%\begin{itemize}
-%   \item Discriminative modelling easier than generative
-%\end{itemize}
-%
-% \vo
-% 
-%  
-% \vo 
-% 
-% \item Causal modelling is the \textbf{right solution} to deal with distribution shifts
-% 
-% \vo
-% 
-%%  \begin{itemize}
-%%  \item Both for inputs and intermediary variables
-%% \end{itemize}
-%\end{itemize}
-%
-%
-%\begin{center}
-%\incw{causality}{0.8}
-%\end{center}
-% 
-%\end{frame}
+\begin{frame}{Current image reconstruction methods have several limitations}
 
 
-\begin{frame}{}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+
+\begin{itemize}
+\item Require large computational resources and data
+
+\vt
+
+\item Are specific to particular corruption tasks
+
+\vt 
+
+\item Cannot deal with distribution shifts:
+\begin{itemize}
+  \item in inputs: e.g. older populations
+  \item in corruption type: e.g. change in blur kernel
+\end{itemize}
+
+\vt
+
+\item Are anti-causal, so they don't follow the data-generation process 
+
+ 
+\end{itemize}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+ \centering
+%\incw{task-specific}{0.8}
+\brgmprev  
+ 
+\end{column}
+\end{columns} 
+
 
 \end{frame}
+
+
+
+\begin{frame}{Limitation 1: State-of-the-art DL methods have large computational requirements}
+
+\begin{itemize}
+\item Requirements = Computation Time + Advanced Hardware + Large Datasets
+
+\vo 
+
+\item Most computation now runs on clouds\\ 
+%  \begin{itemize}
+%  \item Large computational resources
+%  \item Large datasets
+%  \item Long time to converge
+% \end{itemize}
+
+\incw{datacenter}{0.5}
+
+\vo
+
+\item Currently few labs/companies have the resources to train state-of-the-art models
+\begin{itemize}
+ \item StyleGAN2: 9 days on 4 GPUs
+ \item GPT-3: 355 years on single GPU
+\end{itemize}
+
+
+\vo
+
+
+\vo
+\item Solutions moving forward:
+\begin{itemize}
+\item Adapting previously-trained models
+\item Combine smaller models into larger ones
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Limitation 2: Distribution shifts require model re-training}
+
+
+\begin{itemize}
+\item Distribution shifts happen all the time:
+\begin{itemize}
+\item Changes in hospital scanners, protocols, software upgrades
+\item Can be continuous: population getting older due to better healthcare
+\end{itemize}
+
+\vt
+\item Shifts can result in combinatorial effects in number of re-training instances!
+
+\vt
+
+\item Compositionality is one potential solution
+
+\end{itemize}
+% \vspace{1em}
+
+\begin{center}
+\incw{compositionality}{1}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}{Limitation 3: Models are anti-causal}
+
+
+\begin{itemize}
+\item Existing model don't follow the data-generation process
+\begin{itemize}
+  \item Discriminative modelling easier than generative
+\end{itemize}
+
+\vo
+
+ 
+\vo 
+
+\item Causal modelling is the \textbf{right solution} to deal with distribution shifts
+
+\vo
+
+%  \begin{itemize}
+%  \item Both for inputs and intermediary variables
+% \end{itemize}
+\end{itemize}
+
+
+\begin{center}
+\incw{causality}{0.8}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}{Recent models can perform image reconstruction using \textbf{pre-trained} generative models}
+ 
+\begin{columns}[t]
+ \begin{column}{0.6\textwidth}
+\centering
+Image2StyleGAN++ (Abdal et al, 2020)\\
+\inch{image2stylegan}{3cm}
+ \end{column}
+
+ \begin{column}{0.3\textwidth}
+  \centering
+  PULSE (Menon et al, 2020)\\
+\inch{pulse}{3cm}
+ 
+ \end{column}
+\end{columns} 
+
+\vspace{2em}
+
+\begin{itemize}
+ \item These methods can generalise for any corruption process, because they don't use an embedder network
+ \item \textcolor{red}{Cannot characterize \textbf{uncertainty} and recover \textbf{multiple solutions}}
+ \item We will aim to construct a Bayesian formulation that can fully characterize the posterior over all potential solutions
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Method: We perform image reconstruction by combining two models\\
 % \begin{itemize}
@@ -492,13 +519,14 @@ $$ w^* = \argmin_w || I - f \circ G (w) ||_2^2$$
  \item On larger resolutions ($>$32x32), we achieve very good results, albeit not SOTA
 \end{itemize}
 
-\vspace{-1em}
 
-\begin{center}
-% \vo
+\begin{columns}[t]
+ \begin{column}{1\textwidth}
+ \centering
 \incw{srmed}{0.5}\\
-\small{Marinescu et al, arXiv, 2020}
-\end{center}
+\small{Marinescu et al, arXiv, 2020}\\
+ \end{column}
+\end{columns}
  
 \end{frame}
 
@@ -564,15 +592,50 @@ Human evaluation\\
 \incw{human_eval}{0.6}
 
 \end{column}
-
- 
 \end{columns}
 
 
+\end{frame}
 
+\begin{frame}{Sampling multiple reconstructions through Variational Inference}
+ 
+ \begin{itemize}
+  \item Variational inference can allows us to sample from the posterior distribution:
+%    $$\theta^* = \argmin_\theta KL[q(w|\theta)||p(w|I)] = $$
+$$\theta^* = \argmin_{\theta} KL\left[q(w|\theta)||p(w|I)\right] = \argmin_{\theta} \int q(w|\theta)\ log\ \frac{q(w|\theta)}{p(w)p(I|w)} dw$$
+%    \incw{vi_eq1}{0.6}
+   
+   
+   \item We approximate the integral using Monte Carlo samples $w^{(i)}$ taken from $q(w|\theta)$
+%    \incw{vi_eq2}{0.5}
+$$\theta^* = \argmin_{\theta} \sum_{i=1}^n log\ q(w^{(i)}|\theta) - log\ p(w^{(i)}) -  log\  p(I|w^{(i)})$$
+
+ \end{itemize}
+ 
+ \begin{center}
+\incw{vi_demo}{0.7}\\
+
+Marinescu et. al., 2020
+ \end{center}
 
  
+ 
 \end{frame}
+
+
+\begin{frame}{More examples using Variational Inference}
+ 
+\begin{center}
+ \incw{vi_examples}{0.6}
+ 
+\end{center}
+
+ 
+ 
+\end{frame}
+
+
+
 
 \begin{frame}{Our method also has limitations that we plan to address}
 
