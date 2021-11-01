@@ -1,0 +1,1177 @@
+\documentclass[8pt,xcolor=table,aspectratio=169]{beamer}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{transparent}
+\usepackage{epstopdf} %converting to PDF
+\usepackage{multicol} 
+\usepackage{animate}[2017/05/18]
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{esdiff}
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage[thinc]{esdiff}
+
+% \usepackage{pdfx}
+ 
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+\usepackage[table]{xcolor}    % loads also »colortbl« 
+%  \usepackage{enumitem}
+% \usepackage{ucltemplate}
+\usepackage{color}
+
+\usepackage{comment}
+
+\usepackage{tabularx} % make width of table columns evenly distributed (see http://tex.stackexchange.com/questions/60601/evenly-distributing-column-widths)
+% \newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+% make entire row bold or italic in table
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
+\clearrow
+
+
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+
+%\usepackage{pgfgantt} % for grantt charts
+\usepackage{rotating}
+\usepackage[graphicx]{realboxes}
+\usepackage[export]{adjustbox}
+\usepackage{array}
+
+\usepackage{rotating}
+% \usepackage{tabularx, booktabs} % make width of table columns evenly distributed (see http://tex.stackexchange.com/questions/60601/evenly-distributing-column-widths)
+% \newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary{decorations}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows,positioning, shapes.symbols,shapes.callouts,patterns,shapes,chains,calc,backgrounds,fadings}
+
+% \definecolor{parCol}{rgb}{0.1, 0.1, 1}
+% \definecolor{stCol}{rgb}{0.1, 0.6, 0.1}
+% \definecolor{bothCol}{rgb}{0, 0.5, 0.5}
+
+\definecolor{parCol}{rgb}{0, 0, 0}
+\definecolor{stCol}{rgb}{0, 0, 0}
+\definecolor{bothCol}{rgb}{0, 0, 0}
+\definecolor{blue3}{HTML}{86B7FC} % med blue
+\definecolor{blue1}{HTML}{B5F1FF} % light blue
+\definecolor{blue2}{HTML}{E0F9FF} % very light blue
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\setlength{\tabcolsep}{0.2em}
+
+ 
+ %% OVERVIEW OF WORK SO FAR %%
+ 
+%Information to be included in the title page:
+\title{Bayesian Image Reconstruction using Deep Generative Models}
+\author[Raz]{
+R\u{a}zvan V. Marinescu\vspace{1em}
+\and
+Daniel Moyer\vspace{1em}
+\and
+Polina Golland\vspace{1em}
+}
+
+\institute{\small{Massachusetts Institute of Technology}
+
+% \vspace{0em}
+% \small{Centre for Medical Image Computing, University College London, UK}
+}
+
+\date{}
+
+% logo of my university
+\titlegraphic{
+   \begin{figure}
+%    \begin{subfigure}{0.32\textwidth}
+%    \hspace{2em}
+%    \includegraphics[height=1.0cm]{ucl_logo}
+%    \end{subfigure}
+   \begin{subfigure}{0.32\textwidth}
+   \centering
+   \includegraphics[height=1.0cm]{MIT_logo.png} 
+   \end{subfigure}
+%    \begin{subfigure}{0.32\textwidth}
+%    \centering
+%    \includegraphics[height=1.0cm]{pondLogo.png} 
+%    \end{subfigure}
+   \end{figure}
+   
+%    \tiny{Slides available online: https://people.csail.mit.edu/razvan/talk/martinos2019/pres.pdf}
+}
+
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{author in head/foot}{fg=black, bg=white} 
+\setbeamercolor{institute in head/foot}{fg=black, bg=white} 
+\setbeamercolor{title in head/foot}{fg=black, bg=white}
+\setbeamercolor{date in head/foot}{fg=black, bg=white}
+
+\setbeamersize{text margin left=10pt,text margin right=10pt}
+% \setbeamertemplate{frametitle}{
+%     \vspace{0.9em}
+%     \insertframetitle
+% %     \vspace{-3em}
+% }
+\setbeamertemplate{frametitle}{%
+    \vspace{0.5em}
+    \usebeamerfont{frametitle}\insertframetitle%
+    \vphantom{g}% To avoid fluctuations per frame
+    %\hrule% Uncomment to see desired effect, without a full-width hrule
+    \par% <-- added
+    \hspace*{-\dimexpr0.5\paperwidth-0.5\textwidth}% <-- calculation of left margin width
+    \rule[0.5\baselineskip]{\paperwidth}{0.4pt}%
+}
+
+\setbeamertemplate{footline}
+{
+  \vspace{-3em}
+  \leavevmode%
+   \rule{\paperwidth}{0.3pt}
+  \hbox{%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}Razvan V. Marinescu
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{institute in head/foot}%
+    \usebeamerfont{institute in head/foot}razvan@csail.mit.edu
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{institute in head/foot}%
+    \usebeamerfont{institute in head/foot}http://razvan.csail.mit.edu
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertsection
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.10\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% \usepackage{beamerthemesplit}
+
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}
+
+
+\makeatletter
+\long\def\beamer@author[#1]#2{%
+  \def\and{\tabularnewline}
+  \def\insertauthor{\def\inst{\beamer@insttitle}\def\and{\tabularnewline}%
+  \begin{tabular}{rl}#2\end{tabular}}%
+  \def\beamer@shortauthor{#1}%
+  \ifbeamer@autopdfinfo%
+    \def\beamer@andstripped{}%
+    \beamer@stripands#1 \and\relax
+    {\let\inst=\@gobble\let\thanks=\@gobble\def\and{, }\hypersetup{pdfauthor={\beamer@andstripped}}}
+  \fi%
+}
+\makeatother
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{caption}[numbered]
+\setbeamercolor{caption name}{fg=black}
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{itemize subitem}{fg=black}
+\setbeamercolor{enumerate item}{fg=black}
+\setbeamercolor{enumerate subitem}{fg=black}
+\setbeamertemplate{enumerate item}[default]
+\setbeamertemplate{enumerate subitem}[default]
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+\begin{document}
+ 
+\section{Introduction}
+
+\frame{\titlepage}
+ 
+\setbeamerfont{frametitle}{size=\large}
+
+\newcommand{\upgradeReportLoc}{../../upgrade_report}
+\newcommand{\epsrcPresLoc}{\upgradeReportLoc/epsrcPres}
+\newcommand{\jointModellingDiseaseLoc}{../../jointModellingDisease}
+\newcommand{\pcaLongPaperLoc}{../../PCA_long_paper}
+\newcommand{\voxFld}{../../voxelwiseDPM}
+\newcommand{\tadpoleFld}{../../tadpole}
+\newcommand{\diffEqModelFld}{../../diffEqModel}
+
+\newcommand{\outFolder}{../overview/modelDiagram}
+\newcommand{\lw}{0.5mm}
+
+\newcommand{\yes}{{\LARGE \textcolor{green!50!black}{\checkmark} \par}}
+\newcommand{\no}{{\LARGE \textcolor{red}{\xmark} \par}}
+
+
+
+\newcommand*{\pcaLongFigs}{\pcaLongPaperLoc/figures}
+
+
+% \includeonlyframes{1-20}
+%\includeonlyframes{current}
+
+
+
+\newcommand{\ovHeight}{2cm}
+\newcommand{\vo}{\vspace{1em}}
+\newcommand{\vt}{\vspace{2em}}
+\newcommand{\vth}{\vspace{3em}}
+
+
+% % TODO continue with overview, move into commands
+\newcommand{\ovEBM}{
+\begin{subfigure}{0.47\textwidth}
+\centering
+1. Modelled progression of PCA and tAD\\
+(using existing methods)
+\includegraphics[height=\ovHeight]{ebm_thumb.png}
+\end{subfigure}
+}
+
+\newcommand{\ovVWDPM}{
+\begin{subfigure}{0.47\textwidth}
+\centering
+% \vspace{2.8em}
+2. Developed Novel Spatio-temporal Model \\ (DIVE)\\
+\includegraphics[height=\ovHeight]{\upgradeReportLoc/images/vwdpm/blend14_adniThavgFWHM0InithistCl3Pr0Ra1_VWDPMStd.png}
+\end{subfigure}
+}
+
+
+\newcommand{\ovDKT}{
+\begin{subfigure}{0.47\textwidth}
+\centering
+\vspace{2em}
+3. Developed Novel Transfer Learning \\ method (DKT) \\
+\vspace{0.5em}
+\includegraphics[height=2.2cm]{\jointModellingDiseaseLoc/paper/figures/disease_knowledge_transfer.pdf}
+\end{subfigure}
+}
+
+
+\newcommand{\ovTadpole}{
+\begin{subfigure}{0.47\textwidth}
+\centering
+\vspace{-2em}
+4. Organised TADPOLE Competition\\
+\vspace{1em}
+\includegraphics[height=1.2cm,valign=t]{\upgradeReportLoc/epsrcPres/tadpole} 
+\end{subfigure}
+}
+
+\newcommand{\ovPainter}{
+\begin{subfigure}{\textwidth}
+\centering
+\vspace{0.5em}
+5. Created BrainPainter software\\
+\includegraphics[height=1.5cm]{cortical-front_1}\includegraphics[height=1.5cm]{cortical-back_1}\includegraphics[height=1.5cm]{subcortical_1}
+\end{subfigure}
+}
+
+
+\definecolor{light-gray}{gray}{0.6}
+
+
+\newcommand{\inc}[1]{\includegraphics[width=\columnwidth, trim=4 4 4 4, clip]{#1}}
+\newcommand{\incw}[2]{\includegraphics[width=#2\columnwidth, trim=4 4 4 4, clip]{#1}}
+\newcommand{\inch}[2]{\includegraphics[height=#2, trim=4 4 4 4, clip]{#1}}
+
+
+
+
+\newcommand{\diagfld}{brgm_diagram}
+\newcommand{\fstikz}[1]{\footnotesize{#1}}
+
+\newcommand{\dgs}{0.85}
+
+\newcommand{\brgmprev}{
+\begin{tikzpicture}[scale=\dgs, every node/.style={scale=\dgs}]
+
+\def\rightimgX{4.5}
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (cxr_text) at (1,4.75) {\footnotesize{Low Res.}};
+
+%top image left
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{High Res.}};
+
+%top image center
+\node (cxr_img) at (1, 1) {\includegraphics[width=2cm,frame]{\diagfld/brain_inpaint}};
+%top image left
+\node (blur_img) at (\rightimgX, 1) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+
+\node (left_img_top_out_2) at (2,1) {};
+\node (right_img_top_in_2) at (\rightimgX - 1, 1) {};
+
+\draw[->, thick]
+(left_img_top_out_2)
+to
+(right_img_top_in_2) ;
+
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+\node (rng_text) at (2.75,3.75) {$f_1^{-1}$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Learned}};
+\node (rng_text) at (2.75,3) {\fstikz{Inverse}};
+\node (rng_text) at (2.75,2.75) {\fstikz{Corruption}};
+
+\node (rng_text) at (2.75,1.25) {$f_2^{-1}$};
+
+\end{tikzpicture}
+}
+
+\newcommand{\brgmours}{
+\begin{tikzpicture}[scale=\dgs, every node/.style={scale=\dgs}]
+
+\def\rightimgX{4.5}
+
+%Top left
+\filldraw[fill=gray!50!white, draw=black, label={Latent}] (-2,2.5) rectangle (-1.5,4.5);
+\node (rng_text) at (-1.75,4.75) {\footnotesize{Latent}};
+\node (rng_text) at (-1.75,3.5) {$w$};
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+\node (cxr_text) at (1,4.75) {\footnotesize{High Res.}};
+
+%top image right
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
+
+\node (blur_img) at (\rightimgX+2.3, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX+2.3,4.75) {\footnotesize{Input}};
+
+\draw[decoration={brace,mirror,raise=5pt},decorate]
+  (4.5,2.5) -- node[below=6pt] {loss} (6.8,2.5);
+
+
+\node (rng_top_out) at (-1.5,3.5) {};
+\node (center_img_left_in) at (0, 3.5) {};
+
+\draw[->, thick]
+(rng_top_out)
+to
+(center_img_left_in) ;
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+% \draw[->, dashed, blue, thick]
+% (right_img_top_out)
+% to [in=-60, out=-120]
+% (left_img_top_in) ;
+
+
+\node (left_img_bot_out) at (0,2.5) {};
+\node (rng_bot_out) at (-1.5, 2.5) {};
+%\draw[->, dashed, red, thick]
+%(rng_bot_out)
+%to [in=-120, out=-60]
+%(left_img_bot_out);
+
+\node (rng_text) at (-0.75,3.75) {$G(w)$};
+\node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
+\node (rng_text) at (-0.75,3) {\fstikz{Generation}};
+
+\node (rng_text) at (2.75,3.75) {$f_1$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Known}};
+\node (rng_text) at (2.75,3) {\fstikz{Corruption}};
+
+
+\node (left_img_center_out) at (1,2.5) {};
+\node (right_bot_out_extra) at (3.9 - 1, 1) {};
+\draw[->, thick]
+(left_img_center_out)
+to [in=90, out=-90]
+(1,1) 
+to [out=0, in=180]
+(right_bot_out_extra);
+
+\node (right_bot_out_extra_2) at (3.9 - 1, 0.5) {};
+\draw[->, thick]
+(left_img_center_out)
+to [in=90, out=-90]
+(1,0.5) 
+to [out=0, in=180]
+(right_bot_out_extra_2);
+
+
+\node (rng_text) at (1.75,1.25) {$f_2$};
+\node (rng_text) at (1.75,0.75) {$f_3$};
+\node (rng_text) at (1.75,0.25) {$\vdots$};
+
+
+\node (blur_img) at (3.5+0.5, 0.5) {\includegraphics[width=1cm]{\diagfld/brain_kspace.png}};
+\node (blur_img) at (3.5, 1.0) {\includegraphics[width=1cm,frame]{\diagfld/brain_inpaint}};
+
+\end{tikzpicture}
+}
+
+
+\newcommand{\brgmoursshortloss}{
+\begin{tikzpicture}[scale=\dgs, every node/.style={scale=\dgs}]
+
+\def\rightimgX{4.5}
+
+%Top left
+\filldraw[fill=gray!50!white, draw=black, label={Latent}] (-2,2.5) rectangle (-1.5,4.5);
+\node (rng_text) at (-1.75,4.75) {\footnotesize{Latent}};
+\node (rng_text) at (-1.75,3.5) {$w$};
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+\node (cxr_text) at (1,4.75) {\footnotesize{High Res.}};
+
+%top image right
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
+
+\node (blur_img) at (\rightimgX+2.3, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX+2.3,4.75) {\footnotesize{Input}};
+
+\draw[decoration={brace,mirror,raise=5pt},decorate]
+  (4.5,2.5) -- node[below=6pt] {loss} (6.8,2.5);
+
+
+\node (rng_top_out) at (-1.5,3.5) {};
+\node (center_img_left_in) at (0, 3.5) {};
+
+\draw[->, thick]
+(rng_top_out)
+to
+(center_img_left_in) ;
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+% \draw[->, dashed, blue, thick]
+% (right_img_top_out)
+% to [in=-60, out=-120]
+% (left_img_top_in) ;
+
+
+\node (left_img_bot_out) at (0,2.5) {};
+\node (rng_bot_out) at (-1.5, 2.5) {};
+%\draw[->, dashed, red, thick]
+%(rng_bot_out)
+%to [in=-120, out=-60]
+%(left_img_bot_out);
+
+\node (rng_text) at (-0.75,3.75) {$G(w)$};
+\node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
+\node (rng_text) at (-0.75,3) {\fstikz{Generation}};
+
+\node (rng_text) at (2.75,3.75) {$f_1$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Known}};
+\node (rng_text) at (2.75,3) {\fstikz{Corruption}};
+
+
+%\node (left_img_center_out) at (1,2.5) {};
+%\node (right_bot_out_extra) at (3.9 - 1, 1) {};
+%\draw[->, thick]
+%(left_img_center_out)
+%to [in=90, out=-90]
+%(1,1) 
+%to [out=0, in=180]
+%(right_bot_out_extra);
+%
+%\node (right_bot_out_extra_2) at (3.9 - 1, 0.5) {};
+%\draw[->, thick]
+%(left_img_center_out)
+%to [in=90, out=-90]
+%(1,0.5) 
+%to [out=0, in=180]
+%(right_bot_out_extra_2);
+
+
+%\node (rng_text) at (1.75,1.25) {$f_2$};
+%\node (rng_text) at (1.75,0.75) {$f_3$};
+%\node (rng_text) at (1.75,0.25) {$\vdots$};
+%
+%
+%\node (blur_img) at (3.5+0.5, 0.5) {\includegraphics[width=1cm]{\diagfld/brain_kspace.png}};
+%\node (blur_img) at (3.5, 1.0) {\includegraphics[width=1cm,frame]{\diagfld/brain_inpaint}};
+
+\end{tikzpicture}
+}
+
+
+\newcommand{\brgmoursshort}{
+\begin{tikzpicture}[scale=0.75, every node/.style={scale=0.75}]
+
+\def\rightimgX{4.5}
+
+%Top left
+\filldraw[fill=gray!50!white, draw=black, label={Latent}] (-2,2.5) rectangle (-1.5,4.5);
+\node (rng_text) at (-1.75,4.75) {\footnotesize{Latent}};
+\node (rng_text) at (-1.75,3.5) {$w$};
+
+%top image center
+\node (cxr_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+\node (cxr_text) at (1,4.75) {\footnotesize{High Res.}};
+
+%top image right
+\node (blur_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+\node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
+
+\node (rng_top_out) at (-1.5,3.5) {};
+\node (center_img_left_in) at (0, 3.5) {};
+
+\draw[->, thick]
+(rng_top_out)
+to
+(center_img_left_in) ;
+
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+\node (left_img_top_in) at (2,2.5) {};
+\node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+\node (left_img_bot_out) at (0,2.5) {};
+\node (rng_bot_out) at (-1.5, 2.5) {};
+
+
+% \node (rng_text) at (-0.75,3.75) {$G(w)$};
+\node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
+\node (rng_text) at (-0.75,3) {\fstikz{Generation}};
+
+% \node (rng_text) at (2.75,3.75) {$f_1$};
+\node (rng_text) at (2.75,3.25) {\fstikz{Known}};
+\node (rng_text) at (2.75,3) {\fstikz{Corruption}};
+
+\end{tikzpicture}
+}
+
+
+
+
+\section{Bayesian Image Reconstruction}
+
+
+\newcommand{\mrirecon}{
+\begin{tikzpicture}[scale=0.75, every node/.style={scale=0.75}]
+
+\def\rightimgX{4.2}
+
+%Top left
+% \filldraw[fill=gray!50!white, draw=black, label={Latent}] (-2,2.5) rectangle (-1.5,4.5);
+% \node (rng_text) at (-1.75,4.75) {\footnotesize{Latent}};
+% \node (rng_text) at (-1.75,3.5) {$w$};
+
+%top image center
+\node (cxr_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+% \node (cxr_text) at (1,4.75) {\footnotesize{High Res.}};
+
+%top image right
+\node (blur_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+% \node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
+
+% \node (rng_top_out) at (-1.5,3.5) {};
+% \node (center_img_left_in) at (0, 3.5) {};
+
+% \draw[->, thick]
+% (rng_top_out)
+% to
+% (center_img_left_in) ;
+
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+% \node (left_img_top_in) at (2,2.5) {};
+% \node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+% \node (left_img_bot_out) at (0,2.5) {};
+% \node (rng_bot_out) at (-1.5, 2.5) {};
+
+
+% \node (rng_text) at (-0.75,3.75) {$G(w)$};
+% \node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
+% \node (rng_text) at (-0.75,3) {\fstikz{Generation}};
+
+% \node (rng_text) at (2.75,3.75) {$f_1$};
+% \node (rng_text) at (2.75,3.25) {\fstikz{Known}};
+% \node (rng_text) at (2.75,3) {\fstikz{Corruption}};
+
+\end{tikzpicture}
+}
+
+
+\newcommand{\brgmfull}{
+\begin{tikzpicture}[scale=0.75, every node/.style={scale=0.75}]
+
+\def\rightimgX{4.2}
+
+%Top left
+% \filldraw[fill=gray!50!white, draw=black, label={Latent}] (-2,2.5) rectangle (-1.5,4.5);
+% \node (rng_text) at (-1.75,4.75) {\footnotesize{Latent}};
+% \node (rng_text) at (-1.75,3.5) {$w$};
+
+%top image center
+\node (cxr_img) at (\rightimgX, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_clean}};
+% \node (cxr_text) at (1,4.75) {\footnotesize{High Res.}};
+
+%top image right
+\node (blur_img) at (1, 3.5) {\includegraphics[width=2cm]{\diagfld/brain_target}};
+% \node (blur_text) at (\rightimgX,4.75) {\footnotesize{Low Res.}};
+
+% \node (rng_top_out) at (-1.5,3.5) {};
+% \node (center_img_left_in) at (0, 3.5) {};
+
+% \draw[->, thick]
+% (rng_top_out)
+% to
+% (center_img_left_in) ;
+
+\node (left_img_top_out) at (2,3.5) {};
+\node (right_img_top_in) at (\rightimgX - 1, 3.5) {};
+
+\draw[->, thick]
+(left_img_top_out)
+to
+(right_img_top_in) ;
+
+ \node (left_img_top_in) at (2,2.5) {};
+ \node (right_img_top_out) at (\rightimgX - 1, 2.5) {};
+
+% \node (left_img_bot_out) at (0,2.5) {};
+ \node (rng_bot_out) at (-1.5, 2.5) {};
+
+
+ \node (rng_text) at (-0.75,3.75) {$G(w)$};
+ \node (rng_text) at (-0.75,3.25) {\fstikz{Image}};
+ \node (rng_text) at (-0.75,3) {\fstikz{Generation}};
+
+% \node (rng_text) at (2.75,3.75) {$f_1$};
+ \node (rng_text) at (2.75,3.25) {\fstikz{Known}};
+ \node (rng_text) at (2.75,3) {\fstikz{Corruption}};
+
+\end{tikzpicture}
+}
+
+
+
+\begin{frame}{Aim: Image reconstruction using pre-trained Deep Generative Models}
+
+\begin{columns}[t]
+ \begin{column}{0.6\textwidth}
+\centering
+ 
+\begin{overprint}
+ %\onslide<1> \incw{brgm_diagram_loss}{1}
+ %\onslide<2-> \incw{brgm_diagram_all}{1}
+ 
+ \onslide<1> \brgmoursshortloss 
+ \onslide<2-> \brgmours
+
+\end{overprint} 
+ %\onslide<3> Ours (Marinescu et al, arXiv, 2020)
+ \end{column}
+
+ \begin{column}{0.3\textwidth}
+  \centering
+
+ %\onslide<3> \incw{task-specific}{1}
+% \onslide<3> \brgmprev
+% \onslide<3> Previous
+
+ 
+\end{column}
+\end{columns} 
+
+\end{frame}
+
+
+%\begin{frame}{Deep Generative Models (DGMs) have achieved impressive milestones}
+%
+%\begin{columns}[t]
+%\begin{column}{0.5\textwidth}
+%\centering
+%\begin{figure}
+%\vspace{-2em}
+%
+% Image Generation (StyleGAN2)
+% \incw{stylegan_small}{0.6}
+% 
+% \vt
+% 
+% Image Generation (Glow)
+% \incw{GrWHqZs.png}{0.6}
+%
+%\end{figure}
+%
+%\end{column}
+%\begin{column}{0.5\textwidth}
+%\centering
+%Text-to-Image Generation (DALL-E)
+%\inc{dalle2}
+%prompt: ``an armchair in the shape of an avocado''
+%
+%\vspace{2.5em}
+%
+%Text Generation (GPT-3)
+%\inc{gpt3}
+%\end{column}
+%
+%\end{columns}
+%
+%\vo 
+%
+%\begin{itemize}
+% \item Largely driven by increases in data and compute
+%\end{itemize}
+% 
+%\end{frame}
+
+%\begin{frame}{DGMs hold great promise for solving inverse problems}
+%
+%\begin{columns}[t]
+% \begin{column}{0.6\textwidth}
+%\centering
+%In-painting\\
+%\inch{image2stylegan}{3cm}\\
+%Image2StyleGAN++ (Abdal et al, 2020)\\
+% \end{column}
+%
+% \begin{column}{0.3\textwidth}
+%  \centering
+%Super-resolution\\
+%\inch{pulse}{3cm}\\
+%  PULSE (Menon et al, 2020)\\
+% 
+% \end{column}
+%\end{columns} 
+%
+%\vspace{2em}
+%
+%\begin{itemize}
+%\onslide<2-> \item Compared to supervised methods, DGM based methods can generalize for any corruption process
+%\onslide<2-> \item \textcolor{red}{Cannot characterize \textbf{uncertainty} and recover \textbf{multiple solutions}}
+%\end{itemize}
+% 
+%\end{frame}
+
+
+\begin{frame}{Some recent methods can estimate multiple reconstructions}
+
+\definecolor{mygreen}{rgb}{0.2,0.8,0.2}
+
+\begin{columns}[t]
+ \begin{column}{0.3\textwidth}
+\centering
+Langevin dynamics\\
+\inch{dFykqi3.jpg}{3cm}\\
+Jalal et al, ICML, 2021\\
+\vspace{1em}
+
+\textcolor{mygreen}{Exact sampling of posterior}\\
+%\textcolor{red}{Slow mixing, correlated samples}\\
+ \end{column}
+
+ \begin{column}{0.3\textwidth}
+  \centering
+Variational Inference\\
+\inch{xLvC6Q2.png}{3cm}\\
+Whang et al, ICML, 2021\\
+\vspace{1em}
+
+\textcolor{mygreen}{Faster inference, independent samples}\\
+%\textcolor{red}{Approximate sampling of posterior}\\
+ \end{column}
+ 
+%  \begin{column}{0.3\textwidth}
+%  \centering
+%Conditionalized Flow models\\
+%\inch{YUxttDT.png}{3cm}\\
+%Lugmayr et al, ECCV, 2020\\
+%\vspace{1em}
+%
+%\textcolor{green}{Fast, exact sampling}\\
+%%\textcolor{red}{Generative model uses restricted transformations}\\
+% 
+% \end{column}
+ 
+\end{columns} 
+
+\begin{columns}[t]
+ \begin{column}{0.3\textwidth}
+\centering
+\textcolor{red}{Slow mixing, correlated samples}\\
+%\textcolor{red}{Based on MAP estimate: Cannot model $\alpha$ confidence intervals}\\
+ \end{column}
+
+ \begin{column}{0.3\textwidth}
+  \centering
+\textcolor{red}{Only demonstrated for Invertible Flow models}\\
+ \end{column}
+ 
+%  \begin{column}{0.3\textwidth}
+%  \centering
+%\textcolor{red}{Generative model uses restricted transformations}\\
+% \end{column}
+ 
+\end{columns}  
+ 
+\onslide<2-> \textbf{Our contributions}: 
+\begin{itemize}
+\onslide<2->  \item Formulate a \textbf{Bayesian} framework for inverse problems with DGMs
+ \begin{itemize}
+\onslide<2->    \item Allows optimizing distributional-losses instead of point-estimates
+ \end{itemize}
+\onslide<3->  \item Demonstrate VI for GAN-based models (StyleGAN2/ADA).
+\end{itemize}
+ 
+\end{frame}
+
+
+\begin{frame}{Method: We perform image reconstruction by combining two models\\
+% \begin{itemize}
+\ \ \ \ \ \  1. a pre-trained generator G (StyleGAN2)\\
+\ \ \ \ \ \  2. a known forward corruption model $f_1$
+% \end{itemize}
+}
+
+
+
+\begin{columns}[t]
+ \begin{column}{0.6\textwidth}
+\centering
+ 
+\begin{overprint}
+ %\onslide<1> \incw{brgm_diagram_loss}{1}
+ %\onslide<2-> \incw{brgm_diagram_all}{1}
+ 
+ \onslide<1> \brgmoursshortloss 
+ \onslide<2-> \brgmours
+
+\end{overprint} 
+ %\onslide<3> Ours (Marinescu et al, arXiv, 2020)
+ \end{column}
+
+ \begin{column}{0.3\textwidth}
+  \centering
+
+ %\onslide<3> \incw{task-specific}{1}
+% \onslide<3> \brgmprev
+% \onslide<3> Previous
+
+ 
+ \end{column}
+\end{columns} 
+\end{frame}
+
+\newcommand{\ci}[1]{\circ{#1}}
+\newcommand{\wplus}{$\mathcal{W}^{+}$ }
+\newcommand{\loss}{\mathcal{L}}
+
+\newcommand{\bit}[1]{\begin{itemize} 
+\item #1
+\end{itemize}}
+
+
+
+\begin{frame}{Naive Reconstruction through Maximum Likelihood}
+\begin{itemize}
+\item For given input image $I$, we optimise:
+%$$ w^* = \argmax_w p(w)p(I|w)$$
+
+%\item For uninformative prior $p(w)$ and Gaussian noise model (pixelwise independent), we get:
+
+$$ w^* = \argmin_w || I - f \circ G (w) ||_2^2$$
+
+\item This can be optimised with SGD
+
+\item Once we get $w^*$, the reconstructed image is $G(w^*)$
+
+\end{itemize}
+
+\begin{center}
+\vt
+%\incw{brgm_diagram_loss}{0.6}
+\brgmoursshortloss
+\end{center}
+
+\onslide<2-> Several hidden assumptions: constant Jacobian determinant of $f \circ G$, Gaussian noise model, uniform prior on w
+ 
+\end{frame}
+ 
+
+\begin{frame}{Our proposed Bayesian approach}
+
+
+\begin{itemize}
+\item We optimize:
+
+$$ p(I_{CLN}|I) \propto p(I_{CLN})p(I|I_{CLN})$$
+
+\item We apply change of variables to both the prior and likelihood terms:
+$$ p(I_{CLN}) \coloneqq p(G(w)) = p(w) \left|\diffp{G(w)}{w} \right|^{-1} $$
+
+$$p(I|I_{CLN}) \coloneqq p(I|f \ci G(w)) = p(I|f \ci G(w)) \left| \frac{\partial f \ci G(w)}{\partial G(w)} \right|^{-1}$$
+
+\item Can assume that the Jacobian determinants are constant
+\begin{itemize}
+  \item Due to StyleGAN's path length regularization + uniformity of $f$
+\end{itemize}
+
+\item The Bayesian MAP optimization becomes:
+
+$$ w^{*} = \argmax_w p(I_{CLN})p(I|I_{CLN}) \approx \argmax_w p(w)p(I|f \ci G(w))$$
+
+
+
+\end{itemize}
+
+\end{frame}
+
+\newcommand{\mc}[1]{\mathbb{#1}}
+
+\newcommand{\txc}[1]{\mathbin{\textcolor{red}{#1}}}
+\newcommand{\szb}{0.8}
+%\begin{frame}{Good reconstructions require further modifications}
+%
+%\begin{columns}
+%
+%\begin{column}{0.5\textwidth}
+%\begin{itemize}
+%  \item We started from the original StyleGAN2 inversion
+% \begin{itemize}
+%    \item which uses perceptual loss given VGG net $\phi$ 
+% \end{itemize}
+% \vo
+% 
+% \onslide<2-> \item Yet the reconstruction was not good $\to$ required several changes
+%\begin{overprint}
+%\onslide<3> \bit{remove noise layers}
+%\onslide<4> \bit{optimize latents at all resolutions}
+%\onslide<5> \bit{add pixelwise loss}
+%\onslide<6> \bit{gaussian prior on latents}
+%\onslide<7> \bit{force latents to be colinear}
+%%\onslide<8> \bit{Analytically expressed the full likelihood (Marinescu et al, 2021)}
+%\end{overprint}
+%
+%
+%%  \vo
+%%  
+%%  \onslide<2-> \item We reached suitable solutions only after several changes 
+%%  \item Finall posterior likelihood function was:
+% 
+%% \begin{equation}
+%% \begin{aligned}
+%% \label{bfinal}
+%% & w^* = \argmin_w \underbrace{\sum_i \left(\frac{w_i-\mu}{\sigma_i}\right)^2}_\text{prior on $w$} - 2\kappa \underbrace{\sum_{i,j} \frac{w_iw_j^T}{|w_i| |w_j|}}_\text{colinearity} \\
+%% & + \sigma_{pixel}^{-2} \underbrace{\norm{I - f \ci G(w)}_2^2}_\text{pixelwise loss} + \sigma_{percept}^{-2} \underbrace{\norm{I - \phi \ci f \ci G(w)}_2^2}_\text{perceptual loss} \\
+%% \end{aligned}
+%% \end{equation}
+% 
+%\end{itemize}
+%\end{column}
+%\begin{column}{0.5\textwidth}
+%
+%% % \begin{overprint}
+%% \begin{overlayarea}{0.5\textwidth}{0.3\textheight}
+%% \only<1>{ \begin{equation} w^* = \argmin_w || I - f \circ G (w) ||_2^2 \end{equation} }
+%% \only<2>{ \begin{equation} w^* = \argmin_w **|| I - f \circ G (w) ||_2^2 \end{equation} }
+%% \end{overlayarea}
+%% % \end{overprint}
+%
+%
+%
+%\begin{overprint}
+%\onslide<0-2> \begin{equation*} p(w | I, \txc{\eta}) \propto \mathcal{N}(\phi(I)|\phi \ci f \ci G(w,\txc{\eta}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \end{equation*}
+%
+%\onslide<3> \begin{equation*} p(w|I) \propto \mathcal{N}(\phi(I)|\phi \ci f \ci G(w), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \end{equation*}
+%
+%\onslide<4> $$\txc{\textbf{w} = w_1,..,w_L}$$ \begin{equation*} p(\txc{\textbf{w}}|I) = \mathcal{N}(\phi(I)|\phi \ci f \ci G(\txc{\textbf{w}}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \end{equation*}
+%
+%\onslide<5> \begin{equation*} \begin{aligned} p(\textbf{w}) = & \mathcal{N}(\phi(I)|\phi \ci f \ci G(\textbf{w}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \\
+%& \txc{\mathcal{N}(I|f \ci G(\textbf{w}), \sigma_{pixel}^2 \mc{I}_{n_f^2})} \end{aligned} \end{equation*}
+%
+%\onslide<6> \begin{equation*} \begin{aligned} p(\textbf{w}|I) = & \mathcal{N}(\phi(I)|\phi \ci f \ci G(\textbf{w}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \\
+%& \mathcal{N}(I|f \ci G(\textbf{w}), \sigma_{pixel}^2 \mc{I}_{n_f^2}) \\
+%& \txc{\prod_i \mathcal{N}\left(w_i\middle|\mu, \sigma^2\right)} \end{aligned} \end{equation*}
+%
+%\onslide<7-> \begin{equation*} \begin{aligned} p(\textbf{w}|I) = & \mathcal{N}(\phi(I)|\phi \ci f \ci G(\textbf{w}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \\
+%& \mathcal{N}(I|f \ci G(\textbf{w}), \sigma_{pixel}^2 \mc{I}_{n_f^2}) \\
+%& \prod_i \mathcal{N}\left(w_i\middle|\mu, \sigma^2\right) \txc{\prod_{i,j} \mathcal{M}\left(cos^{-1}\frac{w_iw_j^T}{|w_i| |w_j|}\middle|0, \kappa\right)} \end{aligned} \end{equation*}
+%
+%
+%\end{overprint}
+%\end{column}
+%\end{columns}
+%
+%
+%\vspace{3em}
+%
+%
+%\begin{columns}
+% \begin{column}{\textwidth}
+%  
+%
+%
+%\begin{overprint}
+%\onslide<2> \begin{center}\incw{brgm_series5}{\szb}\end{center}
+%\onslide<3> \begin{center}\incw{brgm_series4}{\szb}\end{center}
+%\onslide<4> \begin{center}\incw{brgm_series3}{\szb}\end{center}
+%\onslide<5> \begin{center}\incw{brgm_series2}{\szb}\end{center}
+%\onslide<6> \begin{center}\incw{brgm_series1}{\szb}\end{center}
+%\onslide<7-> \begin{center}\incw{brgm_series0}{\szb}\end{center}
+%% \onslide<8> \begin{itemize}\item The full Bayesian likelihood corresponding to the loss function 
+%% 
+%% % \begin{equation*}
+%% % \begin{aligned}
+%% % \label{bayesianmapeq}
+%% %  w^* = & \argmax_w p(w) p(I|w) \\
+%% %      = & \prod_i \mathcal{N}(w_i|\mu, \sigma^2) \prod_{i,j} \mathcal{M}(cos^{-1}\frac{w_iw_j^T}{|w_i| |w_j|}|0, \kappa) \\
+%% %        & \mathcal{N}(I|f \ci G(w), \sigma_{pixel}^2 \mc{I}_{n_f^2}) \\
+%% %        &\ \mathcal{N}(\phi(I)|\phi \ci f \ci G(w), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2})
+%% % \end{aligned}
+%% % \end{equation*}
+%% 
+%% \end{itemize}
+%
+%\end{overprint}
+%
+%% \end{center}
+%
+% \end{column}
+%
+%\end{columns}
+%
+% 
+%\end{frame}
+
+
+\begin{frame}{Sampling multiple reconstructions through Variational Inference}
+ 
+ \begin{itemize}
+  \item Variational inference can allows us to sample from the posterior distribution:
+%    $$\theta^* = \argmin_\theta KL[q(w|\theta)||p(w|I)] = $$
+$$\theta^* = \argmin_{\theta} KL\left[q(w|\theta)||p(w|I)\right] = \argmin_{\theta} \int q(w|\theta)\ log\ \frac{q(w|\theta)}{p(w)p(I|w)} dw$$
+%    \incw{vi_eq1}{0.6}
+   
+   
+   \item We approximate the integral using Monte Carlo samples $w^{(i)}$ taken from $q(w|\theta)$
+%    \incw{vi_eq2}{0.5}
+$$\theta^* = \argmin_{\theta} \sum_{i=1}^n log\ q(w^{(i)}|\theta) - log\ p(w^{(i)}) -  log\  p(I|w^{(i)})$$
+
+ \end{itemize}
+ 
+ \begin{center}
+\incw{vi_demo}{0.7}\\
+
+%Marinescu et. al., 2020
+ \end{center}
+\end{frame}
+
+
+
+
+
+%\begin{frame}{Our method also has limitations that we plan to address}
+%
+%\begin{itemize}
+% \item It can fail for images that are too dissimilar to the training ones
+% \begin{itemize}
+% \item Because generator cannot extrapolate easily
+% \end{itemize}
+% \begin{center}
+% \incw{failure}{0.5} 
+% \end{center}
+% 
+% \item Can be inconsistent with the input image
+% \begin{center}
+% \incw{inconsistency}{0.5}
+% \end{center}
+% 
+%\end{itemize}
+% 
+%\end{frame}
+
+
+\begin{frame}{Bayesian Image Reconstruction -- Summary}
+ 
+ \begin{itemize}
+  \item Proposed a method for image reconstruction using pre-trained deep generative models
+  
+  \vt
+  
+  \item Solutions given by both (i) Bayesian MAP estimates and (ii) Variational Inference
+  
+  \vt
+  
+  \item State-of-the-art results on super-resolution and inpainting
+  
+ \end{itemize}
+
+ 
+\end{frame}
+
+
+
+
+
+
+
+\end{document}
+
+
+
