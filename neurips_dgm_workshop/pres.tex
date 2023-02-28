@@ -708,8 +708,109 @@ to
 }
 
 
+%\begin{frame}{Results on super-resolution using the FFHQ dataset}
+%
+%\begin{itemize}
+% \item We achieve state-of-the-art (SOTA) results on small inputs resolutions 16x16
+% \item On larger resolutions ($>$32x32), we achieve very good results, albeit not SOTA
+%\end{itemize}
+%
+%\begin{center}
+%\vo
+%\incw{sr}{0.85}\\
+%\small{Marinescu et al, arXiv, 2020}
+%\end{center}
+% 
+%\end{frame}
+%
+%\begin{frame}{Similar results on super-resolution for medical datasets}
+%
+%\begin{itemize}
+% \item We achieve state-of-the-art (SOTA) results on small inputs resolutions 16x16
+% \item On larger resolutions ($>$32x32), we achieve very good results, albeit not SOTA
+%\end{itemize}
+%
+%
+%\begin{columns}[t]
+% \begin{column}{1\textwidth}
+% \centering
+%\incw{srmed}{0.5}\\
+%\small{Marinescu et al, arXiv, 2020}\\
+% \end{column}
+%\end{columns}
+% 
+%\end{frame}
+%
+%\begin{frame}{Inpainting also achieves state-of-the-art results}
+%
+%\begin{itemize}
+% \item Best previous method (SN-PatchGAN, CVPR 2019) does not work for large masks
+% \item Our method can ``hypothesize'' missing structure
+%\end{itemize}
+%
+%\begin{center}
+%% \vt
+%\incw{inpaint2}{0.40}
+%\end{center}
+% 
+%\end{frame}
+%
+%\begin{frame}{Inpainting also achieves state-of-the-art results}
+%
+%\begin{itemize}
+% \item Best previous method (SN-PatchGAN, CVPR 2019) does not work for large masks
+% \item Our method can ``hypothesize'' missing structure
+%\end{itemize}
+%
+%\begin{center}
+%% \vo
+%\incw{inpaint_xray}{0.40}\incw{inpaint_brains}{0.40}
+%\end{center}
+% 
+%\end{frame}
+%
+%
+%\begin{frame}{Results confirmed through quantitative evaluation}
+%
+%\begin{columns}[t]
+% \begin{column}{0.5\textwidth}
+%\begin{itemize}
+% \item Three different datasets, at different resolutions
+% 
+% \vt
+% 
+% \item Human study with 20 raters
+% 
+%%  \vt
+% 
+%\end{itemize}
+%  
+% \end{column}
+% \begin{column}{0.5\textwidth}
+% \centering
+%
+%Super-resolution\\
+%\incw{sr_eval}{0.6}
+%
+%\vo
+%
+%Inpainting\\
+%\incw{inpaint_eval}{0.6}
+%
+%\vo
+%
+%Human evaluation\\
+%\incw{human_eval}{0.6}
+%
+%\end{column}
+%\end{columns}
+%
+%
+%\end{frame}
 
-\begin{frame}{Aim: Image reconstruction using pre-trained Deep Generative Models}
+
+
+\begin{frame}
 
 \begin{columns}[t]
  \begin{column}{0.6\textwidth}
@@ -719,7 +820,7 @@ to
  %\onslide<1> \incw{brgm_diagram_loss}{1}
  %\onslide<2-> \incw{brgm_diagram_all}{1}
  
- \onslide<1> \brgmoursshortloss 
+ \onslide<1> \brgmoursshortloss
  \onslide<2-> \brgmours
 
 \end{overprint} 
@@ -965,7 +1066,7 @@ $$ p(I_{CLN}|I) \propto p(I_{CLN})p(I|I_{CLN})$$
 \item We apply change of variables to both the prior and likelihood terms:
 $$ p(I_{CLN}) \coloneqq p(G(w)) = p(w) \left|\diffp{G(w)}{w} \right|^{-1} $$
 
-$$p(I|I_{CLN}) \coloneqq p(I|f \ci G(w)) = p(I|f \ci G(w)) \left| \frac{\partial f \ci G(w)}{\partial G(w)} \right|^{-1}$$
+$$p(I|I_{CLN}) \coloneqq p(I|f \ci G(w)) = p(I| G(w)) \left| \frac{\partial f \ci G(w)}{\partial G(w)} \right|^{-1}$$
 
 \item Can assume that the Jacobian determinants are constant
 \begin{itemize}
@@ -976,7 +1077,7 @@ $$p(I|I_{CLN}) \coloneqq p(I|f \ci G(w)) = p(I|f \ci G(w)) \left| \frac{\partial
 
 $$ w^{*} = \argmax_w p(I_{CLN})p(I|I_{CLN}) \approx \argmax_w p(w)p(I|f \ci G(w))$$
 
-
+$$ p(w|I) \propto p(w)p(I|w) = p(w)p(I|f \ci G(w)) \left|\diffp{f \ci G(w)}{w} \right|^{-1} $$
 
 \end{itemize}
 
@@ -986,118 +1087,118 @@ $$ w^{*} = \argmax_w p(I_{CLN})p(I|I_{CLN}) \approx \argmax_w p(w)p(I|f \ci G(w)
 
 \newcommand{\txc}[1]{\mathbin{\textcolor{red}{#1}}}
 \newcommand{\szb}{0.8}
-%\begin{frame}{Good reconstructions require further modifications}
-%
-%\begin{columns}
-%
-%\begin{column}{0.5\textwidth}
-%\begin{itemize}
-%  \item We started from the original StyleGAN2 inversion
-% \begin{itemize}
-%    \item which uses perceptual loss given VGG net $\phi$ 
-% \end{itemize}
-% \vo
-% 
-% \onslide<2-> \item Yet the reconstruction was not good $\to$ required several changes
-%\begin{overprint}
-%\onslide<3> \bit{remove noise layers}
-%\onslide<4> \bit{optimize latents at all resolutions}
-%\onslide<5> \bit{add pixelwise loss}
-%\onslide<6> \bit{gaussian prior on latents}
-%\onslide<7> \bit{force latents to be colinear}
-%%\onslide<8> \bit{Analytically expressed the full likelihood (Marinescu et al, 2021)}
-%\end{overprint}
-%
-%
-%%  \vo
-%%  
-%%  \onslide<2-> \item We reached suitable solutions only after several changes 
-%%  \item Finall posterior likelihood function was:
-% 
-%% \begin{equation}
-%% \begin{aligned}
-%% \label{bfinal}
-%% & w^* = \argmin_w \underbrace{\sum_i \left(\frac{w_i-\mu}{\sigma_i}\right)^2}_\text{prior on $w$} - 2\kappa \underbrace{\sum_{i,j} \frac{w_iw_j^T}{|w_i| |w_j|}}_\text{colinearity} \\
-%% & + \sigma_{pixel}^{-2} \underbrace{\norm{I - f \ci G(w)}_2^2}_\text{pixelwise loss} + \sigma_{percept}^{-2} \underbrace{\norm{I - \phi \ci f \ci G(w)}_2^2}_\text{perceptual loss} \\
-%% \end{aligned}
-%% \end{equation}
-% 
-%\end{itemize}
-%\end{column}
-%\begin{column}{0.5\textwidth}
-%
-%% % \begin{overprint}
-%% \begin{overlayarea}{0.5\textwidth}{0.3\textheight}
-%% \only<1>{ \begin{equation} w^* = \argmin_w || I - f \circ G (w) ||_2^2 \end{equation} }
-%% \only<2>{ \begin{equation} w^* = \argmin_w **|| I - f \circ G (w) ||_2^2 \end{equation} }
-%% \end{overlayarea}
-%% % \end{overprint}
-%
-%
-%
-%\begin{overprint}
-%\onslide<0-2> \begin{equation*} p(w | I, \txc{\eta}) \propto \mathcal{N}(\phi(I)|\phi \ci f \ci G(w,\txc{\eta}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \end{equation*}
-%
-%\onslide<3> \begin{equation*} p(w|I) \propto \mathcal{N}(\phi(I)|\phi \ci f \ci G(w), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \end{equation*}
-%
-%\onslide<4> $$\txc{\textbf{w} = w_1,..,w_L}$$ \begin{equation*} p(\txc{\textbf{w}}|I) = \mathcal{N}(\phi(I)|\phi \ci f \ci G(\txc{\textbf{w}}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \end{equation*}
-%
-%\onslide<5> \begin{equation*} \begin{aligned} p(\textbf{w}) = & \mathcal{N}(\phi(I)|\phi \ci f \ci G(\textbf{w}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \\
-%& \txc{\mathcal{N}(I|f \ci G(\textbf{w}), \sigma_{pixel}^2 \mc{I}_{n_f^2})} \end{aligned} \end{equation*}
-%
-%\onslide<6> \begin{equation*} \begin{aligned} p(\textbf{w}|I) = & \mathcal{N}(\phi(I)|\phi \ci f \ci G(\textbf{w}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \\
-%& \mathcal{N}(I|f \ci G(\textbf{w}), \sigma_{pixel}^2 \mc{I}_{n_f^2}) \\
-%& \txc{\prod_i \mathcal{N}\left(w_i\middle|\mu, \sigma^2\right)} \end{aligned} \end{equation*}
-%
-%\onslide<7-> \begin{equation*} \begin{aligned} p(\textbf{w}|I) = & \mathcal{N}(\phi(I)|\phi \ci f \ci G(\textbf{w}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \\
-%& \mathcal{N}(I|f \ci G(\textbf{w}), \sigma_{pixel}^2 \mc{I}_{n_f^2}) \\
-%& \prod_i \mathcal{N}\left(w_i\middle|\mu, \sigma^2\right) \txc{\prod_{i,j} \mathcal{M}\left(cos^{-1}\frac{w_iw_j^T}{|w_i| |w_j|}\middle|0, \kappa\right)} \end{aligned} \end{equation*}
-%
-%
-%\end{overprint}
-%\end{column}
-%\end{columns}
-%
-%
-%\vspace{3em}
-%
-%
-%\begin{columns}
-% \begin{column}{\textwidth}
+\begin{frame}{Good reconstructions require further modifications}
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+  \item We started from the original StyleGAN2 inversion
+ \begin{itemize}
+    \item which uses perceptual loss given VGG net $\phi$ 
+ \end{itemize}
+ \vo
+ 
+ \onslide<2-> \item Yet the reconstruction was not good $\to$ required several changes
+\begin{overprint}
+\onslide<3> \bit{remove noise layers}
+\onslide<4> \bit{optimize latents at all resolutions}
+\onslide<5> \bit{add pixelwise loss}
+\onslide<6> \bit{gaussian prior on latents}
+\onslide<7> \bit{force latents to be colinear}
+%\onslide<8> \bit{Analytically expressed the full likelihood (Marinescu et al, 2021)}
+\end{overprint}
+
+
+%  \vo
 %  
-%
-%
-%\begin{overprint}
-%\onslide<2> \begin{center}\incw{brgm_series5}{\szb}\end{center}
-%\onslide<3> \begin{center}\incw{brgm_series4}{\szb}\end{center}
-%\onslide<4> \begin{center}\incw{brgm_series3}{\szb}\end{center}
-%\onslide<5> \begin{center}\incw{brgm_series2}{\szb}\end{center}
-%\onslide<6> \begin{center}\incw{brgm_series1}{\szb}\end{center}
-%\onslide<7-> \begin{center}\incw{brgm_series0}{\szb}\end{center}
-%% \onslide<8> \begin{itemize}\item The full Bayesian likelihood corresponding to the loss function 
-%% 
-%% % \begin{equation*}
-%% % \begin{aligned}
-%% % \label{bayesianmapeq}
-%% %  w^* = & \argmax_w p(w) p(I|w) \\
-%% %      = & \prod_i \mathcal{N}(w_i|\mu, \sigma^2) \prod_{i,j} \mathcal{M}(cos^{-1}\frac{w_iw_j^T}{|w_i| |w_j|}|0, \kappa) \\
-%% %        & \mathcal{N}(I|f \ci G(w), \sigma_{pixel}^2 \mc{I}_{n_f^2}) \\
-%% %        &\ \mathcal{N}(\phi(I)|\phi \ci f \ci G(w), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2})
-%% % \end{aligned}
-%% % \end{equation*}
-%% 
-%% \end{itemize}
-%
-%\end{overprint}
-%
-%% \end{center}
-%
-% \end{column}
-%
-%\end{columns}
-%
+%  \onslide<2-> \item We reached suitable solutions only after several changes 
+%  \item Finall posterior likelihood function was:
+ 
+% \begin{equation}
+% \begin{aligned}
+% \label{bfinal}
+% & w^* = \argmin_w \underbrace{\sum_i \left(\frac{w_i-\mu}{\sigma_i}\right)^2}_\text{prior on $w$} - 2\kappa \underbrace{\sum_{i,j} \frac{w_iw_j^T}{|w_i| |w_j|}}_\text{colinearity} \\
+% & + \sigma_{pixel}^{-2} \underbrace{\norm{I - f \ci G(w)}_2^2}_\text{pixelwise loss} + \sigma_{percept}^{-2} \underbrace{\norm{I - \phi \ci f \ci G(w)}_2^2}_\text{perceptual loss} \\
+% \end{aligned}
+% \end{equation}
+ 
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+
+% % \begin{overprint}
+% \begin{overlayarea}{0.5\textwidth}{0.3\textheight}
+% \only<1>{ \begin{equation} w^* = \argmin_w || I - f \circ G (w) ||_2^2 \end{equation} }
+% \only<2>{ \begin{equation} w^* = \argmin_w **|| I - f \circ G (w) ||_2^2 \end{equation} }
+% \end{overlayarea}
+% % \end{overprint}
+
+
+
+\begin{overprint}
+\onslide<0-2> \begin{equation*} p(w | I, \txc{\eta}) \propto \mathcal{N}(\phi(I)|\phi \ci f \ci G(w,\txc{\eta}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \end{equation*}
+
+\onslide<3> \begin{equation*} p(w|I) \propto \mathcal{N}(\phi(I)|\phi \ci f \ci G(w), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \end{equation*}
+
+\onslide<4> $$\txc{\textbf{w} = w_1,..,w_L}$$ \begin{equation*} p(\txc{\textbf{w}}|I) = \mathcal{N}(\phi(I)|\phi \ci f \ci G(\txc{\textbf{w}}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \end{equation*}
+
+\onslide<5> \begin{equation*} \begin{aligned} p(\textbf{w}) = & \mathcal{N}(\phi(I)|\phi \ci f \ci G(\textbf{w}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \\
+& \txc{\mathcal{N}(I|f \ci G(\textbf{w}), \sigma_{pixel}^2 \mc{I}_{n_f^2})} \end{aligned} \end{equation*}
+
+\onslide<6> \begin{equation*} \begin{aligned} p(\textbf{w}|I) = & \mathcal{N}(\phi(I)|\phi \ci f \ci G(\textbf{w}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \\
+& \mathcal{N}(I|f \ci G(\textbf{w}), \sigma_{pixel}^2 \mc{I}_{n_f^2}) \\
+& \txc{\prod_i \mathcal{N}\left(w_i\middle|\mu, \sigma^2\right)} \end{aligned} \end{equation*}
+
+\onslide<7-> \begin{equation*} \begin{aligned} p(\textbf{w}|I) = & \mathcal{N}(\phi(I)|\phi \ci f \ci G(\textbf{w}), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2}) \\
+& \mathcal{N}(I|f \ci G(\textbf{w}), \sigma_{pixel}^2 \mc{I}_{n_f^2}) \\
+& \prod_i \mathcal{N}\left(w_i\middle|\mu, \sigma^2\right) \txc{\prod_{i,j} \mathcal{M}\left(cos^{-1}\frac{w_iw_j^T}{|w_i| |w_j|}\middle|0, \kappa\right)} \end{aligned} \end{equation*}
+
+
+\end{overprint}
+\end{column}
+\end{columns}
+
+
+\vspace{3em}
+
+
+\begin{columns}
+ \begin{column}{\textwidth}
+  
+
+
+\begin{overprint}
+\onslide<2> \begin{center}\incw{brgm_series5}{\szb}\end{center}
+\onslide<3> \begin{center}\incw{brgm_series4}{\szb}\end{center}
+\onslide<4> \begin{center}\incw{brgm_series3}{\szb}\end{center}
+\onslide<5> \begin{center}\incw{brgm_series2}{\szb}\end{center}
+\onslide<6> \begin{center}\incw{brgm_series1}{\szb}\end{center}
+\onslide<7-> \begin{center}\incw{brgm_series0}{\szb}\end{center}
+% \onslide<8> \begin{itemize}\item The full Bayesian likelihood corresponding to the loss function 
 % 
-%\end{frame}
+% % \begin{equation*}
+% % \begin{aligned}
+% % \label{bayesianmapeq}
+% %  w^* = & \argmax_w p(w) p(I|w) \\
+% %      = & \prod_i \mathcal{N}(w_i|\mu, \sigma^2) \prod_{i,j} \mathcal{M}(cos^{-1}\frac{w_iw_j^T}{|w_i| |w_j|}|0, \kappa) \\
+% %        & \mathcal{N}(I|f \ci G(w), \sigma_{pixel}^2 \mc{I}_{n_f^2}) \\
+% %        &\ \mathcal{N}(\phi(I)|\phi \ci f \ci G(w), \sigma_{percept}^2 \mc{I}_{n_{\phi}^2})
+% % \end{aligned}
+% % \end{equation*}
+% 
+% \end{itemize}
+
+\end{overprint}
+
+% \end{center}
+
+ \end{column}
+
+\end{columns}
+
+ 
+\end{frame}
 
 
 \begin{frame}{Sampling multiple reconstructions through Variational Inference}
